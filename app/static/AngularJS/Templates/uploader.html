@@ -1,0 +1,89 @@
+<link href="../../css/inspinia/dropzone/basic.css" rel="stylesheet">
+<link href="../../css/inspinia/dropzone/dropzone.css" rel="stylesheet">
+<link href="../../css/inspinia/sweetalert/sweetalert.css" rel="stylesheet">
+<script src="../../js/libs/jQuery/jquery-2.1.4.js"></script>
+<form 
+  id        =  "uploadForm"
+  enctype   =  "multipart/form-data"
+  action    =  "/api/cotizacion/uploadfiles"
+  method    =  "post"
+  class     =  "dropzone dz-clickable">
+  <div>
+      <input type="text" id="idTrabajo" name="idTrabajo" hidden="true" />
+      <input type="text" id="idCotizacion" name="idCotizacion" hidden="true" />
+      <input type="text" id="idTipoEvidencia" name="idTipoEvidencia" hidden="true" />
+      <input type="text" id="idUsuario" name="idUsuario" hidden="true" />
+      <input type="text" id="vTrabajo" name="vTrabajo" hidden="true" />
+      <input type="text" id="idCategoria" name="idCategoria" hidden="true" />
+      <input type="text" id="idNombreEspecial" name="idNombreEspecial" hidden="true">
+      <input type="text" id="filesName" name="filesName[]" hidden="true">
+  </div>  
+  <button type="submit" id="submit2" name="submit2" hidden="true">Cargar</button>
+</form>
+<script src="../../js/inspinia/dropzone/dropzone.js"></script>
+<script src="../../js/inspinia/sweetalert/sweetalert.min.js"></script>
+<script>
+	Dropzone.autoDiscover = false;
+		$(document).ready(function(){
+            var arrayFiles = [];
+		    var DZ = $(uploadForm).dropzone({
+		    	url: '/api/cotizacion/uploadfiles',
+		        autoProcessQueue: false,
+		        uploadMultiple: true,
+		        addRemoveLinks: true,
+		        parallelUploads: 20,
+		       	acceptedFiles: "image/*,application/pdf,.mp4,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/docx,application/msword,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/xml,.docX,.DOCX,.ppt,.PPT",        
+		        createImageThumbnails: true,
+		        init: function(){
+		        	var myDropzone = this;
+					this.element.querySelector("button[type=submit]").addEventListener("click", function(e) {
+						// Make sure that the form isn't actually being sent.
+						e.preventDefault();
+						e.stopPropagation();
+						myDropzone.processQueue();
+					});
+		            this.on("error", function(file)
+                    {
+                        if (!file.accepted){
+                            alert();
+                            //this.hide(file);
+                            $("this").hide();
+                        }						    
+                    });
+                    this.on('addedfile', function(file) {                      
+                        arrayFiles.push(file.name);
+                        $("#filesName").val(arrayFiles);
+                    });
+                    
+                    this.on("complete", function(file) {
+                        successUploaded();
+                        myDropzone.removeFile(file);
+                        /*setTimeout(function(){
+                            myDropzone.removeFile(file);
+                            window.top.location.href = "/cotizacionconsulta"; 
+                        },2000);*/
+                    });
+		        }
+		    });
+		});
+
+		var alert = function (){
+			swal({
+		        title: "Extensión de documento no válido o número de archivos excedidos",
+		        type: "error",
+		        confirmButtonColor: "#DD6B55",
+		        confirmButtonText: "Cerrar"
+		   });
+		}
+        
+        var successUploaded = function (){
+			swal({
+		        title: "Archivos cargados satisfactoriamente",
+		        type: "success",
+		        confirmButtonColor: "#FFCC00",
+		        confirmButtonText: "Cerrar"
+		   });
+		}
+        
+</script>
+

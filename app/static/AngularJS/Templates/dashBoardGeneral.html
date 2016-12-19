@@ -1,0 +1,177 @@
+<link href="../../css/inspinia/morris/morris-0.4.3.min.css" rel="stylesheet">
+<link href="../../css/dashBoardTables.css" rel="stylesheet">
+<div ng-init="init()">
+    <div class="wrapper wrapper-content">
+        <div class="row" ng-hide="userData.esProveedor == 1">
+            <div class="col-lg-5">
+                <select class="form-control m-b" id="zona" ng-model="zonaSelected" ng-options="zona.idZona as zona.descripcionZona for zona in zonas" ng-change="devuelveTars()">
+                    <option value="">Seleccione una Zona</option>
+                </select>
+            </div>
+            <div class="col-lg-5">
+                <select ng-disabled="zonaSelected == null" class="form-control m-b" id="tar" ng-model="tarSelected" ng-options="tar.idTAR as tar.nombreTar for tar in tars" ng-change="getDashBoard()">
+                    <option value="">Seleccione una TAR</option>
+                </select>
+            </div>
+        </div>
+        <div class="hr-line-dashed"></div>
+        <div class="row">
+            <div class="col-lg-6 contenedor">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Citas</h5>
+                        <div class="ibox-tools">
+                            <span class="label label-success pull-right">Total: {{totalCitas | number}}</span>
+                        </div>
+                    </div>
+                    <div class="ibox-content ">
+                        <div class="row contenedor">
+                            <div class="col-sm-6 divTabla">
+                                <div class="row rowHead">
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-sm-4">Estatus</div>
+                                    <div class="col-sm-2">Totales</div>
+                                    <div class="col-sm-4">Promedio hrs</div>
+                                </div>
+                                <div class="row rowBody" ng-repeat="x in citas">
+                                    <div class="col-sm-2" style="background-color:{{x.color}};">&nbsp;</div>
+                                    <div class="col-sm-4">{{x.estatus}}</div>
+                                    <div class="col-sm-2">{{x.total}}</div>
+                                    <div class="col-sm-4">{{x.promedio}}</div>
+                                </div>
+                                <div class="row rowHead">
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-sm-4">Total</div>
+                                    <div class="col-sm-2">{{totalCitas | number}}</div>
+                                    <div class="col-sm-4">{{totalHorasCitas | number}}</div>
+                                </div>
+                            </div>
+                            <div class="donutContainer">
+                                <div id="morris-donut-citas" class="donut"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 contenedor">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Cotizaciones</h5>
+                        <div class="ibox-tools">
+                            <span class="label label-success pull-right">Total: {{totalCotizaciones | number}}</span>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row contenedor">
+                            <div class="col-sm-6 divTabla">
+                                <div class="row rowHead">
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-sm-4">Estatus</div>
+                                    <div class="col-sm-2">Totales</div>
+                                    <div class="col-sm-4">Promedio hrs</div>
+                                </div>
+                                <div class="row rowBody" ng-repeat="x in cotizacionesD">
+                                    <div class="col-sm-2" style="background-color:{{x.color}};">&nbsp;</div>
+                                    <div class="col-sm-4">{{x.estatus}}</div>
+                                    <div class="col-sm-2">{{x.total}}</div>
+                                    <div class="col-sm-4">{{x.promedio}}</div>
+                                </div>
+                                <div class="row rowHead">
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-sm-4">Total</div>
+                                    <div class="col-sm-2">{{totalCotizaciones | number}}</div>
+                                    <div class="col-sm-4">{{totalHorasCotizaciones | number}}</div>
+                                </div>
+                            </div>
+                            <div class="donutContainer">
+                                <div id="morris-donut-cotizaciones" class="donut"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 contenedor">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Ordenes de Servicio</h5>
+                        <div class="ibox-tools">
+                            <span class="label label-success pull-right">Total: {{totalOrdenes | number}}</span>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+
+                        <div class="row contenedor">
+                            <div class="col-sm-6 divTabla">
+                                <div class="row rowHead">
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-sm-4">Estatus</div>
+                                    <div class="col-sm-2">Totales</div>
+                                    <div class="col-sm-4">Promedio hrs</div>
+                                </div>
+                                <div class="row rowBody" ng-repeat="x in ordenesServicio">
+                                    <div class="col-sm-2" style="background-color:{{x.color}};">&nbsp;</div>
+                                    <div class="col-sm-4">{{x.estatus}}</div>
+                                    <div class="col-sm-2">{{x.total}}</div>
+                                    <div class="col-sm-4">{{x.promedio}}</div>
+                                </div>
+                                <div class="row rowHead">
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-sm-4">Total</div>
+                                    <div class="col-sm-2">{{totalOrdenes | number}}</div>
+                                    <div class="col-sm-4">{{totalHorasOrdenesServicio | number}}</div>
+                                </div>
+                            </div>
+                            <div class="donutContainer">
+                                <div id="morris-donut-ordenes" class="donut"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 contenedor" ng-hide="userData.idTipoUsuario == 4">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Ordenes Por Cobrar</h5>
+                        <div class="ibox-tools">
+                            <span class="label label-success pull-right">Total: {{totalOrdenesPorCobrar | number}}</span>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row contenedor">
+                            <div class="col-sm-6 divTabla">
+                                <div class="row rowHead">
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-sm-4">Estatus</div>
+                                    <div class="col-sm-2">Totales</div>
+                                    <div class="col-sm-4">Promedio hrs</div>
+                                </div>
+                                <div class="row rowBody" ng-repeat="x in ordenesCobrarD">
+                                    <div class="col-sm-2" style="background-color:{{x.color}};">&nbsp;</div>
+                                    <div class="col-sm-4">{{x.estatus}}</div>
+                                    <div class="col-sm-2">{{x.total}}</div>
+                                    <div class="col-sm-4">{{x.promedio}}</div>
+                                </div>
+                                <div class="row rowHead">
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-sm-4">Total</div>
+                                    <div class="col-sm-2">{{totalOrdenesPorCobrar | number}}</div>
+                                    <div class="col-sm-4">{{totalHorasOrdenesCobrar | number}}</div>
+                                </div>
+                            </div>
+                            <div class="donutContainer">
+                                <div id="morris-donut-cobrar" class="donut"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .morris-chart text {
+        font-size: 5;
+    }
+
+</style>

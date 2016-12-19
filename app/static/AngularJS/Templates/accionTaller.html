@@ -1,0 +1,119 @@
+<link href="../../css/inspinia/sweetalert/sweetalert.css" rel="stylesheet">
+<div ng-init="initTaller()">
+    <div class="headTitleTallerCita">
+        <span class="title">Administracion de Talleres<span class="subtitle">Modo Edicion</span></span>
+    </div>
+
+        <div class="form-group">
+            <div class="col-xs-offset-10 col-xs-2">
+                <button class="btn btn-primary" ng-click="nuevoTaller()"><i class="fa fa-check">
+                                </i>&nbsp;Inserta Nuevo Taller</button>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+    <div class="wrapper wrapper-content">
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover dataTableTaller" cg-busy="{promise:promise,message:message}">
+                <thead>
+                    <tr>
+                        <th>IdTaller</th>
+                        <th>GAR</th>
+                        <th>TAD</th>
+                        <th>Ciudad</th>
+                        <th>Razon Social</th>
+                        <th>Direccion</th>
+                        <th>Encargado</th>
+                        <!-- <th>RFC</th>
+                        <th>Tipo</th>
+                        <th>Telefono</th>
+                        <th>Email</th>
+                        <th>Pais</th>
+                        <th>Estado</th>
+                        <th>Ciudad</th>
+                        <th>Delegacion</th>
+                        <th>Colonia</th>
+                        <th>Calle</th>
+                        <th>Numero Exterior</th>
+                        <th>Codigo Postal</th> -->
+                        <th>Clave Usuario</th>
+                        <!-- <th>Fecha Operacion</th> -->
+                        <th>Estatus</th>
+                        <!-- <th>Lada</th>
+                        <th>Fecha de Ingreso</th>
+                        <th>Hora de Alta</th>
+                        <th>CLave Usuario</th> 
+                        <th>idTar</th>-->
+                        <th>idProvedor</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="taller in talleres">
+                        <td>{{taller.idTaller}}</td>
+                        <td>{{taller.GAR}}</td>
+                        <td>{{taller.TAD}}</td>
+                        <td>{{taller.ciudad}}</td>
+                        <td>{{taller.razonSocial}}</td>
+                        <td>{{taller.direccion}}</td>
+                        <td>{{taller.encargado}}</td>
+                       <!--  <td>{{taller.PER_RFC}}</td>
+                        <td>{{taller.PER_TIPO}}</td>
+                        <td>{{taller.PER_TELEFONO1}}</td>
+                        <td>{{taller.PER_EMAIL}}</td>
+                        <td>{{taller.PER_PAIS}}</td>
+                        <td>{{taller.PER_ESTADO}}</td>
+                        <td>{{taller.PER_CIUDAD}}</td>
+                        <td>{{taller.PER_DELEGAC}}</td>
+                        <td>{{taller.PER_COLONIA}}</td>
+                        <td>{{taller.PER_CALLE1}}</td>
+                        <td>{{taller.PER_NUMEXTER}}</td>
+                        <td>{{taller.PER_CODPOS}}</td> -->
+                        <td>{{taller.PER_CVEUSU}}</td>
+                        <!-- <td>{{taller.PER_FECHOPE}}</td> -->
+                        <td ng-if="taller.PER_STATUS == 2" ng-class="{'rowRojo': taller.PER_STATUS=='2'}">INACTIVO</td>
+                        <td ng-if="taller.PER_STATUS != 2" ng-class="{'rowVerde': taller.PER_STATUS!='2'}">ACTIVO</td>
+                        <!-- <td>{{taller.PER_LADA}}</td>
+                        <td>{{taller.PER_FECING}}</td>
+                        <td>{{taller.PER_HORING}}</td>
+                        <td>{{taller.PER_CVEUSUING}}</td> 
+                        <td>{{taller.idTAR}}</td> -->
+                        <td>{{taller.idProveedor}}</td>
+                        <td>
+
+                            <button class="btn btn-informa" type="button" data-toggle="tooltip" tooltip="Editar Taller" tooltip-placement="top" ng-click="editaTaller(taller.idTaller)"><i class="glyphicon glyphicon-refresh"></i>
+                            </button>
+                            <br>
+                            <button class="btn btn-cancela btnEliminarTaller" type="button" data-toggle="tooltip" tooltip="Eliminar Taller" tooltip-placement="top" ng-click="openEliminaTallerModal(taller.idTaller,taller.idProveedor)"><i class="glyphicon glyphicon-remove-circle"></i>
+                            </button>
+
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal inmodal" id="openEliminaTallerModal" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <div class="modal-dialog">
+    
+        <div class="modal-content animated flipInY">
+        
+            <div class="modal-header">
+            
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            
+                <h4 class="modal-title">Eliminar Taller</h4>
+                <br>
+                <button type="button" class="btn btn-white" data-dismiss="modal">Salir</button>
+            
+                <button type="button" class="btn btn-danger btnTerminarTrabajo">Eliminar taller</button>
+                </div>
+            </div>
+        </div>
+</div>

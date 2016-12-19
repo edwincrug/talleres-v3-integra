@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <title>Talleres Externos</title>
+    <meta name="description" content="description project">
+    <meta name="author" content="name" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Libreria de Google Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900italic' rel='stylesheet' type='text/css'>
+
+    <!--Hojas de estilos-->
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link href="css/bootstrap.css" rel="stylesheet" />
+
+    <!--Loading-->
+    <link href="css/toastr.css" rel="stylesheet" />
+    <link href="css/angular-busy.css" rel="stylesheet" />
+
+    <!--Librearias JQuery y Bootstrap-->
+    <script src="js/libs/jQuery/jquery-2.1.4.js"></script>
+    <script src="js/libs/bootstrap/bootstrap.js"></script>
+
+    <!--Menú INSPINIA-->
+    <link href="fonts/font-awesome-4.3.0/css/font-awesome.css" rel="stylesheet">
+
+    <!--Inspinia Elements-->
+    <link href="css/inspinia/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+
+    <link href="css/inspinia/blueimp/css/blueimp-gallery.min.css" rel="stylesheet">
+    <link href="css/inspinia/animate.css" rel="stylesheet">
+    <link href="css/inspinia/styleInspinia.css" rel="stylesheet">
+    <link href="css/inspinia/dataTables/datatables.min.css" rel="stylesheet">
+    <link href="css/inspinia/datapicker/datepicker3.css" rel="stylesheet">
+    <link href="css/inspinia/clockpicker/clockpicker.css" rel="stylesheet">
+    <link href="css/switch/bootstrap-switch.min.css" rel="stylesheet">
+    <link href="css/dropZone/dropzone.css" rel="stylesheet">
+    <link href="css/inspinia/touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet">
+
+</head>
+
+<body ng-app="registrationModule" ng-controller="mainController" ng-init="init()" ng-class="{ 'white': sesion == 0 }" class="mini-navbar">
+    <nav class="navbar-default navbar-static-side" role="navigation" ng-hide="sesion == 0">
+        <div class="sidebar-collapse">
+            <ul class="nav metismenu" id="side-menu">
+                <li class="nav-header">
+                    <div class="dropdown profile-element"> <span>
+                            <img alt="image" class="img-circle" src="image/profile/man2.jpg" />
+                             </span>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{ userData.nombreCompleto}}</strong>
+                             </span>
+                            <!--
+                                <span class="text-muted text-xs block">
+                                {{ userData.tipoUsuario}} <b class="caret"></b></span> 
+-->
+                            </span>
+                        </a>
+                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                            <li><a href="profile.html">Profile</a></li>
+                            <li><a href="contacts.html">Contacts</a></li>
+                            <li><a href="mailbox.html">Mailbox</a></li>
+                            <li class="divider"></li>
+                            <li><a href="login.html">Logout</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <a href="dashboardgeneral"><i class="glyphicon glyphicon-home"></i> <span class="nav-label">Home</span></a>
+
+                </li>
+                <li>
+                    <a href="cita" ng-hide="userData.idTipoUsuario == 3" ng-click="showChat = 0"><i class="fa fa-car"></i> <span class="nav-label">Nueva Cita</span></a>
+                </li>
+                <li>
+                    <a href="tallercita" ng-click="showChat = 0"><i class="fa fa-money"></i> <span class="nav-label">Cotizar</span></a>
+                </li>
+                <li>
+                    <a href="cotizacionconsulta" ng-click="showChat = 0"><i class="fa fa-check"></i> <span class="nav-label">Aprobaciones</span><span class="label label-warning pull-right"></span></a>
+                </li>
+                <li>
+                    <a href="trabajo" ng-click="showChat = 0"><i class="fa fa-clipboard"></i> <span class="nav-label">Órdenes de Servicio</span>  </a>
+                </li>
+                <li>
+                    <a href="ordenesporcobrar" ng-click="showChat = 0" ng-hide="userData.idTipoUsuario == 3"><i class="fa fa-credit-card"></i> <span class="nav-label">Órdenes por Cobrar</span><span class="label label-warning pull-right"></span></a>
+                </li>
+                <li>
+                    <a href="#" ng-click="showChat = 0"><i class="fa fa-line-chart"></i> <span class="nav-label">Reporte</span><span class="label label-warning pull-right"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a href="/reporte" ng-hide="userData.idTipoUsuario == 2 || userData.idTipoUsuario == 3 || userData.idSubtipoUsuario == 3 || userData.idSubtipoUsuario == 4 || userData.idSubtipoUsuario == 10 || userData.idSubtipoUsuario == 11">Reporte General</a></li>
+                        <li><a href="/reportecita">Reporte Citas</a></li>
+                        <li><a href="/reporteorden">Reporte Órdenes</a></li>
+                        <li><a href="/reportecotizacion">Reporte Cotizaciones</a></li>
+                        <li ng-hide="userData.idTipoUsuario == 4"><a href="/reporteporcobrar">Reporte Órdenes por Cobrar</a></li>
+                        <li ng-show="userData.idTipoUsuario == 1"><a href="/reporteutilidad">Reporte Márgenes de Utilidad</a></li>
+                        <li ng-show="userData.esProveedor == 0"><a href="/reporteunidad">Historial de la unidad</a></li>
+                        <li><a href="/reporteCertificadoConformidad">Certificado Conformidad</a></li>
+                    </ul>
+                </li>
+                <li ng-show="userData.idTipoUsuario == 1">
+                    <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">Administración</span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a href="/osur">Osur</a></li>
+                        <li><a href="/acciontaller">Talleres</a></li>
+                    </ul>
+                </li>
+                <li ng-show="userData.idTipoUsuario == 1 || userData.idTipoUsuario == 2">
+                    <a href="administracionordenes" ng-click="showChat = 0"><i class="fa fa-cc-mastercard"></i> <span class="nav-label">Compras Unificadas</span></a>
+                </li>
+                <!-- <li ng-show="userData.idTipoUsuario == 1">
+                    <a href="ordenanticipo" ng-click="showChat = 0"><i class="fa fa-usd"></i> <span class="nav-label">Anticipos de órdenes</span></a>
+                </li> -->
+                <li ng-show="userData.idUsuario == 190  || userData.idUsuario == 213">
+                    <a href="aprobacionutilidad" ng-click="showChat = 0"><i class="glyphicon glyphicon-ok-circle"></i> <span class="nav-label">Aprobaciones</span></a>
+                </li>
+
+                <li ng-show="userData.idTipoUsuario == 1 ">
+                    <a href="aprobacionProvision" ng-click="showChat = 0"><i class="glyphicon glyphicon-ok-sign"></i> <span class="nav-label">Aprobación Provisión  </span></a>
+                </li>
+
+                <li>
+                    <a href="Tutorial" ng-click="showChat = 0"><i class="glyphicon glyphicon-facetime-video"></i> <span class="nav-label">Tutorial</span></a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+    <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom" ng-hide="sesion == 0">
+            <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header">
+                    <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                </div>
+                <ul class="nav navbar-top-links navbar-right">
+                    <li>
+                        <div class="rol" ng-class="{ 'roladmin' : userData.idTipoUsuario == 1, 'rolcall' : userData.idTipoUsuario == 2, 'roltaller' : userData.idTipoUsuario == 3, 'rolcliente' : userData.idTipoUsuario == 4, 'rolproveedor' : userData.esProveedor == 1  }">
+                            <span ng-show="userData.esProveedor==0">Rol - {{ userData.tipoUsuario}}</span>
+                            <span ng-show="userData.esProveedor==1">Rol - Proveedor</span>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="m-r-sm text-muted welcome-message">Talleres Externos</span>
+                    </li>
+
+                    <li>
+                        <a href="/">
+                            <i class="fa fa-sign-out"></i> Cerrar Sesión
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div ng-view></div>
+    </div>
+
+    <div id="wrapper" ng-hide="showChat == 0">
+        <div class="small-chat-box fadeInRight animated">
+
+            <div class="heading" draggable="true">
+                <small class="chat-date pull-right">
+                    {{descripcion}}
+                </small> Chat CallC./Taller
+            </div>
+
+            <div class="content">
+                <div ng-repeat="msgtaller in chattaller">
+                    <div ng-class="msgtaller.idUsuario === userData.idUsuario ? 'right' : 'left'">
+                        <div class="author-name">
+                            {{msgtaller.nombreCompleto}}
+                            <small class="chat-date">
+                            {{msgtaller.fecha | date:'dd-MM-yyyy HH:mm'}}
+                        </small>
+                        </div>
+                        <div ng-class="msgtaller.idUsuario === userData.idUsuario ? 'chat-message' : 'chat-message active'">
+                            {{msgtaller.mensaje}}
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="form-chat">
+                <div class="input-group input-group-sm">
+                    <input type="text" ng-model="comentarios" class="form-control"> <span class="input-group-btn"> <button
+                        class="btn btn-primary" type="button" ng-click="EnviarComentario1(comentarios, 1)">Enviar
+                </button> </span></div>
+            </div>
+
+        </div>
+        <div id="small-chat" ng-hide="userData.idTipoUsuario == 4">
+
+            <!-- <span class="badge badge-warning pull-right">5</span> -->
+            <a class="open-small-chat">
+                <i class="fa fa-comments"></i>
+
+            </a>
+        </div>
+    </div>
+
+    <!--CHAT CLIENTE- CALLCENTER-->
+    <div id="wrapper" ng-hide="showChat == 0">
+        <div class="small-chat-box2 fadeInRight animated">
+
+            <div class="heading2" draggable="true">
+                <small class="chat-date2 pull-right">
+{{descripcion}}
+                </small> Chat CallC./Cliente
+            </div>
+
+            <div class="content2">
+                <div ng-repeat="msgcliente in chatcliente">
+                    <div ng-class="msgcliente.idUsuario === userData.idUsuario ? 'right' : 'left'">
+                        <div class="author-name">
+                            {{msgcliente.nombreCompleto}}
+                            <small class="chat-date2">
+                            {{msgcliente.fecha | date:'dd-MM-yyyy HH:mm'}}
+                        </small>
+                        </div>
+                        <div ng-class="msgcliente.idUsuario === userData.idUsuario ? 'chat-message2' : 'chat-message2 active'">
+                            {{msgcliente.mensaje}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-chat2">
+                <div class="input-group input-group-sm">
+                    <input type="text" ng-model="comentario" class="form-control"> <span class="input-group-btn"> <button
+                        class="btn btn-primary" type="button" ng-click="EnviarComentario2(comentario)">Enviar
+                </button> </span></div>
+            </div>
+
+        </div>
+        <div id="small-chat2" ng-hide="userData.idTipoUsuario == 3">
+
+            <a class="open-small-chat2">
+                <i class="fa fa-comments"></i>
+
+            </a>
+        </div>
+    </div>
+
+
+
+    <!--Librearias JQuery y Bootstrap-->
+    <script src="js/libs/jQuery/jquery-2.1.4.js"></script>
+    <script src="js/libs/bootstrap/bootstrap.js"></script>
+    <script src="js/libs/switch/bootstrap-switch.min.js"></script>
+
+    <!-- Librerias Angular-->
+    <script src="js/libs/angular/angular.js"></script>
+    <script src="js/libs/angular/angular-route.min.js"></script>
+    <!--<script src="js/libs/angular/angular-animate.min.js"></script>-->
+    <script src="js/libs/angular/ui-bootstrap-tpls.min.js"></script>
+    <script src="js/libs/angular/dirPagination.js"></script>
+    <script src="js/libs/angular/angular-local-storage.min.js"></script>
+    <script src="js/libs/toastr/toastr.min.js"></script>
+    <script src="js/libs/angular/nsPopover.js"></script>
+
+    <!--Funciones Comunes-->
+    <script src="confront.js"></script>
+
+    <!--Angular Busy-->
+    <script src="js/libs/angular/angular-busy.js"></script>
+
+    <!--Librería para realizar querys-->
+    <script src="js/libs/angular/linq.js"></script>
+
+    <!--Librerias de aplicación angular-->
+    <script src="AngularJS/registrationModule.js"></script>
+
+    <!--librerias de componenetes-->
+    <script src="AngularJS/alertFactory.js"></script>
+    <script src="AngularJS/globalFactory.js"></script>
+    <script src="AngularJS/Servicios/commonService.js"></script>
+
+    <!--Librería de Switch -->
+    <script src="AngularJS/bsSwitch.js"></script>
+
+    <!--Directivas -->
+    <script src="AngularJS/directive.js"></script>
+
+    <!--Modals -->
+    <script src="AngularJS/modals/modal.js"></script>
+    <script src="AngularJS/modals/controller/token_controller.js"></script>
+    <script src="AngularJS/modals/controller/cotizacionDetalle_controller.js"></script>
+
+    <script src="js/libs/dropZone/dropzone.js"></script>
+    <script src="js/libs/dropZone/ng-dropzone.min.js"></script>
+    <script src="js/libs/angular/nsPopover.js"></script>
+    <!--Controllers-->
+    <script src="AngularJS/Cotizacion/exampleRepo.js"></script>
+    <script src="AngularJS/Main/mainRepository.js"></script>
+    <script src="AngularJS/Main/mainController.js"></script>
+    <script src="AngularJS/menu/menuController.js"></script>
+    <script src="AngularJS/Cita/citaController.js"></script>
+    <script src="AngularJS/Cita/citaRepository.js"></script>
+    <script src="AngularJS/Cotizacion/cotizacionMailRepository.js"></script>
+    <script src="AngularJS/Cotizacion/cotizacionRepository.js"></script>
+    <script src="AngularJS/Cotizacion/cotizacionAutorizacionRepository.js"></script>
+    <script src="AngularJS/Cotizacion/cotizacionConsultaRepository.js"></script>
+    <script src="AngularJS/Cotizacion/cotizacionController.js"></script>
+    <script src="AngularJS/Cotizacion/cotizacionConsultaController.js"></script>
+    <script src="AngularJS/Cotizacion/cotizacionAutorizacionController.js"></script>
+    <script src="AngularJS/Login/loginRepository.js"></script>
+    <script src="AngularJS/Login/loginController.js"></script>
+    <script src="AngularJS/Trabajo/trabajoController.js"></script>
+    <script src="AngularJS/Trabajo/trabajoRepository.js"></script>
+    <script src="AngularJS/Servicio/servicioController.js"></script>
+    <script src="AngularJS/Cotizacion/cotizacionEvidenciasRepository.js"></script>
+    <script src="AngularJS/Cotizacion/cotizacionEvidenciasController.js"></script>
+    <script src="AngularJS/Orden/ordenServicioRepository.js"></script>
+    <script src="AngularJS/Orden/ordenServicioController.js"></script>
+    <script src="AngularJS/Orden/ordenServicioEvidenciaRepository.js"></script>
+    <script src="AngularJS/Orden/ordenServicioEvidenciaController.js"></script>
+    <script src="AngularJS/Orden/ordenPorCobrarRepository.js"></script>
+    <script src="AngularJS/Orden/ordenPorCobrarController.js"></script>
+    <script src="AngularJS/Reporte/reporteRepository.js"></script>
+    <script src="AngularJS/Reporte/reporteController.js"></script>
+    <script src="AngularJS/Osur/osurRepository.js"></script>
+    <script src="AngularJS/Osur/osurController.js"></script>
+    <script src="AngularJS/UploadFiles/uploadRepository.js"></script>
+    <script src="AngularJS/Administracion/administracionOrdenController.js"></script>
+    <script src="AngularJS/Talleres/tallerRepository.js"></script>
+    <script src="AngularJS/Talleres/tallerController.js"></script>
+    <script src="AngularJS/OrdenAnticipo/ordenAnticipoRepository.js"></script>
+    <script src="AngularJS/OrdenAnticipo/ordenAnticipoController.js"></script>
+    <script src="AngularJS/DashBoard/dashBoardRepository.js"></script>
+    <script src="AngularJS/DashBoard/dashBoardController.js"></script>
+    <script src="AngularJS/Reporte/reporteCitaRepository.js"></script>
+    <script src="AngularJS/Reporte/reporteCitaController.js"></script>
+    <script src="AngularJS/Reporte/reporteOrdenRepository.js"></script>
+    <script src="AngularJS/Reporte/reporteOrdenController.js"></script>
+    <script src="AngularJS/Reporte/reporteCotizacionRepository.js"></script>
+    <script src="AngularJS/Reporte/reporteCotizacionController.js"></script>
+    <script src="AngularJS/Reporte/reportePorCobrarRepository.js"></script>
+    <script src="AngularJS/Reporte/reportePorCobrarController.js"></script>
+    <script src="AngularJS/Reporte/reporteUnidadRepository.js"></script>
+    <script src="AngularJS/Reporte/reporteUnidadController.js"></script>
+    <script src="AngularJS/Reporte/reporteUtilidadRepository.js"></script>
+    <script src="AngularJS/Reporte/reporteUtilidadController.js"></script>
+    <script src="AngularJS/Aprobacion/aprobacionUtilidadController.js"></script>
+    <script src="AngularJS/Aprobacion/aprobacionProvisionController.js"></script>
+    <script src="AngularJS/Reporte/reporteCertificadoConformidadRepository.js"></script>
+    <script src="AngularJS/Reporte/reporteCertificadoConformidadController.js"></script>
+    <script src="AngularJS/Tutorial/tutorialController.js"></script>
+    <!-- Mainly scripts -->
+    <script src="js/inspinia/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/inspinia/slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- Morris -->
+    <script src="js/inspinia/morris/raphael-2.1.0.min.js"></script>
+    <script src="js/inspinia/morris/morris.js"></script>
+    <!-- Custom and plugin javascript -->
+    <script src="js/inspinia/inspinia.js"></script>
+    <script src="js/inspinia/pace/pace.min.js"></script>
+
+    <!-- Data table -->
+    <script src="js/inspinia/dataTables/datatables.min.js"></script>
+    <!-- Data picker -->
+    <script src="js/inspinia/datapicker/bootstrap-datepicker.js"></script>
+    <!-- Clock picker -->
+    <script src="js/inspinia/clockpicker/clockpicker.js"></script>
+    <!-- blueimp gallery -->
+    <script src="js/inspinia/blueimp/jquery.blueimp-gallery.min.js"></script>
+    <!--Alerts-->
+    <script src="js/inspinia/sweetalert/sweetalert.min.js"></script>
+    <!--Ladda-->
+    <script src="js/inspinia/ladda/spin.min.js"></script>
+    <script src="js/inspinia/ladda/ladda.min.js"></script>
+    <script src="js/inspinia/ladda/ladda.jquery.min.js"></script>
+    <script src="js/inspinia/touchspin/jquery.bootstrap-touchspin.min.js"></script>
+    <!-- Libreria de Google Maps -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQTpXj82d8UpCi97wzo_nKXL7nYrd4G70"></script>
+</body>
+
+</html>

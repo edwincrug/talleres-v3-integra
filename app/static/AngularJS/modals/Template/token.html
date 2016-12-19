@@ -1,0 +1,41 @@
+<div class="modal-header barra_popup" ng-init="init()">
+    <div class="modal-title">
+        <button aria-hidden="true" class="close" data-dismiss="modal" type="button" ng-click="close()">×</button>
+        <h4 class="modal-title">Token de Autorización</h4>
+        
+    </div>
+</div>
+<div class="modal-body">
+    <div id="content_popDrag">
+       <div class="modal-body">
+            <div class="row utlidad" ng-show="show_Aprobacion">
+                <label class="control-label">Introduzca el token de autorización.</label>
+            </div>
+
+            <div class="row utlidad" ng-show="show_cita">
+                <label class="control-label">La orden se encuentra en espera de autorización, porque el margen de utilidad es menor a lo esperado.</label>
+            </div>    
+            <div class="row utlidad" ng-show="show_trabajo">
+                <label class="control-label">La orden se encuentra en espera de autorización, para permitir la salida de la unidad.</label>
+            </div>        
+            <div class="row aprobacion" ng-show="!show_Aprobacion">
+                <label class="control-label">Introduzca el token proporcionado por el administrador.</label>
+            </div>
+           
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">No. Token</label>
+                <div class="col-sm-7">
+                    <div class="m-b">
+                        <input type="text" class="form-control" ng-model="token">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-white" data-dismiss="modal" ng-click="close()">Cancelar</button>
+    <button type="button" class="btn btn-success" ng-click="saveToken()">Aceptar</button>
+</div>
+
+      

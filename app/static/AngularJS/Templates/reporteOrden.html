@@ -1,0 +1,326 @@
+<link href="../../css/inspinia/sweetalert/sweetalert.css" rel="stylesheet">
+<div ng-init="init()">
+<!--     <div class="headTitleTallerCita">
+        <span class="title">Reporte de Ordenes<span class="subtitle">Administrador</span></span>
+    </div> -->
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+
+					<span class="title">Reporte de Órdenes</span>
+					<br><br><br>
+							    <span class="col-lg-12 pull-right">  
+							<div class="col-lg-2">
+								<div class="pointer" ng-click="ordenProceso()">
+									<div class="ibox float-e-margins">
+										<div class="ibox-title">
+							    <span class="label label-success pull-right"><i class="glyphicon glyphicon-share-alt"></i></span>
+							    
+							    <h4>En Proceso</h4>
+							</div>
+							<div class="ibox-content">
+							    <h1 class="no-margins">{{ordenproceso}}</h1>
+							    <div class="stat-percent font-bold text-success">{{porcentajeproceso | number:2}}% </div>
+							    <small>Total</small>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-3">
+								<div class="pointer" ng-click="ordenTerminada()">
+							    <div class="ibox float-e-margins">
+							        <div class="ibox-title">
+							            <span class="label label-info pull-right"><i class="glyphicon glyphicon-ok"></i></span>
+							            
+							            <h4>Sin Recoger</h4>
+							        </div>
+							        <div class="ibox-content">
+							            <h1 class="no-margins">{{ordenterminado}}</h1>
+							            <div class="stat-percent font-bold text-info">{{porcentajeterminado | number:2}}% </div>
+							            <small>Total</small>
+							        </div>
+							    </div>
+							   </div>
+							</div>
+							<div class="col-lg-2">
+							  <div class="pointer" ng-click="ordenCustodia()">
+							    <div class="ibox float-e-margins">
+							        <div class="ibox-title">
+							            <span class="label label-primary pull-right"><i class="glyphicon glyphicon-open-file"></i></span>
+							            
+							            <h4>Sin Certificado</h4>
+							        </div>
+							        <div class="ibox-content">
+							            <h1 class="no-margins">{{ordencustodia}}</h1>
+							            <div class="stat-percent font-bold text-navy">{{porcentajecustodia | number:2}}% </div>
+							            <small>Total</small>
+							        </div>
+							    </div>
+							    </div>
+							</div>
+							<div class="col-lg-3">
+							  <div class="pointer" ng-click="ordenCertificado()">
+							    <div class="ibox float-e-margins">
+							        <div class="ibox-title">
+							            <span class="label label-alert pull-right"><i class="glyphicon glyphicon-file"></i></span>
+							            
+							            <h4>Falta Aceptación de Trabajo</h4>
+							        </div>
+							        <div class="ibox-content">
+							            <h1 class="no-margins">{{ordencertificado}}</h1>
+							            <div class="stat-percent font-bold text-alert">{{porcentajecertificado | number:2}}% </div>
+							            <small>Total</small>
+							        </div>
+							    </div>
+							    </div>
+							</div>
+							<div class="col-lg-2">
+							  <div class="pointer" ng-click="ordenGarantia()">
+							    <div class="ibox float-e-margins">
+							        <div class="ibox-title">
+							            <span class="label label-danger pull-right"><i class="glyphicon glyphicon-retweet"></i></span>
+							            
+							            <h4>En Garantía</h4>
+							        </div>
+							        <div class="ibox-content">
+							            <h1 class="no-margins">{{ordengarantia}}</h1>
+							            <div class="stat-percent font-bold text-danger">{{porcentajegarantia | number:2}}% </div>
+							            <small>Total</small>
+							        </div>
+							    </div>
+							    </div>
+							</div>
+							</span>
+							<br>
+
+                                <div class="ibox-content">
+                                    <div ng-show="tipoOrden==0">
+                                    <span class="subtitle"><strong>Con Reclamación de Cliente</strong></span>
+                                    <br><br>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered table-hover dataTableGarantia" cg-busy="{promise:promise,message:message}">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Cliente</th>
+                                                        <th>Consecutivo</th>
+                                                        <th>Número de la Orden</th>
+                                                        <th>Número Económico</th>
+                                                        <th>Zona</th>
+                                                        <th>TAR</th>
+                                                        <th>Nombre Taller</th>
+                                                        <th>Fecha Cita</th>
+                                                        <th>Fecha Reclamación</th>
+                                                        <th>Tipo Cita</th>
+                                                        <th>Trabajo</th>
+                                                        <th>Observación</th>
+                                                        <th>Estatus Órden Servicio</th>
+                                                        <th>Horas en Garantía</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                     <tr ng-repeat="garantias in garantia">
+                                                        <td>{{garantias.cliente}}</td>
+                                                        <td>{{garantias.idCita}}</td>
+                                                        <td>{{garantias.numeroTrabajo}}</td>
+                                                        <td>{{garantias.numEconomico}}</td>
+                                                        <td>{{garantias.zona}}</td>
+                                                        <td>{{garantias.TAR}}</td>
+                                                        <td>{{garantias.razonSocial}}</td>
+                                                        <td>{{garantias.fechaCita | date:'dd-MM-yyyy HH:mm'}}</td>
+                                                        <td>{{garantias.fechaEstatus | date:'dd-MM-yyyy HH:mm'}}</td>
+                                                        <td>{{garantias.tipoCita}}</td>
+                                                        <td>{{garantias.trabajo}}</td>
+                                                        <td>{{garantias.observacion}}</td>
+                                                        <td>{{garantias.estatus}}</td>
+                                                        <td ng-class="{'rowVerde': garantias.horasRetraso <= 49, 'rowAmarillo': garantias.horasRetraso >= 50 && garantias.horasRetraso  <=100, 'rowRojo': garantias.horasRetraso >= 101}">{{garantias.horasRetraso}}</td>
+                                                    </tr> 
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div ng-show="tipoOrden==1">
+                                    <span class="subtitle"><strong>Falta Aceptación de Trabajo</strong></span>
+                                    <br><br>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered table-hover dataTableCertificado" cg-busy="{promise:promise,message:message}">
+                                                <thead>
+                                                    <tr><th>Cliente</th>
+                                                        <th>Consecutivo</th>
+                                                        <th>Número de la Orden</th>
+                                                        <th>Número Económico</th>
+                                                        <th>Zona</th>
+                                                        <th>TAR</th>
+                                                        <th>Nombre Taller</th> 
+                                                        <th>Fecha Cita</th>
+                                                        <th>Fecha Generación de Certificado</th>                
+                                                        <th>Tipo Cita</th>
+                                                        <th>Trabajo</th>
+                                                        <th>Observación</th>
+                                                        <th>Estatus Órden Servicio</th>
+                                                        <th>Horas sin Aceptación de Trabajo</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                     <tr ng-repeat="certificado in conformidad">
+                                                        <td>{{certificado.cliente}}</td>
+                                                        <td>{{certificado.idCita}}</td>
+                                                        <td>{{certificado.numeroTrabajo}}</td>
+                                                        <td>{{certificado.numEconomico}}</td>
+                                                        <td>{{certificado.zona}}</td>
+                                                        <td>{{certificado.TAR}}</td>
+                                                        <td>{{certificado.razonSocial}}</td>
+                                                        <td>{{certificado.fechaCita | date:'dd-MM-yyyy HH:mm'}}</td>
+                                                        <td>{{certificado.fechaEstatus | date:'dd-MM-yyyy HH:mm'}}</td>
+                                                        <td>{{certificado.tipoCita}}</td>
+                                                        <td>{{certificado.trabajo}}</td>
+                                                        <td>{{certificado.observacion}}</td>
+                                                        <td>{{certificado.estatus}}</td>
+                                                        <td ng-class="{'rowVerde': certificado.horasRetraso <= 49, 'rowAmarillo': certificado.horasRetraso >= 50 && certificado.horasRetraso  <=100, 'rowRojo': certificado.horasRetraso >= 101}">{{certificado.horasRetraso}}</td>
+                                                    </tr> 
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div ng-show="tipoOrden==2">
+                                    <span class="subtitle"><strong>Falta Generar Certificado</strong></span>
+                                    <br><br>     
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered table-hover dataTableCustodia" cg-busy="{promise:promise,message:message}">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Cliente</th>
+                                                        <th>Consecutivo</th>
+                                                        <th>Número de la Orden</th>
+                                                        <th>Número Económico</th>
+                                                        <th>Zona</th>
+                                                        <th>TAR</th>
+                                                        <th>Nombre Taller</th> 
+                                                        <th>Fecha Cita</th>
+                                                        <th>Fecha de Salida Unidad</th>
+                                                        <th>Tipo Cita</th>
+                                                        <th>Trabajo</th>
+                                                        <th>Observación</th>
+                                                        <th>Estatus Órden Servicio</th>
+                                                        <th>Horas sin Generar Certificado</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="transferencia in custodia">
+                                                        <td>{{transferencia.cliente}}</td>
+                                                        <td>{{transferencia.idCita}}</td>
+                                                        <td>{{transferencia.numeroTrabajo}}</td>
+                                                        <td>{{transferencia.numEconomico}}</td>
+                                                        <td>{{transferencia.zona}}</td>
+                                                        <td>{{transferencia.TAR}}</td>
+                                                        <td>{{transferencia.razonSocial}}</td>
+                                                        <td>{{transferencia.fechaCita | date:'dd-MM-yyyy HH:mm'}}</td>
+                                                        <td>{{transferencia.fechaEstatus | date:'dd-MM-yyyy HH:mm'}}</td>
+                                                        <td>{{transferencia.tipoCita}}</td>
+                                                        <td>{{transferencia.trabajo}}</td>
+                                                        <td>{{transferencia.observacion}}</td>
+                                                        <td>{{transferencia.estatus}}</td>
+                                                        <td ng-class="{'rowVerde': transferencia.horasRetraso <= 49, 'rowAmarillo': transferencia.horasRetraso >= 50 && transferencia.horasRetraso  <=100, 'rowRojo': transferencia.horasRetraso >= 101}">{{transferencia.horasRetraso}}</td>
+                                                    </tr> 
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div ng-show="tipoOrden==3">
+                                    <span class="subtitle"><strong>Falta Recoger Unidad</strong></span>
+                                    <br><br>     
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered table-hover dataTableTerminada" cg-busy="{promise:promise,message:message}">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Cliente</th>
+                                                        <th>Consecutivo</th>
+                                                        <th>Número de la Orden</th>
+                                                        <th>Número Económico</th>
+                                                        <th>Zona</th>
+                                                        <th>TAR</th>
+                                                        <th>Nombre Taller</th>
+                                                        <th>Fecha Cita</th>
+                                                        <th>Fecha Terminación Trabajo</th>
+                                                        <th>Tipo Cita</th>
+                                                        <th>Trabajo</th>
+                                                        <th>Observación</th>
+                                                        <th>Estatus Órden Servicio</th>
+                                                        <th>Horas sin Recoger Unidad</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="terminadas in terminada">
+                                                        <td>{{terminadas.cliente}}</td>
+                                                        <td>{{terminadas.idCita}}</td>
+                                                        <td>{{terminadas.numeroTrabajo}}</td>
+                                                        <td>{{terminadas.numEconomico}}</td>
+                                                        <td>{{terminadas.zona}}</td>
+                                                        <td>{{terminadas.TAR}}</td>
+                                                        <td>{{terminadas.razonSocial}}</td>
+                                                        <td>{{terminadas.fechaCita | date:'dd-MM-yyyy HH:mm'}}</td>
+                                                        <td>{{terminadas.fechaFinTrabajo | date:'dd-MM-yyyy HH:mm'}}</td>
+                                                        <td>{{terminadas.tipoCita}}</td>
+                                                        <td>{{terminadas.trabajo}}</td>
+                                                        <td>{{terminadas.observacion}}</td>
+                                                        <td>{{terminadas.estatus}}</td>
+                                                        <td ng-class="{'rowVerde': terminadas.horasRetraso <= 49, 'rowAmarillo': terminadas.horasRetraso >= 50 && terminadas.horasRetraso  <=100, 'rowRojo': terminadas.horasRetraso >= 101}">{{terminadas.horasRetraso}}</td>
+                                                    </tr> 
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div ng-show="tipoOrden==4">
+                                    <span class="subtitle"><strong>En Proceso de Reparación </strong></span>
+                                    <br><br>     
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered table-hover dataTableProceso" cg-busy="{promise:promise,message:message}">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Cliente</th>
+                                                        <th>Consecutivo</th>
+                                                        <th>Número de la Orden</th>
+                                                        <th>Número Económico</th>
+                                                        <th>Zona</th>
+                                                        <th>TAR</th>
+                                                        <th>Nombre Taller</th>
+                                                        <th>Fecha Cita</th>
+                                                        <th>Fecha Aprobación</th>
+                                                        <th>Fecha Inicio de Reparación</th>
+                                                        <th>Tipo Cita</th>
+                                                        <th>Trabajo</th>
+                                                        <th>Observación</th>
+                                                        <th>Estatus Órden Servicio</th>
+                                                        <th>Horas en Reparación</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="procesos in proceso">
+                                                        <td>{{procesos.cliente}}</td>
+                                                        <td>{{procesos.idCita}}</td>
+                                                        <td>{{procesos.numeroTrabajo}}</td>
+                                                        <td>{{procesos.numEconomico}}</td>
+                                                        <td>{{procesos.zona}}</td>
+                                                        <td>{{procesos.TAR}}</td>
+                                                        <td>{{procesos.razonSocial}}</td>
+                                                        <td>{{procesos.fechaCita | date:'dd-MM-yyyy HH:mm'}}</td>
+                                                        <td>{{procesos.fechaInicioTrabajo | date:'dd-MM-yyyy HH:mm'}}</td>
+                                                        <td>{{procesos.fechaInicioRealTrabajo | date:'dd-MM-yyyy HH:mm'}}</td>
+                                                        <td>{{procesos.tipoCita}}</td>
+                                                        <td>{{procesos.trabajo}}</td>
+                                                        <td>{{procesos.observacion}}</td>
+                                                        <td>{{procesos.estatus}}</td>
+                                                        
+                                                        <td ng-class="{'rowVerde': procesos.horasRetraso <= 49, 'rowAmarillo': procesos.horasRetraso >= 50 && procesos.horasRetraso  <=100, 'rowRojo': procesos.horasRetraso >= 101}">{{procesos.horasRetraso}}</td>
+                                                    </tr> 
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

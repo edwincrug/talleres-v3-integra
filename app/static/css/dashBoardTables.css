@@ -1,0 +1,30 @@
+div.divTabla {
+    border-collapse: collapse;
+    position: absolute;
+    width: 52%;
+    left: 0;
+    margin-top: 8%;
+    margin-left: 20px;
+}
+div.donutContainer {
+    width: 50%;
+    position: absolute;
+    right: 0;
+    margin-top: 4%;
+}
+div.contenedor {
+    height: 415px;
+}
+div.donut {
+    height: 250px;
+}
+div.rowHead {
+    color: black;
+    font-style: bold;
+    border: 1px solid gray;
+    text-align: center;
+}
+div.rowBody {
+    font-size: 11px;
+    text-align: center;
+}

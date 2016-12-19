@@ -1,0 +1,155 @@
+<link rel="stylesheet" type="text/css" href="../../css/cita.css">
+<link href="../../css/inspinia/sweetalert/sweetalert.css" rel="stylesheet">
+<link rel="stylesheet" href="../../css/administracionOrden.css">
+<link rel="stylesheet" href="../../css/nsPopover.css">
+<div ng-init="initTallerCita()">
+    <div class="headTitleTallerCita">
+        <span class="title"> Consulta de Citas<span class="subtitle">Call Center / Taller</span></span>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeIn">
+    <div class="row">
+        <div class="tabs-container">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true">Citas</a></li>
+                <!-- <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">Citas Rechazadas</a></li> -->
+            </ul>
+            <div class="tab-content">
+                <div id="tab-1" class="tab-pane active">
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <div class="col-lg-3" id="calendario">
+                                <div class="form-group" id="calendar">
+                                    <div class="input-group date">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        <input type="text" class="form-control" ng-model="fecha" ng-change="busquedaCita(fecha)">
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <br/>
+                            <table class="table table-bordered dataTableCitaTaller">
+                                <thead>
+                                    <tr>
+                                        <th>Cliente</th>
+                                        <th>Consecutivo</th>
+                                        <th>Número de la Orden</th>
+                                        <th>Número Económico</th>
+                                        <th>Zona</th>
+                                        <th>TAR</th>
+                                        <th>Taller</th>
+                                        <th>Tipo Orden</th>
+                                        <th>Fecha</th>
+                                        <!-- <th>Dirección Taller</th> -->
+                                        <th>Comentarios Adicionales</th>
+                                        <!-- <th>Observaciones</th> -->
+                                        <th>Estatus</th>
+                                        <th>Agendó</th>
+                                        <th>Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="cita in listaCitas">
+                                        <td>{{cita.cliente}}</td>
+                                        <td>{{cita.idCita}}</td>
+                                        <td>{{cita.numeroTrabajo}}</td>
+                                        <td>{{cita.numEconomico}}</td>
+                                        <td>{{cita.zona}}</td>
+                                        <td>{{cita.TAR}}</td>
+                                        <td ng-class="{'rowRojo': cita.razonSocial=='SIN TALLER'}">{{ cita.razonSocial }}</td>
+                                        <td>{{cita.idTipoCita == 4 ? "Refacciones" : "Servicio"}}</td>
+                                        <td>{{ cita.Fecha | date:'dd-MM-yyyy HH:mm'}} </td>
+                                        <!-- <td ng-class="{'rowRojo': cita.direccion=='SIN TALLER'}">{{ cita.direccion }}</td> -->
+                                        <td>{{ cita.trabajo }}</td>
+                                        <!-- <td>{{ cita.observacion }}</td> -->
+                                        <td ng-class="{'rowRojo': cita.idEstatus==22}">{{ cita.estatus }}</td>
+                                        <td>{{ cita.nombreCompleto }} </td>
+                                        <td>
+                                            <button ng-hide="cita.idEstatus == 22 || cita.idEstatus == 1 || userData.idTipoUsuario == 4" class="btn btn-success" type="button" data-toggle="tooltip" tooltip="Cargar Comprobante de Recepción" id="btnCotizar" tooltip-placement="top" ng-click="formatoRecepcion(cita)">
+                                                <span class="glyphicon glyphicon-cloud-upload"></span>
+                                            </button>
+                                            <!--<button ng-hide="cita.idEstatus == 22 || cita.idEstatus == 1 || userData.idTipoUsuario == 4" class="btn btn-info" type="button" data-toggle="tooltip" tooltip="Cotizar" id="btnCotizar" tooltip-placement="top" ng-click="nuevaCotizacion(cita)">
+                                                <span class="glyphicon glyphicon-usd"></span>
+                                            </button>-->
+
+                                            <button ng-hide="cita.idEstatus == 22 || cita.idEstatus == 1 || userData.idTipoUsuario == 4" class="btn btn-info" type="button" ng-click="getPreCotizacion(cita.idCita)" ns-popover ns-popover-template="close" ns-popover-trigger="click" ns-popover-theme="ns-popover-tooltip-theme" tooltip="Cotizar" ns-popover-timeout="1000" ns-popover-hide-on-inside-click="false" ns-popover-hide-on-outside-click="true" ns-popover-hide-on-button-click="true" ns-popover-placement="left" class="btn btn-success"><span class="glyphicon glyphicon-usd"></span>
+                                            </button>
+                                            <script type="text/ng-template" id="close">
+                                                <div class="triangle"></div>
+                                                <div class="ns-popover-tooltip">
+                                                    <div align="right" ng-hide="isPreCotizacion">
+                                                        <button class="btn btn-informa" type="button" data-toggle="tooltip" tooltip="Nueva Cotización" id="btnNvaCotizar" tooltip-placement="left" ng-click="nuevaCotizacion(cita, preCotizacion, 1)"><i class="glyphicon glyphicon-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                    <br>
+                                                    <table class="table table-striped table-bordered table-hover">
+                                                        <thead>
+                                                            <th>Número de Cotización</th>
+                                                            <th>Tipo de Cotización</th>
+                                                            <th align="center">Acciones</th>
+                                                        </thead>
+                                                        <tbody ng-repeat="preCotizacion in preCotizaciones">
+                                                            <tr>
+                                                                <td>{{preCotizacion.numeroCotizacion}}</td>
+                                                                <td>{{preCotizacion.tipoCotizacion}}</td>
+                                                                <td>
+                                                                    <button type="button" class="btn btn-success" ng-click="nuevaCotizacion(cita, preCotizacion, 0)"><span class="glyphicon glyphicon-pencil"></span></button>
+                                                                    <button type="button" class="btn btn-danger" ng-click="deletePreCotizacion(preCotizacion.idCita, preCotizacion.idCotizacion)"><span class="glyphicon glyphicon-remove"></span></button>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <button type="button" class="btn btn-primary btn-sm" ng-click="enviaAprobacion(cita)">Enviar a Aprobación</button>
+                                                </div>
+                                            </script>
+
+                                            <button ng-show="cita.idEstatus == 1 || cita.idEstatus == 2 || userData.idTipoUsuario == 2" ng-hide="cita.idEstatus == 22 || userData.idTipoUsuario == 3 || userData.idTipoUsuario == 4" class="btn btn-informa" type="button" data-toggle="tooltip" tooltip="Editar" id="btnCotizar" tooltip-placement="top" ng-click="editaCita(cita.idCita, cita.idUnidad, 1, cita)"><i class="glyphicon glyphicon-refresh"></i>
+                                            </button>
+                                            <button ng-show="cita.idEstatus == 1 || cita.idEstatus == 2 || userData.idTipoUsuario == 2" ng-hide="cita.idEstatus == 22 || userData.idTipoUsuario == 3 || userData.idTipoUsuario == 4" class="btn btn-cancela btn-danger btnTerminarTrabajo" type="button" data-toggle="tooltip" tooltip="Cancelar" id="btnCotizar" tooltip-placement="top" ng-click="openFinishingTrabajoModal(cita.idCita)"><i class="glyphicon glyphicon-remove-circle"></i>
+                                            </button>
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="evidencia" class="modal inmodal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content animated flipInY">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Cargar Comprobante de Recepción</h4>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive m-t">
+                    <div class="dropzone" options="dzOptionsRecepcion" callbacks="dzCallbacks" methods="dzMethods" ng-dropzone></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" ng-click="updateEstatusTrabajo()">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal inmodal" id="finalizarTrabajoModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated flipInY">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Eliminar Cita</h4>
+                <br>
+                <button type="button" class="btn btn-white" data-dismiss="modal">Salir</button>
+                <button type="button" class="btn btn-danger btnTerminarTrabajo">Eliminar cita</button>
+            </div>
+        </div>
+    </div>
+</div>

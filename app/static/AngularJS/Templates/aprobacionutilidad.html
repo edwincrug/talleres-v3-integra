@@ -1,0 +1,217 @@
+<link href="../../css/inspinia/sweetalert/sweetalert.css" rel="stylesheet">
+<link rel="stylesheet" href="../../css/administracionOrden.css">
+<div ng-init="init()" class="animated bounceInRight">
+    <div class="headTitleTallerCita">
+        <span class="title"> {{titulo}}<span class="subtitle">Administrador</span></span>
+    </div>
+    <div class="wrapper wrapper-content">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <!--div class="row">
+                            <div class="col-xs-3">
+                                <input type="text" ng-model="searchText" class="form-control" placeholder="Buscar" >
+                            </div>
+                        </div-->
+                        <br/>
+                    <tabset>  
+
+                    <tab heading="Salida de Unidades" index="0">
+                        <br/>
+                        <br/>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover dataTableSalidaTrabajo" cg-busy="{promise:promise,message:message}">
+                                <thead>
+                                    <tr>
+                                        <th>Cliente</th>
+                                        <th>Consecutivo</th>
+                                        <th>Número de la Orden</th>
+                                        <th>Número Económico</th>
+                                        <th>Zona</th>
+                                        <th>TAR</th>
+                                        <th>Taller</th>
+                                        <th>Precio Taller</th>
+                                        <th>Precio Cliente</th>
+                                        <th>Descripción de la Orden</th>
+                                        <th>Estatus</th>
+                                        <th>Horas en espera</th>
+                                        <th>Aprobación</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="trabajo in aprobacionTrabajos | filter:searchText ">
+                                        <td>{{trabajo.cliente}}</td>
+                                        <td>{{trabajo.idCita}}</td>
+                                        <td>{{trabajo.numeroTrabajo}}</td>
+                                        <td>{{trabajo.numEconomico}}</td>
+                                        <td>{{trabajo.zona}}</td>
+                                        <td>{{trabajo.TAR}}</td>
+                                        <td>{{trabajo.razonSocial}}</td>
+                                        <td>{{trabajo.montoOrden |  currency: "$"}}</td>
+                                        <td>{{trabajo.precioOrden | currency: "$"}}</td>
+                                        <td>{{trabajo.trabajo}}</td>
+                                        <td>{{trabajo.descripcionLarga }}</td>
+                                        <td>{{trabajo.tiempo }}</td>
+                                        <td>
+                                            <button class="btn btn-informa btn-aprobar" type="button" ng-click="aprobarTrabajo(trabajo)" data-toggle="tooltip" tooltip="Realizar aprobación" tooltip-placement="left"><span class="glyphicon glyphicon-check"></span></button>
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            
+                        </div>
+                     </tab>   
+                    <tab heading="Margen de Utilidad" index="1" ng-show="userData.idUsuario == 190">
+                        <br/>
+                        <br/>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover dataTableAprobacionUtilidad" cg-busy="{promise:promise,message:message}">
+                                <thead>
+                                    <tr>
+                                        <th>Cliente</th>
+                                        <th>Consecutivo</th>
+                                        <th>Número de la Orden</th>
+                                        <th>Número Económico</th>
+                                        <th>Zona</th>
+                                        <th>TAR</th>
+                                        <th>Taller</th>
+                                        <th>Precio Taller</th>
+                                        <th>Precio Cliente</th>
+                                        <th>Utilidad</th>
+                                        <th>Margen</th>
+                                        <th>Descripción de la Orden</th>
+                                        <th>Estatus</th>
+                                        <th>Horas en espera</th>
+                                        <th>No. Intentos</th>
+                                        <th>Aprobación</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="utilidad in aprobacionUtilidades | filter:searchText ">
+                                        <td>{{utilidad.cliente}}</td>
+                                        <td>{{utilidad.idCita}}</td>
+                                        <td>{{utilidad.numeroTrabajo}}</td>
+                                        <td>{{utilidad.numEconomico}}</td>
+                                        <td>{{utilidad.zona}}</td>
+                                        <td>{{utilidad.TAR}}</td>
+                                        <td>{{utilidad.razonSocial}}</td>
+                                        <td>{{utilidad.montoOrden |  currency: "$"}}</td>
+                                        <td>{{utilidad.precioOrden | currency: "$"}}</td>
+                                        <td>{{utilidad.perdida | currency: "$"}}</td>
+                                        <td>{{utilidad.margen | number : 2}}%</td>
+                                        <td>{{utilidad.trabajo}}</td>
+                                        <td>{{utilidad.descripcionLarga }}</td>
+                                        <td>{{utilidad.tiempo }}</td>
+                                        <td>{{utilidad.intentos }}</td>
+                                        <td>
+                                            <button class="btn btn-informa btn-aprobar" type="button" ng-click="aprobar(utilidad)" data-toggle="tooltip" tooltip="Realizar aprobación" tooltip-placement="left"><span class="glyphicon glyphicon-check"></span></button>
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            
+                        </div>
+                     </tab> 
+                     
+                     </tabset> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <!--div class="modal inmodal lg" id="insertarToken" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated flipInY">
+                <div class="modal-header">
+                    <h4 class="modal-title">Token</h4>
+                </div>
+                <br>
+                <div class="modal-body">
+                    <div class="row utlidad">
+                        <label class="control-label">¿Desea aprobar la orden con el margen de utilidad actual?</label>
+                    </div>
+                   
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">No. Token</label>
+                        <div class="col-sm-7">
+                            <div class="m-b">
+                                <input type="text" class="form-control" ng-model="token">
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-success" ng-click="saveToken()">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div-->
+
+ <!--div class="modal inmodal lg" id="cotizacionDetalle" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated flipInY">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Detalle</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row utlidad">
+                        <label class="control-label">¿Desea aprobar la orden con el margen de utilidad?.</label>
+
+                    </div>
+                    <div class="table-responsive m-t">
+                         <table class="table invoice-table">
+                            <thead>
+                                <tr>
+                                    <th>Artículos</th>
+                                    <th>Cantidad</th>
+                                    <th>Precio Taller</th>
+                                    <th>Precio Cliente</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="articulo in detalleOrden">
+                                    <td>
+                                        <div><strong>Número de Partida: {{ articulo.numeroPartida }}</strong></div>
+                                        <small>{{articulo.item}}</small></td>
+                                    <td>{{ articulo.cantidad }}</td>
+                                    <td>
+                                        {{  (articulo.cantidad * articulo.precio)  | currency: "$" }}
+                                    </td>
+                                    <td>
+                                        {{ (articulo.cantidad * articulo.precioCliente) | currency: "$" }}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <table class="table invoice-total">
+                        <tbody>
+                            <tr>
+                                <td><strong>TOTAL Taller :</strong></td>
+                                <td>{{ sumaPrecioTotal  | currency: "$"}}</td>
+                                
+                            </tr>
+                            <tr>
+                                <td><strong>TOTAL Cliente:</strong></td>
+                                <td>{{sumaPrecioTotalCliente | currency: "$"}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-success" ng-click="aprobarUtilidad()">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div-->

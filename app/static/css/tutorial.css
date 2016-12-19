@@ -1,0 +1,48 @@
+/***CONTACTO**/
+
+.content_width{
+	width: 80%;
+    float: left;
+    animation-duration: 4s;
+}
+
+.content_info{
+	width: 100%;
+	animation-duration: 4s;
+}
+
+.info_width{
+	width: 20%;
+    float: right;
+    animation-duration: 4s;
+    padding-top: 30px;
+}
+
+.btn_info{
+	color: #FFD700;
+	float: right;
+	font-size: 40px;
+	padding-right: 50px;
+	cursor:pointer;
+}
+
+.title_info{
+	text-align: center;
+}
+
+.etiqueta{
+    font-size: 15px;
+    font-weight: 100;
+    padding: 20px;
+    font-weight: 600;
+}
+
+.paddingTwenty{
+	padding: 20px;
+}
+
+.img_info{
+	width: 180px;
+    margin-left: 30px;
+    cursor: pointer;
+}

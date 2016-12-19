@@ -1,0 +1,285 @@
+<link href="../../css/inspinia/sweetalert/sweetalert.css" rel="stylesheet">
+<div ng-init="init()" class="animated bounceInRight">
+    <div class="headTitleTallerCita">
+        <span class="title">Administración de Ordenes de Surtimiento<span class="subtitle"></span></span>
+    </div>
+    <div class="wrapper wrapper-content">
+
+         <div class="row col-cm-12">
+
+            <div class="col-md-5">
+                <form method="get" class="form-horizontal">
+                    <div >
+                        <label class="col-sm-2 control-label">Cliente </label>
+                        <div class="col-sm-10">
+                             <select class="form-control" name="cliente" ng-model="selectedCliente" ng-options="cliente.nombre for cliente in clientes" ng-change="changeCliente()">
+                                        <option value=''>Selecionar cliente</option><!--default option -->
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>   
+
+            <div class="col-md-5">
+                <form method="get" class="form-horizontal">
+                    <div >
+                        <label class="col-sm-2 control-label">TAR</label>
+                        <div class="col-sm-10">
+                            <select class="form-control m-b" name="tar" ng-model="selectedTar" ng-options="tar.nombreTar for tar in tars" ng-change="GetMonto()"   ng-disabled="validateCliente()==false">
+                                <option value="">Seleccione una TAR</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>    
+
+            <div class="col-md-2 control-label">
+                <!--div class="form-group"-->
+                    <div class="col-sm-2">
+                        <button class="btn btn-primary" ng-click="nuevaOsur()" ng-disabled="validateTAR()==false"><i class="fa fa-check" >
+                                </i> Nueva OSUR</button>
+                    </div>
+                <!--/div-->
+            </div>
+        </div>
+       
+         
+
+        <div class="row col-md-12">
+            <div class="col-lg-4">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-success pull-right">Inicial</span>
+                        <h5>Presupuesto</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins ng-binding">{{presupuestoTotal | currency: "$"}}</h1>
+                        <div class="stat-percent font-bold text-success">100% <i class="fa fa-bolt"></i></div>
+                        <small></small>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-danger pull-right">Cotizaciones</span>
+                        <h5>Utilizado</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins ng-binding">{{utilizadoTotal | currency: "$"}}</h1>
+                        <div class="stat-percent font-bold text-danger">38% <i class="fa fa-level-down"></i></div>
+                        <small></small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-info pull-right">Actual</span>
+                        <h5>Saldo</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins ng-binding">{{saldoTotal | currency: "$"}}</h1>
+                        <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i></div>
+                        <small></small>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <!--ibox-content-->
+       
+        
+            <div class="row col-md-12 table-responsive">
+                <table class="table table-bordered table-striped table-hover dataTableOsur">
+                    <thead>
+                        <tr>
+                            <th ng-show="validateCliente()==true">TAR</th>
+                            <th>No. OSUR</th>
+                             <th>Solpe</th>
+                            <th>Fecha Inicial</th>
+                            <th>Fecha Final</th>
+                            <th>Presupuesto</th>
+                            <th>Utilizado</th>
+                            <th ng-show="validateCliente()==true">+ Fondos</th>
+                            <th>Estatus</th>
+                            <th>Saldo</th>
+                            <th>Orden</th>
+                            <th>Activar</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="info in datosOsur">
+                            <td ng-show="validateCliente()==true">{{info.TAR}}</td>
+                            <td>{{info.folio}}</td>
+                            <td>{{info.solpe}}</td>
+                            <td>{{info.fechaInicial | date:'dd-MM-yyyy HH:mm'}} </td>
+                            <td>{{info.fechaFinal | date:'dd-MM-yyyy HH:mm'}} </td>
+                            <td>{{info.presupuesto | currency: "$"}}</td>
+                            <td>{{info.utilizado | currency: "$"}}</td>
+                            <td ng-show="validateCliente()==true">
+                                <button class="btn btn-info" type="button" ng-click="verAplicacion(info)" ><span class="glyphicon glyphicon-eye-open"></span></button>
+                            </td>
+                            <td>{{info.estatus}}</td>
+                            <td>{{info.saldo | currency: "$"}}</td>
+                            <td>{{info.orden}}</td>
+                            <td>
+                                <button ng-show="info.estatus == 'Utilizado'" class="btn btn-informa" type="button" ng-click="activarOsur(info)" ><span class="glyphicon glyphicon-refresh" ></span></button>
+                            </td>
+                            
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+    
+    </div>
+</div>
+    <div class="modal inmodal lg" id="newOsurModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated flipInY">
+                <div class="modal-header">
+                    <h4 class="modal-title">Nueva OSUR</h4>
+                </div>
+                <br>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label class="col-sm-2 control-label">Cliente</label>
+                        <div class="col-sm-7">
+                             <input type="text" class="form-control"  ng-model="cliente" disabled="disabled">  
+                        </div>
+                    </div>
+                    <div class="form-group row" ng-show="validateCliente()==true">
+                        <label class="col-sm-2 control-label">TAR</label>
+                        <div class="col-sm-7">
+                             <input type="text" class="form-control" type="number" ng-model="tarNuevo" disabled="disabled">  
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 control-label">No. OSUR</label>
+                        <div class="col-sm-7">
+                            <div class="m-b">
+                                <input type="text" class="form-control" type="number" ng-model="folio">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 control-label">Solpe</label>
+                        <div class="col-sm-7">
+                            <div class="m-b">
+                                <input type="text" class="form-control" ng-model="solpe">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 control-label">Presupuesto</label>
+                        <div class="col-sm-7">
+                            <div class="input-group m-b"><span class="input-group-addon">$</span>
+                                <input type="text" class="form-control" type="number" ng-model="presupuesto" ng-change="change_presupuesto()">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row" id="fechaInicial">
+                        <label class="col-sm-2 control-label">Fecha Inicial</label>
+                        <div class="col-sm-7">
+                            <div class="input-group date">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <input type="text" class="form-control" ng-model="fechaInicial">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row" id="fechaFinal">
+                        <label class="col-sm-2 control-label">Fecha Final</label>
+                        <div class="col-sm-7">
+                            <div class="input-group date">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <input type="text" class="form-control" ng-model="fechaFinal">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--div class="row col-md-12 table-responsive"-->
+                        <table class="table table-bordered table-striped table-hover dataSumaOsur" ng-show="sumaOsur.length>0">
+                            <thead>
+                                <tr>
+                                    <th>No. OSUR</th>
+                                    <th>Saldo</th>
+                                    <th>Estatus</th>
+                                    <th>Operación</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="suma in sumaOsur">
+                                    <td>{{suma.folio}}</td>
+                                    <td>{{suma.saldo | currency: "$"}}</td>
+                                    <td>{{suma.estatus}}</td>
+                                    <td>
+                                        <button class="btn btn-info" type="button" ng-click="sumaPresupuesto(suma.indice)" ><span class="{{suma.class_suma}}"></span></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <footer style="float: right;"  ng-show="sumaOsur.length>0">
+                                <div>
+                                    <label>Presupuesto: {{presupuesto | currency: "$"}} </label>
+                                       
+                                </div>
+                                <div>
+                                    <label>Presupuesto adicional: {{presupuestoSuma | currency: "$"}} </label>
+                                       
+                                </div>
+                                <div>
+                                    <label>Presupuesto total: {{presupuestoSumaTotal | currency: "$"}} </label>
+                                       
+                                </div>
+                            </footer>        
+                        </table>
+                    <!--/div-->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-success" ng-click="saveOsur()">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal inmodal lg" id="fondosOsurModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated flipInY">
+                <div class="modal-header">
+                    <h4 class="modal-title">Fondos de OSUR</h4>
+                </div>
+                <br>
+                <div class="modal-body col-md-12">
+                    
+
+                    <!--div class="row col-md-12 table-responsive"-->
+                        <table class="table table-bordered table-striped table-hover" >
+                            <thead>
+                                <tr>
+                                    <th>No. OSUR</th>
+                                    <th>Folio</th>
+                                    <th>Saldo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="fondo in fondos">
+                                    <td>{{fondo.idAplicacion}}</td>
+                                    <td>{{fondo.folio | currency: "$"}}</td>
+                                    <td>{{fondo.presupuestoAplicacion}}</td>
+                                </tr>
+                            </tbody>        
+                        </table>
+                    <!--/div-->
+            </div>
+            <div class="modal-footer">
+                <button  type="button" class="btn btn-success" data-dismiss="modal">Aceptar</button>
+            </div>
+        </div>
+    </div>
+    

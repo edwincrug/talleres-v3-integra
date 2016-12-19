@@ -1,0 +1,190 @@
+<div ng-init="init()" class="animated bounceInRight">
+    <div class="row headTitleTallerCita">
+        <div class="col-lg-10">
+            <span class="title"> Autorización<span class="subtitle">Call Center / Taller</span></span>
+        </div>
+        <div class="col-lg-2">
+            <a href="/cotizacionevidencias" class="btn btn-success"><i class="fa fa-files-o"></i> Evidencias </a>
+        </div>
+    </div>
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox-content p-xl">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <span>Cliente:</span>
+                            <address>
+                                            <strong>{{ClienteData.nombre}}</strong><br>
+                                            {{ClienteData.direccion}}<br>
+                                            <abbr title="Phone">Tel:</abbr>{{ClienteData.telefono}}<br>
+                                        </address>
+                            <span>Unidad:</span>
+                            <address>
+                                            <strong>{{unidadInfo.marca}} - {{unidadInfo.modelo}}</strong><br>
+                                            No. Económico: {{unidadInfo.clienteNumEconomico}}<br>
+                                            No. Inventario: {{unidadInfo.clienteNumInventario}}<br>
+                                            No. TAR: {{unidadInfo.numTAR}}<br>
+                                            TAR:  {{unidadInfo.TAR}}<br>
+                                            GAR:  {{unidadInfo.GAR[0]}}
+                                        </address>
+                        </div>
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-5 text-right">
+                            <h4>Cotización No.</h4>
+                            <h4 class="text-navy">{{descripcion}}</h4>
+                            <span>Taller: </span>
+                            <address><strong>
+                                   {{unidadInfo.razonSocial}}
+                               </strong><br>
+                               {{unidadInfo.direccion[1]}}
+                               </address>
+
+                            <p>
+                                <span><strong>Fecha: </strong>{{articulos[0].fecha |  date:'dd-MM-yyyy HH:mm'}}</span>
+                                <br/>
+                            </p>
+                            <!--<span><h3>Osur No.</h3><h4 class="text-navy">{{folio}}</h4></span>-->
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="row" ng-show="userData.idTipoUsuario == 1 || userData.idTipoUsuario == 2">
+                        <div class="col-md-offset-10 col-md-2">
+                            <form role="form">
+                                <input bs-switch ng-model="isSelected" type="checkbox" switch-active="{{ isActive }}" switch-on-text="{{ onText }}" switch-off-text="{{ offText }}" switch-on-color="{{ onColor }}" switch-off-color="{{ offColor }}" switch-animate="{{ animate }}" switch-size="{{ size }}" switch-label="{{ label }}" switch-icon="{{ icon }}" switch-radio-off="{{ radioOff }}" switch-label-width="{{ labelWidth }}" switch-handle-width="{{ handleWidth }}" switch-wrapper="{{ wrapper }}" ng-true-value="'yep'" ng-false-value="'nope'" switch-inverse="{{ !inverse }}">
+                            </form>
+                        </div>
+                    </div>
+                    <div class="table-responsive m-t">
+                        <table class="table invoice-table">
+                            <thead>
+                                <tr>
+                                    <th>No. Cotización</th>
+                                    <th style="text-align:left;">Estatus</th>
+                                    <th style="text-align:left;">Artículos</th>
+                                    <th>Cantidad</th>
+                                    <th>Precio Unitario</th>
+                                    <th>I.V.A</th>
+                                    <th>Precio Total</th>
+                                    <th>Acciones</th>
+                                    <!--<th>Comentarios</th>-->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="articulo in articulos" ng-class="{'rowVerde': articulo.idNivelAutorizacion==1, 'rowAzul': articulo.idNivelAutorizacion == 2, 'rowAmarillo' : articulo.idNivelAutorizacion == 3, 'rowRojo': articulo.idNivelAutorizacion == 4, 'rowEtGlobal': articulo.idNivelAutorizacion == 5}">
+                                    <td>{{articulo.numeroCotizacion}}</td>
+                                    <td style="text-align:left; width: 100px;">{{articulo.descripcionLarga}}</td>
+                                    <td style="text-align:left;  width:300px;">
+                                        <div><strong>Número de Partida: {{ articulo.numeroPartida }}</strong></div>
+                                        <small>{{articulo.item}}</small></td>
+                                    <td>{{articulo.cantidad}}</td>
+                                    <td>{{ vistaPrecio == 1 ? articulo.precio : articulo.precioCliente | currency }}</td>
+                                    <td>{{ vistaPrecio == 1 ? (articulo.cantidad * (articulo.precio * (articulo.valorIva / 100))) : (articulo.cantidad * (articulo.precioCliente * (articulo.valorIva / 100))) | currency }}</td>
+                                    <td>{{ vistaPrecio == 1 ? ((articulo.cantidad * articulo.precio) + (articulo.cantidad * (articulo.precio * (articulo.valorIva / 100)))) : ((articulo.cantidad * articulo.precioCliente) + (articulo.cantidad * (articulo.precioCliente * (articulo.valorIva / 100)))) | currency }}</td>
+                                    <td>
+                                        <form action="" ng-show="articulo.idEstatus == 8">
+                                            <div class="radio radio-info radio-inline">
+                                                <input type="radio" name="name" value="acepta" ng-click="AutorizarItem(9, articulo.idItem, articulo.idCotizacion, userData.idUsuario)" ng-hide="userData.idTipoUsuario == 3" data-toggle="tooltip" tooltip="Autorizar" tooltip-placement="left" ng-disabled="userData.idUsuario != articulo.UsuarioAutorizador">
+                                                <label for="inlineRadio"> Acepta </label>
+                                            </div>
+                                            <div class="radio radio-inline">
+                                                <input type="radio" name="name" value="rechaza" ng-click="AutorizarItem(10, articulo.idItem, articulo.idCotizacion, userData.idUsuario)" ng-hide="userData.idTipoUsuario == 3" data-toggle="tooltip" tooltip="Rechazar" tooltip-placement="left" ng-disabled="userData.idUsuario != articulo.UsuarioAutorizador">
+                                                <label for="inlineRadio"> Rechaza </label>
+                                            </div>
+                                        </form>
+                                        <div ng-show="articulo.idEstatus == 9">Autorizado</div>
+                                        <div ng-show="articulo.idEstatus == 10">Rechazado</div>
+                                    </td>
+                                    <!--<td>
+                                        <button class="btn"><i class="fa fa-comment"></i></button>
+                                    </td>-->
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <table class="table invoice-total">
+                        <tbody>
+                            <tr>
+                                <td><strong>Sub Total :</strong></td>
+                                <td>{{ vistaPrecio == 1 ? sumaPrecioTotal : sumaPrecioTotalCliente | currency}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>I.V.A :</strong></td>
+                                <td>{{ vistaPrecio == 1 ? sumaIvaTotal : sumaIvaTotalCliente | currency}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>TOTAL :</strong></td>
+                                <td>{{ vistaPrecio == 1 ? sumaGranTotal : sumaGranTotalCliente | currency}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="text-right">
+            <button class="btn btn-primary" ng-click="ActualizaCotizacion()" ng-hide="userData.idTipoUsuario == 3 || userData.esProveedor == 1"><i class="fa fa-check"></i> Guarda Cotizacion</button>
+            <button class="btn btn-success" ng-click="Editar()" ng-hide="userData.idTipoUsuario == 4"><i class="fa fa-edit"></i> Editar</button>
+        </div>
+    </div>
+    <br>
+    <br>
+
+    <div class="modal fade" id="modal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Adjuntar Evidencia</h4>
+                </div>
+                <div class="modal-body">
+                    <iframe src="/AngularJS/Templates/uploader.html" frameborder="0" id="uploader"></iframe>
+                    <button id="btnUploadAut" type="button" class="btn btn-success" data-toggle="tooltip" tooltip="Cargar Evidencia" tooltip-placement="top" ng-click="cargarArchivos()">
+                        <span class="glyphicon glyphicon-cloud-upload"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="cotizacionDetalle" class="modal inmodal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+
+            <!-- Modal content-->
+            <div class="modal-content animated flipInY">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">{{tipoComentario}}</h4>
+                </div>
+                <div class="modal-body">
+                    <!-- /table-responsive -->
+                    <center>
+                        <textarea ng-model="comentarios" name="comentarios" rows="10" cols="110" placeholder="Escribe tus comentarios"></textarea>
+                    </center>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" ng-click="ObtieneAutorizaciones(comentarios)" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--<div id="cotizacionDetalleR" class="modal inmodal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content animated flipInY">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Comentarios Rechazo</h4>
+                </div>
+                <div class="modal-body">
+                    <center>
+                        <textarea ng-model="comentarios" name="comentarios" rows="10" cols="110" placeholder="Escribe tus comentarios"></textarea>
+                    </center>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" ng-click="ObtieneAutorizaciones(comentarios)" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>-->

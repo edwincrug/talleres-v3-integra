@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv32.xsd" version="3.2" folio="1062" fecha="2016-07-07T18:15:48" formaDePago="Pago en una sola exhibición" subTotal="5400" descuento="0" TipoCambio="1.0" Moneda="MXN" total="6264" metodoDePago="No aplica" tipoDeComprobante="ingreso" LugarExpedicion="MONTERREY, NUEVO LEÓN" noCertificado="00001000000306940086" certificado="MIIEnDCCA4SgAwIBAgIUMDAwMDEwMDAwMDAzMDY5NDAwODYwDQYJKoZIhvcNAQEFBQAwggGKMTgwNgYDVQQDDC9BLkMuIGRlbCBTZXJ2aWNpbyBkZSBBZG1pbmlzdHJhY2nDs24gVHJpYnV0YXJpYTEvMC0GA1UECgwmU2VydmljaW8gZGUgQWRtaW5pc3RyYWNpw7NuIFRyaWJ1dGFyaWExODA2BgNVBAsML0FkbWluaXN0cmFjacOzbiBkZSBTZWd1cmlkYWQgZGUgbGEgSW5mb3JtYWNpw7NuMR8wHQYJKoZIhvcNAQkBFhBhY29kc0BzYXQuZ29iLm14MSYwJAYDVQQJDB1Bdi4gSGlkYWxnbyA3NywgQ29sLiBHdWVycmVybzEOMAwGA1UEEQwFMDYzMDAxCzAJBgNVBAYTAk1YMRkwFwYDVQQIDBBEaXN0cml0byBGZWRlcmFsMRQwEgYDVQQHDAtDdWF1aHTDqW1vYzEVMBMGA1UELRMMU0FUOTcwNzAxTk4zMTUwMwYJKoZIhvcNAQkCDCZSZXNwb25zYWJsZTogQ2xhdWRpYSBDb3ZhcnJ1YmlhcyBPY2hvYTAeFw0xNTA0MjkwMDMzMjZaFw0xOTA0MjkwMDMzMjZaMIHoMS4wLAYDVQQDEyVTVVNQRU5TSU9ORVMgWSBFSkVTICBNRVJJVE9SIFNBIERFIENWMS4wLAYDVQQpEyVTVVNQRU5TSU9ORVMgWSBFSkVTICBNRVJJVE9SIFNBIERFIENWMS4wLAYDVQQKEyVTVVNQRU5TSU9ORVMgWSBFSkVTICBNRVJJVE9SIFNBIERFIENWMSUwIwYDVQQtExxTRU0xNTAzMTMzRTcgLyBSRUxGNjgwMTA2TFYwMR4wHAYDVQQFExUgLyBSRUxGNjgwMTA2SE5MWVBSMDgxDzANBgNVBAsTBk1BVFJJWjCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAq3C5CUzbt8rw/GUwVHrRozVg76kYzVe72i4w6ULbbjoZZXipurvhHa2F1UlDmL0pHhMzoGEKkCybPXa9Avno1eQVV2KiT3uzY8bt48e70BH8caz2bgrV/6Uz3EBI/iHbbF1aODn0qM1w7LGtrnnrh+lqI3kD7iIvkqKz4fLJGNcCAwEAAaMdMBswDAYDVR0TAQH/BAIwADALBgNVHQ8EBAMCBsAwDQYJKoZIhvcNAQEFBQADggEBAIFvTU0+Hhmj9JHaSiomZbq0VIXPg5gJ6LI73ljpsLLanNiGNM27ph+LUWs0EuQfgd0Svjxt5gzbYTX/vgQ1O/4v7a1ho3s2gQKntWveFWI/RpsdrAt7MCgaSAvL0HTcGOT3FHNIfvyaBgZLZ2niXVYqZnm3Zu3gJss3tnAqYU5psbW/KlLSQY4cnTfVxBj/IiQm7Fe7Usw91nexlBBtlmFMPulHMJpz6PbBsoYryx2aGyK77EGwty1vdm2S3u8R4qgXZYkSrsiNoKGwAk3eTJF0YSfUE8nPJf3fGEzuXAuhc8SCjspIQikjm+YE+I92m080svSAz6wMjug5nPfFy5g=" sello="d6CfzsL44LhJxAAiZNEV41PtLDvCyb1RidcqoONdsDMH4qO8xpEPoU4rKlNZbltdi4wDJMNOfBC/21ScM9DDeK+8l1GWKkidEZQNnwvbIC7D4A3HbhROEEykIgFh10E2M/RRMMXPR8gbTs+eyRUojaCVkUZt5YA75G+nA52w1qo=">
+  <cfdi:Emisor rfc="SEM1503133E7" nombre="SUSPENSIONES Y EJES MERITOR SA. DE CV.">
+    <cfdi:DomicilioFiscal calle="ADOLFO DE LA HUERTA" noExterior="1312" colonia="NIÑO ARTILLERO" localidad="MONTERREY" municipio="MONTERREY" estado="NUEVO LEÓN" pais="MÉXICO" codigoPostal="64280"/>
+    <cfdi:RegimenFiscal Regimen="Régimen General de Ley Personas Morales"/>
+  </cfdi:Emisor>
+  <cfdi:Receptor rfc="ASE0508051B6" nombre="AUTOEXPRESS SERVICIO DE EXCELENCIA PEDREGAL SA DE CV.">
+    <cfdi:Domicilio calle="AV SAN JERONIMO" noExterior="220" colonia="LA OTRA BANDA REVOLUCION Y PERIFERICO ALVARO OBREGON" municipio="DISTRITO FEDERAL" estado="ESTADO DE MÉXICO" pais="México" codigoPostal="01090"/>
+  </cfdi:Receptor>
+  <cfdi:Conceptos>
+    <cfdi:Concepto cantidad="3" unidad="PZA" noIdentificacion="1" descripcion="BATERIA DE 17 PLACAS DE TORNILLO ( esta factura sustituye a la factura 1057 con el numero de folio fisca :l790E6272-0B8B-4A29-84EB-F453F0726E98 material recibido el 07/07/2016 )" valorUnitario="1800" importe="5400"/>
+  </cfdi:Conceptos>
+  <cfdi:Impuestos totalImpuestosRetenidos="0" totalImpuestosTrasladados="864">
+    <cfdi:Traslados>
+      <cfdi:Traslado impuesto="IVA" tasa="16" importe="864"/>
+    </cfdi:Traslados>
+  </cfdi:Impuestos>
+  <cfdi:Complemento>
+    <tfd:TimbreFiscalDigital xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital" xsi:schemaLocation="http://www.sat.gob.mx/TimbreFiscalDigital http://www.sat.gob.mx/TimbreFiscalDigital/TimbreFiscalDigital.xsd" version="1.0" UUID="3137779B-D424-4B5E-A9B0-09AE44509BB5" FechaTimbrado="2016-07-07T18:16:02" selloCFD="d6CfzsL44LhJxAAiZNEV41PtLDvCyb1RidcqoONdsDMH4qO8xpEPoU4rKlNZbltdi4wDJMNOfBC/21ScM9DDeK+8l1GWKkidEZQNnwvbIC7D4A3HbhROEEykIgFh10E2M/RRMMXPR8gbTs+eyRUojaCVkUZt5YA75G+nA52w1qo=" noCertificadoSAT="00001000000401477845" selloSAT="NqSj3bqzQIYIzRacZ0++JUVREMtTtpvakgYbAzKIF7YkhMC99b5q+nN4CeDCtXLAF64HPWzFcKkIYKLGrnK3nvsQdW1IaNmdWqWFfUYkGHGhGmzMAvU1IlYXmv5xKqM/cq6SF08VaFWN8ECijsKpyuu6Ga+n4YWZP2bqQ85RTa/DmvQtwHXikQkVxxAGT/wYXUxZNCeW3SWghD6qq6wNI2E207Y1HRwr0M9CwEDo6KNywxebtMpcTlLTYmHdFqKGIPPpn0NBTidMkI5OVNktrgcYZx/DJsC3BZydjonZ6CVTat1WVE0/IsMvBJWNM0Lt62zD2wJi4F3EXMuWFD5QdA=="/>
+  </cfdi:Complemento>
+</cfdi:Comprobante>
+

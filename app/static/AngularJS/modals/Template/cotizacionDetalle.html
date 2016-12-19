@@ -1,0 +1,80 @@
+ 
+<div class="modal-header barra_popup" ng-init="init()">
+    <div class="modal-title">
+        <button aria-hidden="true" class="close" data-dismiss="modal" type="button" ng-click="close()">×</button>
+        <h4 class="modal-title">Detalle del Margen de Utilidad por Partida</h4>
+    </div>
+</div>
+<div class="modal-body">
+    <div class="row utlidad" ng-show="show_Aprobacion">
+        <label class="control-label">¿Desea aprobar la orden con el margen de utilidad?.</label>
+
+    </div>
+    <div class="row utlidad" ng-show="show_cita">
+        <label class="control-label">La utilidad de la orden debe ser mínima del 5%</label>
+
+    </div>
+
+    <div class="row utlidad" ng-show="show_orden">
+        <label class="control-label">La utilidad promedio de la orden es menor a la autorizada previamente de {{utilidad | currency: "%" }}</label>
+
+    </div>
+    <div class="table-responsive m-t">
+         <table class="table invoice-table">
+            <thead>
+                <tr>
+                    <th>Partida</th>
+                    <th>Cantidad</th>
+                    <th>Precio Taller</th>
+                    <th>Precio Cliente</th>
+                    <th>Utilidad</th>
+                    <th>Margen</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="articulo in detalleOrden" ng-class="((articulo.cantidad * articulo.precio)  >= (articulo.cantidad * articulo.precioCliente) ? 'danger' : '')">
+                    <td>
+                        <div><strong>Número de Partida: {{ articulo.numeroPartida }}</strong></div>
+                        <small>{{articulo.item}}</small></td>
+                    <td>{{ articulo.cantidad }}</td>
+                    <td>
+                        {{  (articulo.cantidad * articulo.precio)  | currency: "$" }}
+                    </td>
+                    <td>
+                        {{ (articulo.cantidad * articulo.precioCliente) | currency: "$" }}
+                    </td>
+                    <td>
+                        {{ ((articulo.cantidad * articulo.precioCliente)-(articulo.cantidad * articulo.precio)) | currency: "$" }}
+                    </td>
+                    <td>
+                        {{ ((((articulo.cantidad * articulo.precioCliente)-(articulo.cantidad * articulo.precio))*100)/ (articulo.cantidad * articulo.precioCliente))| currency: "%" }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <table class="table invoice-total">
+        <tbody>
+            <tr>
+                <td><strong>TOTAL Taller :</strong></td>
+                <td>{{ sumaPrecioTotal  | currency: "$"}}</td>
+                
+             <tr>
+                <td><strong>TOTAL Cliente:</strong></td>
+                <td>{{sumaPrecioTotalCliente | currency: "$"}}</td>
+            </tr>
+            <tr>
+                <td><strong>TOTAL Utilidad:</strong></td>
+                <td>{{(sumaPrecioTotalCliente - sumaPrecioTotal) | currency: "$"}}</td>
+            </tr>
+            <tr>
+                <td><strong>TOTAL Margen:</strong></td>
+                <td>{{(((sumaPrecioTotalCliente - sumaPrecioTotal)*100)/ sumaPrecioTotalCliente)| currency: "%"}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-white" data-dismiss="modal" ng-click="close()">Cancelar</button>
+    <button type="button" class="btn btn-success" ng-click="aprobarUtilidad()">Aceptar</button>
+</div>

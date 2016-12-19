@@ -1,0 +1,279 @@
+<link href="../../css/inspinia/sweetalert/sweetalert.css" rel="stylesheet">
+<div ng-init="init()">
+<!--     <div class="headTitleTallerCita">
+        <span class="title">Reporte de Citas<span class="subtitle">Administrador</span></span>
+    </div> -->
+	    <div class="wrapper wrapper-content">
+	        <div class="row">
+	            <div class="col-lg-12">
+	                <div class="ibox float-e-margins">
+	                    <div class="ibox-content">
+	
+							    <span class="title">Reporte de Órdenes por Cobrar</span>
+							     <span class="col-md-8 pull-right"> 
+							<div class="col-lg-4">
+							  <div class="pointer" ng-click="ordensinFactura()">
+							    <div class="ibox float-e-margins">
+							        <div class="ibox-title">
+							            <span class="label label-primary pull-right"><i class="glyphicon glyphicon-duplicate"></i></span>
+							            <h5>Ordenes sin COPADE</h5>
+							        </div>
+							        <div class="ibox-content">
+							            <h1 class="no-margins">{{cobrarsinfactura}}</h1>
+							            <div class="stat-percent font-bold text-navy">{{porcentajesinfactura| number:2}}% </div>
+							            <small>Total</small>
+							        </div>
+							    </div>
+							    </div>
+							</div>     
+<!-- 							<div class="col-lg-4">
+								<div class="pointer" ng-click="citaAgendada()">
+									<div class="ibox float-e-margins">
+										<div class="ibox-title">
+							    <span class="label label-success pull-right"><i class="glyphicon glyphicon-search"></i></span>
+							    <h5>En revisión</h5>
+							</div>
+							<div class="ibox-content">
+							    <h1 class="no-margins">{{cobrar}}</h1>
+							    <div class="stat-percent font-bold text-success">{{porcentajerevision | number:2}}% <i class="fa fa-level-up"></i></div>
+							    <small>Total en revisión</small>
+										</div>
+									</div>
+								</div>
+							</div> -->
+							<div class="col-lg-4">
+								<div class="pointer" ng-click="ordensinCopade()">
+							    <div class="ibox float-e-margins">
+							        <div class="ibox-title">
+							            <span class="label label-info pull-right"><i class="glyphicon glyphicon-time"></i></span>
+							            <h5>PreFactura generada</h5>
+							        </div>
+							        <div class="ibox-content">
+							            <h1 class="no-margins">{{cobrarsincopade}}</h1>
+							            <div class="stat-percent font-bold text-info">{{porcentajecopade | number:2}}% </div>
+							            <small>Total</small>
+							        </div>
+							    </div>
+							   </div>
+							</div>
+                            
+                            <div class="col-lg-4">
+                                <div class="pointer" ng-click="facturada()">
+                                <div class="ibox float-e-margins">
+                                    <div class="ibox-title">
+                                        <span class="label label-success pull-right"><i class="glyphicon glyphicon-ok"></i></span>
+                                        <h5>Facturado</h5>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <h1 class="no-margins">{{ordenfacturadas}}</h1>
+                                        <div class="stat-percent font-bold text-success">{{porcentajefacturadas | number:2}}% </div>
+                                        <small>Total</small>
+                                    </div>
+                                </div>
+                               </div>
+                            </div>
+
+							</span>
+
+							<div class="ibox-content">
+							<div ng-show="tipoPorCobrar==0">
+                                    <span class="subtitle"><strong>Falta Factura de Proveedor</strong></span>
+                                    <br><br>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered table-hover dataTableSinFactura" cg-busy="{promise:promise,message:message}">
+                                                <thead>
+                                                    <tr><th>Cliente</th>
+                                                        <th>Consecutivo</th>
+                                                        <th>Número de la Orden</th>
+                                                        <th>Número Económico</th>
+                                                        <th>Zona</th>
+                                                        <th>TAR</th>
+                                                        <th>Nombre Taller</th>
+                                                        <th>Fecha Cita</th>
+                                                        <th>Fecha Aceptación de Trabajo</th>
+                                                        <th>Trabajo</th>
+                                                        <th>Observación</th>
+                                                        <th>Estatus Órden Servicio</th>
+                                                        <th>Horas en Espera de Factura</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                   <tr ng-repeat="sinfacturas in datasinfactura">
+                                                        <td>{{sinfacturas.cliente}}</td>
+                                                        <td>{{sinfacturas.idCita}}</td>
+                                                        <td>{{sinfacturas.numeroTrabajo}}</td>
+                                                        <td>{{sinfacturas.numEconomico}}</td>
+                                                        <td>{{sinfacturas.zona}}</td>
+                                                        <td>{{sinfacturas.TAR}}</td>
+                                                        <td>{{sinfacturas.razonSocial}}</td>
+                                                        <td>{{sinfacturas.fechaCita | date:'dd-MM-yyyy HH:mm'}}</td>
+                                                        <td>{{sinfacturas.fechaEstatus | date:'dd-MM-yyyy HH:mm'}}</td>
+                                                        
+                                                        <td>{{sinfacturas.trabajo}}</td>
+                                                        <td>{{sinfacturas.observacion}}</td>
+                                                        <td>{{sinfacturas.estatus}}</td>
+                                                        <td ng-class="{'rowVerde': sinfacturas.horasRetraso <= 49, 'rowAmarillo': sinfacturas.horasRetraso >= 50 && sinfacturas.horasRetraso  <=100, 'rowRojo': sinfacturas.horasRetraso >= 101}">{{sinfacturas.horasRetraso}}</td>
+                                                    </tr> 
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div ng-show="tipoPorCobrar==1">
+                                    <span class="subtitle"><strong>Falta por Facturar</strong></span>
+                                    <br><br>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered table-hover dataTableSinCopade" cg-busy="{promise:promise,message:message}">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Cliente</th>
+                                                        <th>No. COPADE</th>
+                                                        <th>Orden de Surtimiento</th>
+                                                        <th>No. Estimación</th>
+                                                        <th>Descripción de la Orden</th>
+                                                        <th>Total</th>
+                                                        <th>Fecha COPADE</th>
+                                                        <!-- <th>Folio Factura</th> -->
+                                                        <th>Horas Facturado</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="sincopade in datasincopade">
+                                                        <td>{{sincopade.cliente}}</td>
+                                                        <td>{{sincopade.numeroCopade}}</td>
+                                                        <td>{{sincopade.folio}}</td>
+                                                        <td>{{sincopade.numeroEstimacion}}</td>
+                                                        <td>{{sincopade.descripcion}}</td>
+                                                        <td>{{sincopade.total | currency}}</td>
+                                                        <td>{{sincopade.fechaRecepcionCopade | date:'dd-MM-yyyy'}}</td>
+                                                        <!-- <td>Folio Factura</td> -->
+                                                            <td ng-class="{'rowVerde': sincopade.horasRetraso <= 49, 'rowAmarillo': sincopade.horasRetraso >= 50 && sincopade.horasRetraso  <=100, 'rowRojo': sincopade.horasRetraso >= 101}">{{sincopade.horasRetraso}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div ng-show="tipoPorCobrar==2">
+                                    <span class="subtitle"><strong>Factura Enviada al Cliente</strong></span>
+                                    <br><br>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered table-hover dataTableFacturados" cg-busy="{ promise:promise,message:message } ">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Cliente</th>
+                                                        <th>No. COPADE</th>
+                                                        <th>Orden de Surtimiento</th>
+                                                        <th>No. Estimación</th>
+                                                        <th>Descripción de la Orden</th>
+                                                        <th>Total</th>
+                                                        <th>Fecha COPADE</th>
+                                                        <!-- <th>Folio Factura</th> -->
+                                                        <th>Horas Facturado</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="facturado in datafacturada">
+                                                        <td>{{facturado.cliente}}</td>
+                                                        <td>{{facturado.numeroCopade}}</td>
+                                                        <td>{{facturado.folio}}</td>
+                                                        <td>{{facturado.numeroEstimacion}}</td>
+                                                        <td>{{facturado.descripcion}}</td>
+                                                        <td>{{facturado.total | currency}}</td>
+                                                        <td>{{facturado.fechaRecepcionCopade | date:'dd-MM-yyyy'}}</td>
+                                                        <!-- <td>Folio Factura</td> -->
+                                                            <td ng-class="{'rowVerde': facturado.horasRetraso <= 49, 'rowAmarillo': facturado.horasRetraso >= 50 && facturado.horasRetraso  <=100, 'rowRojo': facturado.horasRetraso >= 101}">{{facturado.horasRetraso}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div> 
+<!--                                     <div ng-show="tipoPorCobrar==1">
+                                    <span class="subtitle"><strong>Falta por Facturar</strong></span>
+                                    <br><br>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered table-hover dataTableSinCopade" cg-busy="{promise:promise,message:message}">
+                                                <thead>
+                                                    <tr><th>Consecutivo</th>
+                                                        <th>Número de la Orden</th>
+                                                        <th>Número Económico</th>
+                                                        <th>Zona</th>
+                                                        <th>TAR</th>
+                                                        <th>Nombre Taller</th>
+                                                        <th>Fecha Cita</th>
+                                                        <th>Fecha Factura Proveedor</th>
+                                                        <th>Trabajo</th>
+                                                        <th>Observación</th>
+                                                        <th>Estatus Órden Servicio</th>
+                                                        <th>Horas sin Facturar</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                     <tr ng-repeat="sincopades in datasincopade">
+                                                        <td>{{sincopades.idCita}}</td>
+                                                        <td>{{sincopades.numeroTrabajo}}</td>
+                                                        <td>{{sincopades.numEconomico}}</td>
+                                                        <td>{{sincopades.zona}}</td>
+                                                        <td>{{sincopades.TAR}}</td>
+                                                        <td>{{sincopades.razonSocial}}</td>
+                                                        <td>{{sincopades.fechaCita | date:'dd-MM-yyyy HH:mm'}}</td>
+                                                        <td>{{sincopades.fechaEstatus | date:'dd-MM-yyyy HH:mm'}}</td>
+                                                        
+                                                        <td>{{sincopades.trabajo}}</td>
+                                                        <td>{{sincopades.observacion}}</td>
+                                                        <td>{{sincopades.estatus}}</td>
+                                                        <td ng-class="{'rowVerde': sincopades.horasRetraso <= 49, 'rowAmarillo': sincopades.horasRetraso >= 50 && sincopades.horasRetraso  <=100, 'rowRojo': sincopades.horasRetraso >= 101}">{{sincopades.horasRetraso}}</td>
+                                                    </tr> 
+                                                </tbody>
+                                            </table>
+
+                                            
+                                        </div>
+                                    </div>
+                                    <div ng-show="tipoPorCobrar==2">
+                                    <span class="subtitle"><strong>Factura Enviada al Cliente</strong></span>
+                                    <br><br>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered table-hover dataTableFacturado" cg-busy="{promise:promise,message:message}">
+                                                <thead>
+                                                    <tr><th>Consecutivo</th>
+                                                        <th>Número de la Orden</th>
+                                                        <th>Número Económico</th>
+                                                        <th>Zona</th>
+                                                        <th>TAR</th>
+                                                        <th>Nombre Taller</th>
+                                                        <th>Fecha Cita</th>
+                                                        <th>Fecha Factura Proveedor</th>
+                                                        <th>Trabajo</th>
+                                                        <th>Observación</th>
+                                                        <th>Estatus Órden Servicio</th>
+                                                        <th>Horas sin Facturar</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                     <tr ng-repeat="confactura in datafacturada">
+                                                        <td>{{confactura.idCita}}</td>
+                                                        <td>{{confactura.numeroTrabajo}}</td>
+                                                        <td>{{confactura.numEconomico}}</td>
+                                                        <td>{{confactura.zona}}</td>
+                                                        <td>{{confactura.TAR}}</td>
+                                                        <td>{{confactura.razonSocial}}</td>
+                                                        <td>{{confactura.fechaCita | date:'dd-MM-yyyy HH:mm'}}</td>
+                                                        <td>{{confactura.fechaEstatus | date:'dd-MM-yyyy HH:mm'}}</td>
+                                                        
+                                                        <td>{{confactura.trabajo}}</td>
+                                                        <td>{{confactura.observacion}}</td>
+                                                        <td>{{confactura.estatus}}</td>
+                                                        <td ng-class="{'rowVerde': confactura.horasRetraso <= 49, 'rowAmarillo': confactura.horasRetraso >= 50 && confactura.horasRetraso  <=100, 'rowRojo': confactura.horasRetraso >= 101}">{{confactura.horasRetraso}}</td>
+                                                    </tr> 
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div> -->
+
+
+							</div>
+
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>

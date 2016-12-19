@@ -1,0 +1,90 @@
+<link href="../../css/inspinia/sweetalert/sweetalert.css" rel="stylesheet">
+<link rel="stylesheet" href="../../css/tutorial.css">
+<div ng-init="init()" class="animated bounceInRight ">
+    <div class="headTitleTallerCita">
+        <span class="title">Tutorial</span>
+        <!--button  class="glyphicon glyphicon-info-sign btn_info " ng-click="info()" ></button-->
+         <span class="glyphicon glyphicon-info-sign btn_info" tooltip="Información" ng-click="info()"></span>
+      
+    </div>
+    <br>
+    <div class="wrapper wrapper-content center_content {{class_width}}">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        
+                        <br/>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-6 paddingTwenty">
+                                   <label>Consula de Cita</label>
+                                    <br/>
+                                    <video width="400" controls>
+                                      <source src="uploads/tutorial/consulta_de_citas.mp4" type="video/mp4">
+                                    </video>
+                                </div>
+                                <div class="col-md-6 paddingTwenty">
+                                   <label>Citas</label>
+                                    <br/>
+                                    <video width="400" controls>
+                                      <source src="uploads/tutorial/citas_administrador.mp4" type="video/mp4">
+                                    </video>
+                                </div>
+                              </div>
+
+                              <div class="col-md-12">
+                                <div class="col-md-6 paddingTwenty">
+                                   <label>Órdenes de Servicio </label>
+                                    <br/>
+                                   <video width="400" controls>
+                                      <source src="uploads/tutorial/Ordenes_de_Servicio.mp4" type="video/mp4">
+                                    </video>
+                                </div>
+                                <div class="col-md-6 paddingTwenty">
+                                   <label>Validación de Órdenes</label>
+                                    <br/>
+                                   <video width="400" controls>
+                                      <source src="uploads/tutorial/Validacion_de_Ordenes.mp4" type="video/mp4">
+                                    </video>
+                                </div>
+                              </div>
+
+                             <div class="col-md-12">
+                                <div class="col-md-6 paddingTwenty">
+                                   <label>Certificados de Conformidad  y Copade</label>
+                                    <br/>
+                                    <video width="400" controls>
+                                      <source src="uploads/tutorial/Certificados_Conformidad_y_Copade.mp4" type="video/mp4">
+                                    </video>
+                                </div>
+                            </div>
+                        </div>
+                        
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="cotizador_slide" class="{{class_info}} {{class_info_width}} " ng-show="show_slide" >
+    
+      <div  class="well well-lg">
+
+        <div aria-hidden="true" id="icon_slide" class="title title_info">
+          <a  ng-mouseenter="hover_slide(true)" ng-mouseleave="hover_slide(false)"  >Información</a>
+        </div>
+
+        <div class=" row etiqueta">Teléfono de Contacto : 01 800 000 000 </div>
+
+        <div class=" row etiqueta">Team Viewer </div>
+        <img src="uploads/tutorial/teamViewer.png" ng-click="descargaTeam()" tooltip="Descargar" class="img_info">
+      </div>
+     
+  </div>
+ 
+</div>
+
+
+

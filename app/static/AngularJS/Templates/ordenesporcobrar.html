@@ -1,0 +1,504 @@
+<link href="../../css/inspinia/sweetalert/sweetalert.css" rel="stylesheet">
+<link rel="stylesheet" href="../../css/trabajo.css">
+<div ng-init="init()" class="animated bounceInRight">
+    <div class="headTitleTallerCita">
+        <span class="title">Órdenes por Cobrar<span class="subtitle">Call Center / Taller</span></span>
+    </div>
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <tabset>
+                            <tab heading="Órdenes Sin COPADE" index="0">
+                                <div class=" row etiquetaTotales">Precio total: <span class="totales">{{sumatoriaOrdenes| currency: "$"}}</span></div>
+                                 <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover dataTableOrdenesVerificadas" cg-busy="{promise:promise,message:message, minDuration: minDuration,delay:delay}">
+                                        <thead>
+                                            <tr>
+                                                <th>Cliente</th>
+                                                <th>Consecutivo</th>
+                                                <th>Número de la Orden</th>
+                                                <th>Número Económico</th>
+                                                <th>Zona</th>
+                                                <th>TAR</th>
+                                                <th>Taller</th>
+                                                <th>Tipo Orden</th>
+                                                <th>Orden de Surtimiento</th>
+                                                <th>Descripción de la Orden</th>
+                                                <th>Estatus</th>
+                                                <th>Estatus provisión</th>
+                                                <th>Precio venta sin IVA</th>
+                                                <th>Fecha Ingreso Unidad</th>
+                                                <th>Fecha Inicio Trabajo</th>
+                                                <th>Fecha Fin Trabajo</th>
+                                                <th>Acción</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="ordenverificada in verificadas">
+                                                <td>{{ordenverificada.cliente}}</td>
+                                                <td>{{ordenverificada.idCita}}</td>
+                                                <td>{{ordenverificada.numeroTrabajo}}</td>
+                                                <td>{{ordenverificada.numEconomico}}</td>
+                                                <td>{{ordenverificada.zona}}</td>
+                                                <td>{{ordenverificada.TAR}}</td>
+                                                <td>{{ordenverificada.razonSocial}}</td>
+                                                <td>{{ordenverificada.idTipoCita == 4 ? "Refacciones" : "Servicio"}}</td>
+                                                <td>{{ordenverificada.folio}}</td>
+                                                <td>{{ordenverificada.trabajo}}</td>
+                                                <td>{{ordenverificada.descripcionLarga }}</td>
+                                                <td ng-class="{'rowAzul': ordenverificada.estatusBPRO=='No provisionada'}">{{ordenverificada.estatusBPRO}}</td>
+                                                <!-- <td ng-if="ordenverificada.estatusProvision == 1">
+                                                    Provisionada
+                                                </td>
+                                                <td class="rowAzul" ng-if="ordenverificada.estatusProvision == 0">
+                                                    No provisionada
+                                                </td> -->
+                                                <td>{{ordenverificada.montoOrden | currency}}</td>
+                                                <td>{{ordenverificada.fechaIngresoUnidad | date:'dd-MM-yyyy HH:mm'}}</td>
+                                                <td>{{ordenverificada.fechaInicio | date:'dd-MM-yyyy HH:mm'}}</td>
+                                                <td>{{ordenverificada.fechaFin | date:'dd-MM-yyyy HH:mm'}}</td>
+                                                <td>
+                                                    <!-- <button class="btn btn-info" type="button" ng-click="aprobarTrabajo(ordenverificada, 1)" data-toggle="tooltip" tooltip="Ver órden de servicio" tooltip-placement="up"><span class="glyphicon glyphicon-sunglasses"></span></button> -->
+
+                                                    <div class="alerta"> 
+                                                        <button class="dropdown-toggle alerta-form btn btn-info" tooltip="Ver órden de servicio" data-toggle="dropdown" href="#" aria-expanded="true" ng-click="aprobarTrabajo(ordenverificada, 1)">
+                                                        <i class="glyphicon glyphicon-sunglasses"></i>  <span ng-hide="ordenverificada.numeroNotas == 0" class="letter-labal alerta-color">{{ordenverificada.numeroNotas}}</span>
+                                                        </button>
+                                                        <ul class="dropdown-menu dropdown-messages">
+                                                        </ul>
+                                                    </div> 
+
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </tab>
+                            <tab heading="Cargar COPADES" index="1" ng-show="userData.idTipoUsuario == 1">
+
+                                <div class=" row etiquetaTotales">Precio total: <span class="totales">{{sumatoriaCOPADE| currency: "$"}}</span></div>
+                                 <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+
+                                <div ng-show="userData.idTipoUsuario == 1">
+                                    <br>
+                                    <div class="ibox-content" ng-show="fechaRecepcionCopade==''">
+                                        <div class="alert alert-danger">
+                                            <strong>Seleccione una FECHA, </strong> para poder subir COPADE.
+                                        </div>
+                                    </div>
+                                    {{fechaRecepcionCopade}}&nbsp;&nbsp;
+                                    <button class="btn btn-success" type="button" ng-click="fechaRecepcibeCopade()" data-toggle="tooltip" tooltip="Fecha de Recepcion COPADE" tooltip-placement="up"><span class="glyphicon glyphicon-calendar"></span>&nbsp;Fecha de Recepcion COPADE</button>&nbsp;&nbsp;
+                                    <button class="btn btn-primary" type="button" id="btnEnviar" data-toggle="tooltip" tooltip="Cargar COPADE" tooltip-placement="right" ng-click="subir(orden.idTrabajo)" ng-disabled="fechaRecepcionCopade==''">
+                                        <span class="fa fa-paperclip" aria-hidden="true" data-toggle="modal">&nbsp;Cargar COPADE</span>
+                                    </button>&nbsp;&nbsp;&nbsp;
+                                    <br>
+                                    <br>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered table-hover dataTableCopades" cg-busy="{promise:promise,message:message, minDuration: minDuration, delay:delay}">
+                                            <thead>
+                                                <tr>
+                                                    <!--th>Cliente</th-->
+                                                    <th>Número Copade</th>
+                                                    <th>Órden de Surtimiento</th>
+                                                    <th>No. Estimación</th>
+                                                    <th>Total</th>
+                                                    <th>Subtotal</th>
+                                                    <th>Fecha Carga de ASE</th>
+                                                    <th>Fecha Llegada Copade</th>
+                                                    <th>Acción</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="copade in copades">
+                                                    <!--td>{{copade.cliente}}</td-->
+                                                    <td>{{copade.numeroCopade}}</td>
+                                                    <td>{{copade.ordenSurtimiento}}</td>
+                                                    <td>{{copade.numeroEstimacion}}</td>
+                                                    <td>{{copade.total | currency}}</td>
+                                                    <td>{{copade.subTotal | currency}}</td>
+                                                    <td>{{copade.fechaCarga | date:'dd-MM-yyyy HH:mm'}}</td>
+                                                    <td>{{copade.fechaRecepcionCopade}}</td>
+                                                    <td>
+                                                        <button class="btn btn-primary" type="button" ng-click="buscaCoincidencia(copade.idDatosCopade)" data-toggle="tooltip" tooltip="Buscar coincidencias" tooltip-placement="left"><span class="glyphicon glyphicon-search"></span></button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </tab>
+                            <tab heading="PreFactura Generada" index="2" ng-show="userData.idTipoUsuario == 1 || userData.idTipoUsuario == 2 || userData.idTipoUsuario == 4">
+                                <div class=" row etiquetaTotales">Precio total: <span class="totales"> {{sumatoriaPrefactura| currency: "$"}}</span></div>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover dataTablePreFacturas" cg-busy="{ promise:promise,message:message } ">
+                                        <thead>
+                                            <tr>
+                                                <!--th>Consecutivo</th>
+                                                <th>Número de la Orden</th>
+                                                <th>Número Económico</th>
+                                                <th>Zona</th>
+                                                <th>TAR</th>
+                                                <th>Taller</th>
+                                                <th>Tipo Orden</th-->
+                                                <th>Cliente</th>
+                                                <th>No. COPADE</th>
+                                                <th>Orden de Surtimiento</th>
+                                                <th>No. Estimación</th>
+                                                <th>Descripción de la Orden</th>
+                                                <th>Total</th>
+                                                <th>Subtotal</th>
+                                                <th>Fecha COPADE</th>
+                                                <th ng-show="trabajosporCOPADE==1">Números de Órdenes</th>
+                                                <!--th>Estatus</th>
+                                                <th>Precio venta sin IVA</th>
+                                                <th>Fecha</th> 
+                                                <th>Agendó</th-->
+                                                <th ng-hide="userData.idTipoUsuario == 4">Acción</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="cita in facturas">
+                                                <!--td>{{cita.idCita}}</td>
+                                                <td>{{cita.numeroTrabajo}}</td>
+                                                <td>{{cita.numEconomico}}</td>
+                                                <td>{{cita.zona}}</td>
+                                                <td>{{cita.TAR}}</td>
+                                                <td>{{cita.razonSocial}}</td>
+                                                <td>{{cita.idTipoCita == 4 ? "Refacciones" : "Servicio"}}</td-->
+                                                <td>{{cita.cliente}}</td>
+                                                <td>{{cita.numeroCopade}}</td>
+                                                <td>{{cita.folio}}</td>
+                                                <td>{{cita.numeroEstimacion}}</td>
+                                                <td>{{cita.descripcion}}</td>
+                                                <td>{{cita.total | currency}}</td>
+                                                <td>{{cita.subTotal | currency}}</td>
+                                                <td>{{cita.fechaRecepcionCopade | date:'dd-MM-yyyy'}}</td>
+                                                <td ng-show="trabajosporCOPADE==1">{{cita.numeroTrabajo}}</td>
+                                                <!--td>{{cita.estatus}}</td>
+                                                <td>{{cita.montoOrden | currency}}</td>
+                                                <td>{{cita.fecha | date:'dd-MM-yyyy HH:mm'}}</td>     
+                                                <td>{{cita.nombreCompleto}}</td-->
+                                                <td ng-hide="userData.idTipoUsuario == 4"> 
+                                                     <button class="btn btn-success" type="button" ng-click="verOrdenes(cita.idDatosCopade)" data-toggle="tooltip" tooltip="Detalle copade" tooltip-placement="left"><span class="glyphicon glyphicon-eye-open"></span></button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </tab>
+
+                            <tab heading="Factura Enviada al Cliente" index="3" ng-show="userData.idTipoUsuario == 1 || userData.idTipoUsuario == 2">
+                                <div class=" row etiquetaTotales">Precio total: <span class="totales"> {{sumatoriafacturadas| currency: "$"}}</span></div>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover dataTableFacturados" cg-busy="{ promise:promise,message:message } ">
+                                        <thead>
+                                            <tr>
+                                                <th>Cliente</th>
+                                                <th>No. COPADE</th>
+                                                <th>Orden de Surtimiento</th>
+                                                <th>No. Estimación</th>
+                                                <th>Descripción de la Orden</th>
+                                                <th>Total</th>
+                                                <th>Subtotal</th>
+                                                <th>Fecha COPADE</th>
+                                                <th>Folio Factura</th>
+                                                <th ng-show="trabajosporCOPADE==1">Números de Órdenes</th>
+                                                <th>Acción</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="facturado in facturados">
+                                                <td>{{facturado.cliente}}</td>
+                                                <td>{{facturado.numeroCopade}}</td>
+                                                <td>{{facturado.folio}}</td>
+                                                <td>{{facturado.numeroEstimacion}}</td>
+                                                <td>{{facturado.descripcion}}</td>
+                                                <td>{{facturado.total | currency}}</td>
+                                                <td>{{facturado.subTotal | currency}}</td>
+                                                <td>{{facturado.fechaRecepcionCopade | date:'dd-MM-yyyy'}}</td>
+                                                <td>{{facturado.COP_IDDOCTO}}</td>
+                                                <td ng-show="trabajosporCOPADE==1">{{facturado.numeroTrabajo}}</td>
+                                                     <td ng-hide="userData.idTipoUsuario == 4"> 
+                                                         <button class="btn btn-success" type="button" ng-click="verOrdenes(facturado.idDatosCopade)" data-toggle="tooltip" tooltip="Detalle copade" tooltip-placement="left"><span class="glyphicon glyphicon-eye-open"></span></button>
+
+                                                         <button class="btn btn-info" type="button" ng-click="" data-toggle="tooltip" tooltip="Ver Factura" tooltip-placement="left"><span class="glyphicon glyphicon-sunglasses"></span></button>
+                                                    </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </tab>
+
+                        </tabset>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    <div class="modal inmodal lg" id="facturasOrden" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content animated flipInY">
+                <div class="modal-header">
+                    <h4 class="modal-title">Órdenes relacionadas con COPADE</h4>
+
+                    <div class="row"> 
+                        <div class="col-xs-12">
+                            <h6 class="modal-title text-navy">
+                                         <br>
+                          Número COPADE: {{numeroCopadeOrden}}
+                                         </h6>
+                        </div>
+                     </div> 
+
+                </div>
+                <br>
+                <div class="modal-body col-md-12">
+                    <div class="row  table-responsive">
+                        <table class="table table-striped table-bordered table-hover dataTableTrabajosCobrados">
+                            <thead>
+                                <tr>
+                                    <th>Consecutivo</th>
+                                    <th>Número de la Orden</th>
+                                    <th>Número Económico</th>
+                                    <th>Zona</th>
+                                    <th>TAR</th>
+                                    <th>Taller</th>
+                                    <th>Tipo Orden</th>
+                                    <th>Estatus</th>
+                                    <th>Precio venta sin IVA</th>
+                                    <th>Fecha</th> 
+                                    <th>Agendó</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="cita in trabajosCobrados">
+                                    <td>{{cita.idCita}}</td>
+                                    <td>{{cita.numeroTrabajo}}</td>
+                                    <td>{{cita.numEconomico}}</td>
+                                    <td>{{cita.zona}}</td>
+                                    <td>{{cita.TAR}}</td>
+                                    <td>{{cita.razonSocial}}</td>
+                                    <td>{{cita.idTipoCita == 4 ? "Refacciones" : "Servicio"}}</td>
+                                    <td>{{cita.estatus}}</td>
+                                    <td>{{cita.montoOrden | currency}}</td>
+                                    <td>{{cita.fecha | date:'dd-MM-yyyy HH:mm'}}</td>     
+                                    <td>{{cita.nombreCompleto}}</td>
+                                    <td>
+                                    <!-- <button class="btn btn-info" type="button" ng-click="aprobarTrabajo(cita, 1)" data-toggle="tooltip" tooltip="Ver órden de servicio" tooltip-placement="left"><span class="glyphicon glyphicon-sunglasses"></span></button> -->
+
+                                    <div class="alerta"> 
+                                        <button class="dropdown-toggle alerta-form btn btn-info" tooltip="Ver órden de servicio" data-toggle="dropdown" href="#" aria-expanded="true" ng-click="aprobarTrabajo(cita, 1)">
+                                        <i class="glyphicon glyphicon-sunglasses"></i>  <span ng-hide="cita.numeroNotas == 0" class="letter-labal alerta-color">{{cita.numeroNotas}}</span>
+                                        </button>
+                                            <ul class="dropdown-menu dropdown-messages">
+                                            </ul>
+                                    </div> 
+
+                                    <!-- <a id="downloadFactura" type="button" data-toggle="tooltip" tooltip="Generar Factura.txt" tooltip-placement="left" class="btn btn-primary" role="button" ng-click="generaTXT(cita.idTrabajo, cita.numeroTrabajo)"><span class="fa fa-file-text-o"></span></a> -->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button  type="button" class="btn btn-success" data-dismiss="modal">Aceptar</button>
+            </div>
+        </div>
+    </div>
+    
+    </div>
+    <div id="subirAdenda" class="modal inmodal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+
+            <!-- Modal content-->
+            <div class="modal-content animated flipInY">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Subir Adenda, COPADE</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive m-t">
+                        <div class="dropzone" options="dzOptionsOrdenCobrar" callbacks="dzCallbacks" methods="dzMethods" ng-dropzone></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" ng-click="dzMethods.processQueue();">Adjuntar Archivos</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal inmodal" id="finalizarTrabajoModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated flipInY">
+                <div class="modal-header">
+                    <h4 class="modal-title">Capturar Fecha Recepcion COPADE</h4>
+                </div>
+                <br>
+                <div class="col-xs-10">
+                    <div class="form-group" id="fechaTrabajo">
+                        <div class="input-group date">
+                            <input type="text" placeholder="Introduzca la fecha de la Copade" class="form-control" value="" ng-model="fechaRecepcionCopade">
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <!--             <br>
+            <br>
+            <div class="col-xs-10">
+                <div class="input-group clockpicker" data-autoclose="true">
+                    <input type="text" placeholder="Introduzca la hora de la Copade" class="form-control" value="" ng-model="hora">
+                    <span class="input-group-addon">
+                                    <span class="fa fa-clock-o"></span>
+                    </span>
+                </div>
+            </div>
+            <br> -->
+                <br>
+                <br>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal" ng-click="limpiaFecha()">Cancelar</button>
+                    <button type="button" class="btn btn-success" ng-click="saveFecha()">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- dataTableCoincidencia
+dataTableOrdenesPorCobrar -->
+    <div class="modal inmodal" id="mejorCoincidencia" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content  flipInY">
+                <div class="modal-header">
+                    <!--<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>-->
+                    <h3 class="modal-title">Mejor Coincidencia</h3>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <h6 class="modal-title text-navy">
+                                         <br><br><br>
+                                                Número COPADE: {{numeroCopade}}
+                                         </h6>
+                        </div>
+                        <div class="col-xs-6">
+                            <br>
+                            <br>
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Órden de Surtimiento</th>
+                                        <td>{{folio}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Número Estimación</th>
+                                        <td>{{numeroestimacion}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Monto de la Orden</th>
+                                        <td>{{monto | currency}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Fecha Carga de ASE</th>
+                                        <td>{{fechacarga | date:'dd-MM-yyyy HH:mm'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Fecha Llegada COPADE</th>
+                                        <td>{{fecharecepcion}}</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!--                 <h6 class="modal-title text-navy">
+                                        <br>
+                                            Orden de Surtimiento: {{folio}} &nbsp
+                                            Monto de la Orden: {{monto | currency}}
+                                        </h6> -->
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover dataTableCoincidencia">
+                            <thead>
+                                <tr>
+                                    <th>Número de la Orden</th>
+                                    <th>Número Económico</th>
+                                    <th>TAR</th>
+                                    <th>Orden de Surtimiento</th>
+                                    <th>Monto de la Orden</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="coincidencias in coincidencia">
+                                    <td>{{coincidencias.numeroTrabajo}}</td>
+                                    <td>{{coincidencias.numEconomico}}</td>
+                                    <td>{{coincidencias.TAR}}</td>
+                                    <td>{{coincidencias.folio}}</td>
+                                    <td>{{coincidencias.montoOrden | currency}}</td>
+                                    <td>
+                                        <input type="checkbox" name="name" ng-click="seleccionMejorCoincidencia(coincidencias.idTrabajo, coincidencias.montoOrden, coincidencias.numeroTrabajo)" data-toggle="tooltip" tooltip="" tooltip-placement="left">&nbsp;Elegir
+
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="modal-header">
+                            <h3 class="modal-title">Ordenes por Cobrar</h3>
+                        </div>
+                        <table class="table table-striped table-bordered table-hover dataTableOrdenesPorCobrar">
+                            <thead>
+                                <tr>
+                                    <th>Número de la Orden</th>
+                                    <th>Número Económico</th>
+                                    <th>TAR</th>
+                                    <th>Orden de Surtimiento</th>
+                                    <th>Monto de la Orden</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="orden in ordenes">
+                                    <td>{{orden.numeroTrabajo}}</td>
+                                    <td>{{orden.numEconomico}}</td>
+                                    <td>{{orden.TAR}}</td>
+                                    <td>{{orden.folio}}</td>
+                                    <td>{{orden.montoOrden | currency}}</td>
+                                    <td>
+                                        <input type="checkbox" name="name" ng-click="seleccionMejorCoincidencia(orden.idTrabajo, orden.montoOrden, orden.numeroTrabajo)" data-toggle="tooltip" tooltip-placement="left">&nbsp;Elegir        
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal" ng-click="cleanDatos()">Salir</button>
+                    <button type="button" class="btn btn-primary" ng-click="asociarCopade()">Crear prefactura</button>
+                </div>
+            </div>
+        </div>
+    </div>

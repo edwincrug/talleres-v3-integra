@@ -1,0 +1,25 @@
+﻿<PreFactura>
+  <Comprobante subtotal="474.40" total="550.30" moneda="MXN">
+    <Conceptos>
+      <Concepto cantidad="1.000" descripcion="617 MANTTO DE A/T MODELOS HASTA 2010" importe="474.40" unidad="SER" valorUnitario="474.40" />
+    </Conceptos>
+    <Impuestos totalImpuestosRetenidos="0" totalImpuestosTrasladados="75.90">
+      <Traslados>
+        <Traslado impuesto="IVA" importe="75.90" tasa="16.00" />
+      </Traslados>
+    </Impuestos>
+  </Comprobante>
+  <cfdi:Addenda xmlns:cfdi="http://www.sat.gob.mx/cfd/3">
+    <pm:Addenda_Pemex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pm="http://pemex.com/facturaelectronica/addenda/v2" xsi:schemaLocation="http://pemex.com/facturaelectronica/addenda/v2 https://pemex.reachcore.com/schemas/addenda-pemex-v2.xsd">
+      <pm:CONTRATO>5400027380</pm:CONTRATO>
+      <pm:O_SURTIMIENTO>5800056993</pm:O_SURTIMIENTO>
+      <pm:N_ESTIMACION>AT-09362,RC-GLRN-617-0072-2016,19-08-16</pm:N_ESTIMACION>
+      <pm:N_ACREEDOR>0000108074</pm:N_ACREEDOR>
+      <pm:C_GESTOR>35010018</pm:C_GESTOR>
+      <pm:FINIQUITO>0</pm:FINIQUITO>
+      <pm:POSICIONAP>204310100</pm:POSICIONAP>
+      <pm:ENTRADA>5014296514</pm:ENTRADA>
+      <pm:EJERCICIO>2016</pm:EJERCICIO>
+    </pm:Addenda_Pemex>
+  </cfdi:Addenda>
+</PreFactura>

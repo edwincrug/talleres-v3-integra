@@ -1,0 +1,198 @@
+<link href="../../css/inspinia/sweetalert/sweetalert.css" rel="stylesheet">
+<div ng-init="initAdministracion()">
+    <br>
+    <div class="headTitleAdmonTaller">
+        <span class="title">Administracion de Talleres<span class="subtitle">Administrador</span></span>
+    </div>
+    <br>
+    <div class="wrapper wrapper-content">
+        <div class="row">
+            <div class="col-lg-offset-0 col-lg-11">
+                <form class="form-horizontal">
+                    <div class="col-xs-4">
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">GAR:</label>
+                            <div class="col-xs-9">
+                                <select class="form-control m-b" name="gar" ng-model="idZona" ng-options="gar.idZona as gar.descripcionZona  for gar in tipoGar" ng-change="obtieneZona()">
+                                    <option value="">Seleccione una GAR</option>
+                                    <!--default option -->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">TAD:</label>
+                            <div class="col-xs-9">
+                                <select class="form-control m-b" name="tar" ng-model="idTAR" ng-options="tar.idTAR as tar.nombreTar for tar in tipoTar" ng-disabled="idZona==''">
+                                    <option value="">Seleccione una TAD</option>
+                                    <!--default option -->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Encargado:</label>
+                            <div class="col-xs-9">
+                                <div class="input-group m-b">
+                                    <input type="text" class="form-control" ng-model="encargado" size="40">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Razón Social:</label>
+                            <div class="col-xs-9">
+                                <div class="input-group m-b">
+                                    <input type="text" class="form-control" ng-model="razonSocial" size="40">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">RFC:</label>
+                            <div class="col-xs-9">
+                                <div class="input-group m-b">
+                                    <input type="text" class="form-control" ng-model="rfc" size="40">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Tipo Usuario:</label>
+                            <div class="col-xs-9">
+                                <select class="form-control m-b" name="usuario" ng-model="idTipoPersona" ng-options="usuario.idTipoPersona as usuario.descripcionLarga  for usuario in tipoUsuario">
+                                    <option value="">Seleccione un tipo de Usuario</option>
+                                    <!--default option -->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Clave Usuario:</label>
+                            <div class="col-xs-9">
+                                <div class="input-group m-b">
+                                    <input type="text" class="form-control" ng-model="claveUsuario" size="40">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Lada:</label>
+                            <div class="col-xs-9">
+                                <div class="input-group m-b">
+                                    <input type="text" class="form-control" ng-model="lada" size="40">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Teléfono:</label>
+                            <div class="col-xs-9">
+                                <div class="input-group m-b">
+                                    <input type="text" class="form-control" ng-model="telefono" size="40">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Email:</label>
+                            <div class="col-xs-9">
+                                <div class="input-group m-b">
+                                    <input type="text" class="form-control" ng-model="email" size="40">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">País:</label>
+                            <div class="col-xs-9">
+                                <div class="input-group m-b">
+                                    <input type="text" class="form-control" ng-model="pais" size="40">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Ciudad:</label>
+                            <div class="col-xs-9">
+                                <div class="input-group m-b">
+                                    <input type="text" class="form-control" ng-model="ciudad" size="40">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Estado:</label>
+                            <div class="col-xs-9">
+                                <div class="input-group m-b">
+                                    <input type="text" class="form-control" ng-model="estado" size="40">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Delegación:</label>
+                            <div class="col-xs-9">
+                                <div class="input-group m-b">
+                                    <input type="text" class="form-control" ng-model="delegacion" size="40">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Colonia:</label>
+                            <div class="col-xs-9">
+                                <div class="input-group m-b">
+                                    <input type="text" class="form-control" ng-model="colonia" size="40">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Calle:</label>
+                            <div class="col-xs-9">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" ng-model="calle" size="40">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Número Exterior:</label>
+                            <div class="col-xs-9">
+                                <div class="input-group m-b">
+                                    <input type="text" class="form-control" ng-model="numeroExterior" size="40">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Código Postal:</label>
+                            <div class="col-xs-9">
+                                <div class="input-group m-b">
+                                    <input type="text" class="form-control" ng-model="codigoPostal" size="40">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Estatus:</label>
+                            <div class="col-xs-9">
+                                <select class="form-control m-b" name="status" ng-model="idStatusTaller" ng-options="status.idStatusTaller as status.descripcionLargaStatus  for status in estatus">
+                                    <option value="">Seleccione un Estatus</option>
+                                    <!--default option -->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">IDProveedor:</label>
+                            <div class="col-xs-9">
+                                <div class="input-group m-b">
+                                    <input type="text" class="form-control" ng-model="idProveedor" size="40">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-offset-10 col-xs-2">
+                            <button class="btn btn-primary" ng-click="insertaTaller()" ng-if="actualizarTaller!=1"><i class="fa fa-check">
+                                </i> Guardar</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-offset-10 col-xs-2">
+                            <button class="btn btn-primary btnidProveedor" ng-click="actualizaTaller()" ng-if="actualizarTaller==1"><i class="fa fa-check">
+                                </i> Actualizar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

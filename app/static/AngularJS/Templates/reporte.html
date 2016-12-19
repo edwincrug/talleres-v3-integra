@@ -1,0 +1,190 @@
+<div ng-init="init()" class="animated bounceInRight">
+    <div class="headTitleTallerCita">
+        <span class="title"> Reporte<span class="subtitle"></span></span>
+    </div>
+    <div class="wrapper wrapper-content">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">   
+                        <div class="table-responsive" ng-if="userData.idTipoUsuario == 1">                         
+                            <table class="table table-striped table-bordered table-hover dataTableReporte" cg-busy="{promise:promise,message:message}">
+                                <thead>
+                                    <tr>
+                                        <th>ConsecutivoOrden</th>
+                                        <th>Fecha Cita</th>
+                                        <th>Estatus Órden Servicio</th>
+                                        <th>Estatus Cotización</th>
+                                        <th>Estatus Cotización Detalle</th>
+                                        <th>Número Órden</th>
+                                        <th>Número Cotización</th>
+                                        <th>idTaller</th>
+                                        <th>Nombre Taller</th>
+                                        <th>Dirección</th>
+                                        <th>TAD Unidad</th>
+                                        <th>Número Económico</th>
+                                        <th>Marca - Modelo</th> 
+                                        <th>Fecha Creación Cita</th>                        
+                                        <th>Estado Autotanque</th>
+                                        <th>Fecha Confirmación Cita</th>
+                                        <th>Estatus Cancelación</th>                             
+                                        <th>Fecha Cancelación cita</th>
+                                        <th>Fecha Entrada Unidad</th>
+                                        <th>Fecha Validación o Modificación de Diagnóstico</th>
+                                        <th>Fecha Autorización de Diagnóstico Modificado</th>
+                                        <th>Fecha Inicio Real de Trabajos</th>
+                                        <th>Fecha Terminación Trabajo</th>
+                                        <th>Fecha Salida Unidad</th>
+                                        <th>Fecha Generación del Formato de Conformidad</th>
+                                        <th>Fecha de Carga del Formato de Conformidad</th>
+                                        <th>Fecha de Notificación existencia del formato de conformidad pendientes de Trámite</th>
+                                        <th>Fecha Descarga del Formato de Conformidad</th>
+                                        <th>Fecha de Aceptación del Trabajo por Pemex, Entrada Servicios SAP</th>
+                                        <th>Fecha Trabajo en Garantía</th>
+                                        <th>Fecha Factura Taller</th>
+                                        <th>Fecha Recepción COPADE</th>
+                                        <th>Fecha de Facturacion a la bóveda electrónica</th>
+                                        <th>Órden de Surtimiento</th>
+                                        <th>Facturación refacción</th>
+                                        <th>Costo Reparación</th>
+                                        <th>Venta Reparación</th>
+                                        <th>Porcentaje Utilidad</th>
+                                        <th>Número de las partidas solicitadas por cada unidad</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="dato in datos ">
+                                        <td>{{dato.consecutivoOrden}}</td>
+                                        <td>{{dato.fechaCita}}</td>
+                                        <td>{{dato.estatusServicio}}</td>
+                                        <td>{{dato.estatusCotizacion}}</td>
+                                        <td>{{dato.estatusCotizacionDetalle}}</td>
+                                        <td>{{dato.numeroOrden}}</td>
+                                        <td>{{dato.numeroCotizacion}}</td>
+                                        <td>{{dato.idTaller}}</td>
+                                        <td>{{dato.nombreTaller}}</td>
+                                        <td>{{dato.direccion}}</td>
+                                        <td>{{dato.tadUnidad}}</td>
+                                        <td>{{dato.numeroEconomico}}</td>
+                                        <td>{{dato.marcaModelo}}</td> 
+                                        <td>{{dato.fechaCreacionCita}}</td>                       
+                                        <td>{{dato.estadoAutotanque}}</td>
+                                        <td>{{dato.fechaConfirmacionCita}}</td>
+                                        <td>{{dato.estatusCancelacionCita}}</td>
+                                        <td>{{dato.fechaCancelacionCita}}</td>
+                                        <td>{{dato.fechaEntradaUnidad}}</td>
+                                        <td>{{dato.fechaValidacionoModificaciondeDiagnostico}}</td>
+                                        <td>{{dato.fechaAutorizaciondeDiagnosticoModificado}}</td>
+                                        <td>{{dato.fechaInicioRealdeTrabajos}}</td>
+                                        <td>{{dato.fechaTerminacionTrabajo}}</td>
+                                        <td>{{dato.fechaSalidaUnidad}}</td>
+                                        <td>{{dato.fechaGeneracionASECertificadoConformidad}}</td>
+                                        <td>{{dato.fechaCargaASECertificadoConformidad}}</td>
+                                        <td>{{dato.fechaNotificacionExistenciaFormatoConformidadPerdientes}}</td>
+                                        <td>{{dato.fechaDescargaPemexCertificadoConformidad}}</td>
+                                        <td>{{dato.fechaAceptacionTrabajo}}</td>
+                                        <td>{{dato.fechaTrabajoGarantia}}</td>
+                                        <td>{{dato.fechaFacturaTaller}}</td>
+                                        <td>{{dato.fechaRecepcionCOPADE}}</td>
+                                        <td>{{dato.fechaCOPADE}}</td>
+                                        <td>{{dato.ordenSurtimiento}}</td>
+                                        <td>{{dato.facturacionRefaccion}}</td>                             
+                                        <td>{{dato.costoReparacion}}</td>
+                                        <td>{{dato.ventaReparacion }}</td>
+                                        <td ng-if="dato.ventaReparacion > 0">{{((dato.ventaReparacion - dato.costoReparacion)*100)/dato.ventaReparacion}}</td>
+                                        <td ng-if="dato.ventaReparacion == 0">{{0}}</td>
+                                        <td>{{dato.numeroPartida}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="table-responsive" ng-if="userData.idSubtipoUsuario == 5 || userData.idSubtipoUsuario == 6 || userData.idSubtipoUsuario == 7 || userData.idSubtipoUsuario == 8 || userData.idSubtipoUsuario == 9">      
+                            <table class="table table-striped table-bordered table-hover dataTableReporte" cg-busy="{promise:promise,message:message}">
+                                <thead>
+                                    <tr>
+                                        <th>ConsecutivoOrden</th>
+                                        <th>Fecha Cita</th>
+                                        <th>Estatus Órden Servicio</th>
+                                        <th>Estatus Cotización</th>
+                                        <th>Estatus Cotización Detalle</th>
+                                        <th>Número Órden</th>
+                                        <th>Número Cotización</th>
+                                        <th>idTaller</th>
+                                        <th>Nombre Taller</th>
+                                        <th>Dirección</th>
+                                        <th>TAD Unidad</th>
+                                        <th>Número Económico</th>
+                                        <th>Marca - Modelo</th> 
+                                        <th>Fecha Creación Cita</th>                        
+                                        <th>Estado Autotanque</th>
+                                        <th>Fecha Confirmación Cita</th>
+                                        <th>Estatus Cancelación</th>                             
+                                        <th>Fecha Cancelación cita</th>
+                                        <th>Fecha Entrada Unidad</th>
+                                        <th>Fecha Validación o Modificación de Diagnóstico</th>
+                                        <th>Fecha Autorización de Diagnóstico Modificado</th>
+                                        <th>Fecha Inicio Real de Trabajos</th>
+                                        <th>Fecha Terminación Trabajo</th>
+                                        <th>Fecha Salida Unidad</th>
+                                        <th>Fecha Generación del Formato de Conformidad</th>
+                                        <th>Fecha de Carga del Formato de Conformidad</th>
+                                        <th>Fecha de Notificación existencia del formato de conformidad pendientes de Tramite</th>
+                                        <th>Fecha Descarga del Formato de Conformidad</th>
+                                        <th>Fecha de Aceptación del Trabajo por Pemex, Entrada Servicios SAP</th>
+                                        <th>Fecha Trabajo en Garantía</th>
+                                        <th>Fecha Factura Taller</th>
+                                        <th>Fecha Recepción COPADE</th>
+                                        <th>Fecha de Facturación a la bóveda electrónica</th>
+                                        <th>Órden de Surtimiento</th>
+                                        <th>Venta Reparación</th>
+                                        <th>Número de las partidas solicitadas por cada unidad</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="dato in datos ">
+                                        <td>{{dato.consecutivoOrden}}</td>
+                                        <td>{{dato.fechaCita}}</td>
+                                        <td>{{dato.estatusServicio}}</td>
+                                        <td>{{dato.estatusCotizacion}}</td>
+                                        <td>{{dato.estatusCotizacionDetalle}}</td>
+                                        <td>{{dato.numeroOrden}}</td>
+                                        <td>{{dato.numeroCotizacion}}</td>
+                                        <td>{{dato.idTaller}}</td>
+                                        <td>{{dato.nombreTaller}}</td>
+                                        <td>{{dato.direccion}}</td>
+                                        <td>{{dato.tadUnidad}}</td>
+                                        <td>{{dato.numeroEconomico}}</td>
+                                        <td>{{dato.marcaModelo}}</td> 
+                                        <td>{{dato.fechaCreacionCita}}</td>                       
+                                        <td>{{dato.estadoAutotanque}}</td>
+                                        <td>{{dato.fechaConfirmacionCita}}</td>
+                                        <td>{{dato.estatusCancelacionCita}}</td>
+                                        <td>{{dato.fechaCancelacionCita}}</td>
+                                        <td>{{dato.fechaEntradaUnidad}}</td>
+                                        <td>{{dato.fechaValidacionoModificaciondeDiagnostico}}</td>
+                                        <td>{{dato.fechaAutorizaciondeDiagnosticoModificado}}</td>
+                                        <td>{{dato.fechaInicioRealdeTrabajos}}</td>
+                                        <td>{{dato.fechaTerminacionTrabajo}}</td>
+                                        <td>{{dato.fechaSalidaUnidad}}</td>
+                                        <td>{{dato.fechaGeneracionASECertificadoConformidad}}</td>
+                                        <td>{{dato.fechaCargaASECertificadoConformidad}}</td>
+                                        <td>{{dato.fechaNotificacionExistenciaFormatoConformidadPerdientes}}</td>
+                                        <td>{{dato.fechaDescargaPemexCertificadoConformidad}}</td>
+                                        <td>{{dato.fechaAceptacionTrabajo}}</td>
+                                        <td>{{dato.fechaTrabajoGarantia}}</td>
+                                        <td>{{dato.fechaFacturaTaller}}</td>
+                                        <td>{{dato.fechaRecepcionCOPADE}}</td>
+                                        <td>{{dato.fechaCOPADE}}</td>
+                                        <td>{{dato.ordenSurtimiento}}</td>
+                                        <td>{{dato.ventaReparacion}}</td>
+                                        <td>{{dato.numeroPartida}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

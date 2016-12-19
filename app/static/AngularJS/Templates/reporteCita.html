@@ -1,0 +1,245 @@
+<link href="../../css/inspinia/sweetalert/sweetalert.css" rel="stylesheet">
+<div ng-init="init()">
+    <!--     <div class="headTitleTallerCita">
+        <span class="title">Reporte de Citas<span class="subtitle">Administrador</span></span>
+    </div> -->
+    <div class="wrapper wrapper-content">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+
+
+                        <span class="title">Reporte de Citas</span>
+                        <!-- <FONT SIZE=5>&nbsp;&nbsp;&nbsp;Citas Solicitadas</FONT> -->
+                        <span class="col-md-9 pull-right"> 
+							<div class="col-lg-4">
+							  <div class="pointer" ng-click="citaSolicitada()">
+							    <div class="ibox float-e-margins">
+							        <div class="ibox-title">
+							            <span class="label label-primary pull-right"><i class="glyphicon glyphicon-repeat"></i></span>
+                        <h5>Solicitadas</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins">{{citasolicitadas}}</h1>
+                        <div class="stat-percent font-bold text-navy">{{porcentajesolicitado | number:2}}% </div>
+                        <small>Total</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="pointer" ng-click="citaConfirmada()">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-success pull-right"><i class="glyphicon glyphicon-plus"></i></span>
+                        <h5>Falta cotizar orden</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins">{{citasagendadas}}</h1>
+                        <div class="stat-percent font-bold text-success">{{porcentajeagendado | number:2}}% </div>
+                        <small>Total</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--<div class="col-lg-3">
+								<div class="pointer" ng-click="citaConfirmada()">
+							    <div class="ibox float-e-margins">
+							        <div class="ibox-title">
+							            <span class="label label-info pull-right"><i class="glyphicon glyphicon-ok"></i></span>
+							            <h5>Sin Recepción</h5>
+							        </div>
+							        <div class="ibox-content">
+							            <h1 class="no-margins">{{citasconfirmadas}}</h1>
+							            <div class="stat-percent font-bold text-info">{{porcentajeconfirmado | number:2}}% </div>
+							            <small>Total</small>
+							        </div>
+							    </div>
+							   </div>
+							</div>-->
+        <div class="col-lg-4">
+            <div class="pointer" ng-click="citaCancelada()">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-danger pull-right"><i class="glyphicon glyphicon-remove"></i></span>
+                        <h5>Canceladas</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins">{{citascanceladas}}</h1>
+                        <div class="stat-percent font-bold text-danger">{{porcentajecancelada | number:2}}% </div>
+                        <small>Total</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </span>
+        <div class="ibox-content">
+            <div ng-show="tipoCita==0">
+                <span class="subtitle"><strong>Citas Solicitadas por el Cliente</strong></span>
+                <br>
+                <br>
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover dataTableSolicitar" cg-busy="{promise:promise,message:message}">
+                        <thead>
+                            <tr>
+                                <th>Cliente</th>
+                                <th>Consecutivo</th>
+                                <th>Número Económico</th>
+                                <th>Zona</th>
+                                <th>TAR</th>
+                                <!-- <th>Nombre Taller</th> -->
+                                <th>Fecha Cita</th>
+                                <th>Fecha Creación de Cita</th>
+                                <th>Tipo Cita</th>
+                                <th>Trabajo</th>
+                                <th>Observación</th>
+                                <th>Estatus Órden Servicio</th>
+                                <th>Horas sin Asignar Taller</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="solicitadas in solicitacion">
+                                <td>{{solicitadas.cliente}}</td>
+                                <td>{{solicitadas.idCita}}</td>
+                                <td>{{solicitadas.numEconomico}}</td>
+                                <td>{{solicitadas.zona}}</td>
+                                <td>{{solicitadas.TAR}}</td>
+                                <!-- <td>{{solicitadas.razonSocial}}</td> -->
+                                <td>{{solicitadas.fechaCita | date:'dd-MM-yyyy HH:mm'}}</td>
+                                <td>{{solicitadas.fechaEstatus | date:'dd-MM-yyyy HH:mm'}}</td>
+                                <td>{{solicitadas.tipoCita}}</td>
+                                <td>{{solicitadas.trabajo}}</td>
+                                <td>{{solicitadas.observacion}}</td>
+                                <td>{{solicitadas.estatus}}</td>
+                                <td ng-class="{'rowVerde': solicitadas.horasRetraso <= 49, 'rowAmarillo': solicitadas.horasRetraso >= 50 && solicitadas.horasRetraso  <=100, 'rowRojo': solicitadas.horasRetraso >= 101}">{{solicitadas.horasRetraso}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div ng-show="tipoCita==1">
+                <span class="subtitle"><strong>Falta Confirmación de Fecha</strong></span>
+                <br>
+                <br>
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover dataTableAgendada" cg-busy="{promise:promise,message:message}">
+                        <thead>
+                            <tr>
+                                <th>Consecutivo</th>
+                                <th>Número Económico</th>
+                                <th>Zona</th>
+                                <th>TAR</th>
+                                <th>Nombre Taller</th>
+                                <th>Fecha Cita</th>
+                                <th>Fecha Creación de Cita</th>
+                                <th>Tipo Cita</th>
+                                <th>Trabajo</th>
+                                <th>Observación</th>
+                                <th>Estatus Órden Servicio</th>
+                                <th>Horas sin Confirmación</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="agendadas in agendacion">
+                                <td>{{agendadas.idCita}}</td>
+                                <td>{{agendadas.numEconomico}}</td>
+                                <td>{{agendadas.zona}}</td>
+                                <td>{{agendadas.TAR}}</td>
+                                <td>{{agendadas.razonSocial}}</td>
+                                <td>{{agendadas.fechaCita | date:'dd-MM-yyyy HH:mm'}}</td>
+                                <td>{{agendadas.fechaEstatus | date:'dd-MM-yyyy HH:mm'}}</td>
+                                <td>{{agendadas.tipoCita}}</td>
+                                <td>{{agendadas.trabajo}}</td>
+                                <td>{{agendadas.observacion}}</td>
+                                <td>{{agendadas.estatus}}</td>
+                                <td ng-class="{'rowVerde': agendadas.horasRetraso <= 49, 'rowAmarillo': agendadas.horasRetraso >= 50 && agendadas.horasRetraso  <=100, 'rowRojo': agendadas.horasRetraso >= 101}">{{agendadas.horasRetraso}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div ng-show="tipoCita==2">
+                <span class="subtitle"><strong>Falta cotizar orden</strong></span>
+                <br>
+                <br>
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover dataTableConfirmada" cg-busy="{promise:promise,message:message}">
+                        <thead>
+                            <tr>
+                                <th>Consecutivo</th>
+                                <th>Número Económico</th>
+                                <th>Zona</th>
+                                <th>TAR</th>
+                                <th>Nombre Taller</th>
+                                <th>Fecha Cita</th>
+                                <th>Tipo Cita</th>
+                                <th>Trabajo</th>
+                                <th>Observación</th>
+                                <th>Estatus Órden Servicio</th>
+                                <th>Horas de Retraso de Recepción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="confirmadas in confirmacion">
+                                <td>{{confirmadas.idCita}}</td>
+                                <td>{{confirmadas.numEconomico}}</td>
+                                <td>{{confirmadas.zona}}</td>
+                                <td>{{confirmadas.TAR}}</td>
+                                <td>{{confirmadas.razonSocial}}</td>
+                                <td>{{confirmadas.fechaCita | date:'dd-MM-yyyy HH:mm'}}</td>
+                                <td>{{confirmadas.tipoCita}}</td>
+                                <td>{{confirmadas.trabajo}}</td>
+                                <td>{{confirmadas.observacion}}</td>
+                                <td>{{confirmadas.estatus}}</td>
+                                <td ng-class="{'rowVerde': confirmadas.horasRetraso <= 49, 'rowAmarillo': confirmadas.horasRetraso >= 50 && confirmadas.horasRetraso  <=100, 'rowRojo': confirmadas.horasRetraso >= 101}">{{confirmadas.horasRetraso}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div ng-show="tipoCita==3">
+                <span class="subtitle"><strong>Citas Canceladas</strong></span>
+                <br>
+                <br>
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover dataTableCancelada" cg-busy="{promise:promise,message:message}">
+                        <thead>
+                            <tr>
+                                <th>Consecutivo</th>
+                                <th>Número Económico</th>
+                                <th>Zona</th>
+                                <th>TAR</th>
+                                <th>Nombre Taller</th>
+                                <th>Fecha Cita</th>
+                                <th>Fecha Cancelación de Cita</th>
+                                <th>Tipo Cita</th>
+                                <th>Trabajo</th>
+                                <th>Observación</th>
+                                <th>Estatus Órden Servicio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="canceldas in cancelacion">
+                                <td>{{canceldas.idCita}}</td>
+                                <td>{{canceldas.numEconomico}}</td>
+                                <td>{{canceldas.zona}}</td>
+                                <td>{{canceldas.TAR}}</td>
+                                <td>{{canceldas.razonSocial}}</td>
+                                <td>{{canceldas.fechaCita | date:'dd-MM-yyyy HH:mm'}}</td>
+                                <td>{{canceldas.fechaEstatus | date:'dd-MM-yyyy HH:mm'}}</td>
+                                <td>{{canceldas.tipoCita}}</td>
+                                <td>{{canceldas.trabajo}}</td>
+                                <td>{{canceldas.observacion}}</td>
+                                <td>{{canceldas.estatus}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>

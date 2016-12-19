@@ -1,0 +1,548 @@
+<link href="../../css/inspinia/sweetalert/sweetalert.css" rel="stylesheet">
+<link rel="stylesheet" href="../../css/administracionOrden.css">
+<link rel="stylesheet" href="../../css/nsPopover.css">
+<link rel="stylesheet" href="../../css/trabajo.css">
+<!--<link rel="stylesheet" href="../../css/nsPopoverDialogs.css">-->
+
+<div ng-init="init()" class="animated bounceInRight">
+    <div class="headTitleTallerCita">
+        <span class="title"> Órdenes de Servicio <span class="subtitle">Call Center / Taller</span></span>
+    </div>
+    <div>
+
+    </div>
+    <div class="wrapper wrapper-content">
+        <div class="row">
+
+
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <tabset>
+                            <tab heading="En proceso" index="0">
+                                <div class=" row etiquetaTotales">Precio total: <span class="totales"> {{sumatoriaProceso | currency: "$"}}</span></div>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <div class="table-responsive">
+                                    
+                                    <table class="table table-striped table-bordered table-hover dataTableTrabajo" cg-busy="{promise:promise,message:message}">
+                                        <thead>
+                                            <tr>
+                                                <th>Cliente</th>
+                                                <th>Consecutivo</th>
+                                                <th>Número de la Orden</th>
+                                                <th>Número Económico</th>
+                                                <th>Zona</th>
+                                                <th>TAR</th>
+                                                <th>Taller</th>
+                                                <th>Tipo Orden</th>
+                                                <th>Marca</th>
+                                                <th>Modelo</th>
+                                                <th>Descripción</th>
+                                                <th>Estatus</th>
+                                                <th>Estatus provisión</th>
+                                                <th>Precio venta sin IVA</th>
+                                                <th ng-hide="userData.idTipoUsuario == 3">Fecha</th>
+                                                <th ng-hide="userData.idTipoUsuario == 4 || userData.idTipoUsuario == 3">Fecha inicio real de trabajos</th>
+                                                <th>Acción</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="trabajo in trabajos">
+                                                <td>{{trabajo.cliente}}</td>
+                                                <td>{{trabajo.idCita}}</td>
+                                                <td>{{trabajo.numeroTrabajo}}</td>
+                                                <td>{{trabajo.numEconomico}}</td>
+                                                <td>{{trabajo.zona}}</td>
+                                                <td>{{trabajo.TAR}}</td>
+                                                <td>{{trabajo.razonSocial}}</td>
+                                                <td>{{trabajo.idTipoCita == 4 ? "Refacciones" : "Servicio"}}</td>
+                                                <td>{{trabajo.marca}}</td>
+                                                <td>{{trabajo.modeloMarca}}</td>
+                                                <td>{{trabajo.trabajo}}</td>
+                                                <td ng-class="{'rowAzul': trabajo.estatus=='OrdenGarantia'}">{{trabajo.descripcionLarga}}</td>
+                                                <td ng-class="{'rowAzul': trabajo.estatusBPRO=='No provisionada'}">{{trabajo.estatusBPRO}}</td>
+<!--                                                 <td ng-if="trabajo.estatusProvision == 1">
+                                                    Provisionada
+                                                </td>
+                                                <td class="rowAzul" ng-if="trabajo.estatusProvision == 0">
+                                                    No provisionada
+                                                </td> -->
+                                                <td ng-hide="userData.idTipoUsuario == 3">{{trabajo.precioOrden | currency: "$"}}</td>
+                                                <td>{{trabajo.fecha | date:"dd-MM-yy HH:mm"}}</td>
+                                                <td ng-hide="userData.idTipoUsuario == 4 || userData.idTipoUsuario == 3">{{trabajo.fechaServicio}}
+                                                    <br>
+                                                    <button ng-if="trabajo.estatus == 'Iniciado' || trabajo.estatus == 'OrdenGarantia'" ng-hide="userData.idTipoUsuario == 4" class="btn btn-success" type="button" ng-click="cargaFecha(trabajo.idTrabajo)" data-toggle="tooltip" tooltip="Fecha Inicio real de trabajos" tooltip-placement="up"><span class="glyphicon glyphicon-calendar"></span></button>
+                                                </td>
+                                                <td>
+                                                    <!-- <button class="btn btn-info" type="button" ng-click="aprobarTrabajo(trabajo, 1)" data-toggle="tooltip" tooltip="Ver órden de servicio" tooltip-placement="up"><span class="glyphicon glyphicon-sunglasses"></span></button> -->
+
+                                                    <div class="alerta"> 
+                                                        <button class="dropdown-toggle alerta-form btn btn-info" tooltip="Ver órden de servicio" data-toggle="dropdown" href="#" aria-expanded="true" ng-click="aprobarTrabajo(trabajo, 1)">
+                                                        <i class="glyphicon glyphicon-sunglasses"></i>  <span ng-hide="trabajo.numeroNotas == 0" class="letter-labal alerta-color">{{trabajo.numeroNotas}}</span>
+                                                        </button>
+                                                        <ul class="dropdown-menu dropdown-messages">
+                                                        </ul>
+                                                    </div> 
+
+                                                    <button ng-if="trabajo.estatus == 'Iniciado' || trabajo.estatus == 'OrdenGarantia'" ng-hide="userData.idTipoUsuario == 4 || userData.idTipoUsuario == 3" class="btn "   ng-class="(trabajo.aprobacion  > 0 ? 'btn-warning' : 'btn-success')" type="button" ng-click="openFinishingTrabajoModal(trabajo.idTrabajo)" data-toggle="tooltip" tooltip="Terminar trabajo" tooltip-placement="up"><span class="glyphicon glyphicon-wrench"></span>
+                                                    </button>
+
+                                                    <!--<button ng-hide="userData.idTipoUsuario == 4" ng-disabled="trabajo.tieneAnticipo" class="btn btn-success" type="button" ng-click="adjuntar(trabajo, 7, 0, 1)" data-toggle="tooltip" tooltip="Cargar Comprobante (Remisión, Prefactura)" tooltip-placement="left"><span class="glyphicon glyphicon-level-up"></span></button>-->
+
+                                                    <!--button tooltip="Solicitar Anticipo" ng-if="trabajo.estatus == 'Iniciado' || trabajo.estatus == 'OrdenGarantia'" ng-hide="userData.idTipoUsuario == 4 || userData.idTipoUsuario == 3" type="button" ng-click="getCotizacionesOrden(trabajo.idTrabajo)" ns-popover ns-popover-template="closeProceso" ns-popover-trigger="click" ns-popover-theme="ns-popover-tooltip-theme" ns-popover-timeout="1000" ns-popover-hide-on-inside-click="false" ns-popover-hide-on-outside-click="true" ns-popover-hide-on-button-click="true" ns-popover-placement="left" class="btn btn-success"><span class="glyphicon glyphicon-usd"></span>
+                                                    </button-->
+                                                    <script type="text/ng-template" id="closeProceso">
+                                                        <div class="triangle"></div>
+                                                        <div class="ns-popover-tooltip">
+                                                            <table class="table table-striped table-bordered table-hover">
+                                                                <thead>
+                                                                    <th>Fecha de la Orden</th>
+                                                                    <th>Número de la Orden</th>
+                                                                    <th>Número de Cotización</th>
+                                                                    <th>Subtotal</th>
+                                                                    <th>Acción</th>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr ng-repeat="cotizacion in cotizacionesOrden">
+                                                                        <td>{{cotizacion.fechaOrden}}</td>
+                                                                        <td>{{cotizacion.numeroTrabajo}}</td>
+                                                                        <td>{{cotizacion.numeroCotizacion}}</td>
+                                                                        <td>{{cotizacion.subTotal | currency}}</td>
+                                                                        <td ng-if="cotizacion.existeProveedor == 0" ng-class="'rowRojo'">
+                                                                            <i class="fa fa-cog" data-toggle="tooltip" tooltip="La cotización no tiene asignado un proveedor, favor de asignar." tooltip-placement="up"></i>
+                                                                        </td>
+                                                                        <td ng-if="cotizacion.existeProveedor > 0">
+                                                                            <button ng-show="userData.idTipoUsuario == 1" ng-disabled="cotizacion.existeAnticipo > 0" type="button" class="btn btn-success" ng-click="getIdCotizacion(cotizacion.idCotizacion, cotizacion.numeroCotizacion); adjuntar(trabajo, 7, 0, 1)" tooltip="Subir Anticipo"><span class="glyphicon glyphicon-upload"></span></button>
+
+                                                                            <button ng-show="userData.idTipoUsuario == 1 || userData.idTipoUsuario == 2" class="btn btn-success" type="button" ng-click="lookAt(trabajo, 0)" data-toggle="tooltip" tooltip="Editar Costos" tooltip-placement="left"><span class="glyphicon glyphicon-usd"></span></button>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </script>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </tab>
+                            <tab heading="Entrega" index="1">
+                                 <div class=" row etiquetaTotales">Precio total: <span class="totales"> {{sumatoriaEntrega| currency: "$"}}</span></div>
+                                 <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover dataTableTrabajoTerminado" cg-busy="{promise:promise,message:message}">
+                                        <thead>
+                                            <tr>
+                                                <th>Cliente</th>
+                                                <th>Consecutivo</th>
+                                                <th>Número de la Orden</th>
+                                                <th>Número Económico</th>
+                                                <th>Zona</th>
+                                                <th>TAR</th>
+                                                <th>Taller</th>
+                                                <th>Tipo Orden</th>
+                                                <th>Marca</th>
+                                                <th>Modelo</th>
+                                                <th>Descripción</th>
+                                                <th>Observaciones</th>
+                                                <th>Estatus</th>
+                                                <th>Estatus provisión</th>
+                                                <th ng-hide="userData.idTipoUsuario == 3">Precio venta sin IVA</th>
+                                                <th>Fecha</th>
+                                                <th>Acción</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="trabajo in trabajosTerminados">
+                                                <td>{{trabajo.cliente}}</td>
+                                                <td>{{trabajo.idCita}}</td>
+                                                <td>{{trabajo.numeroTrabajo}}</td>
+                                                <td>{{trabajo.numEconomico}}</td>
+                                                <td>{{trabajo.zona}}</td>
+                                                <td>{{trabajo.TAR}}</td>
+                                                <td>{{trabajo.razonSocial}}</td>
+                                                <td>{{trabajo.idTipoCita == 4 ? "Refacciones" : "Servicio"}}</td>
+                                                <td>{{trabajo.marca}}</td>
+                                                <td>{{trabajo.modeloMarca}}</td>
+                                                <td>{{trabajo.trabajo}}</td>
+                                                <td>{{trabajo.observacion}}</td>
+                                                <td>{{trabajo.descripcionLarga}}</td>
+                                                <td ng-class="{'rowAzul': trabajo.estatusBPRO=='No provisionada'}">{{trabajo.estatusBPRO}}</td>
+                                               <!--  <td ng-if="trabajo.estatusProvision == 1">
+                                                    Provisionada
+                                                </td>
+                                                <td class="rowAzul" ng-if="trabajo.estatusProvision == 0">
+                                                    No provisionada
+                                                </td> -->
+                                                <td ng-hide="userData.idTipoUsuario == 3">{{trabajo.precioOrden | currency: "$"}}</td>
+                                                <td>{{trabajo.fechaFin | date:"dd-MM-yy HH:mm"}}</td>
+                                                <td>
+                                                    <!-- <button class="btn btn-info" type="button" ng-click="aprobarTrabajo(trabajo, 1)" data-toggle="tooltip" tooltip-placement="up"><span class="glyphicon glyphicon-sunglasses"></span></button> --> 
+                                                    <div class="alerta"> 
+                                                        <button class="dropdown-toggle alerta-form btn btn-info" tooltip="Ver órden de servicio" data-toggle="dropdown" href="#" aria-expanded="true" ng-click="aprobarTrabajo(trabajo, 1)">
+                                                        <i class="glyphicon glyphicon-sunglasses"></i>  <span ng-hide="trabajo.numeroNotas == 0" class="letter-labal alerta-color">{{trabajo.numeroNotas}}</span>
+                                                        </button>
+                                                        <ul class="dropdown-menu dropdown-messages">
+                                                        </ul>
+                                                    </div> 
+                                                    <button ng-if="trabajo.estatus == 'Terminado'" ng-hide="userData.idTipoUsuario == 4" class="btn btn-primary" type="button" ng-click="adjuntar(trabajo,2,1,0)" data-toggle="tooltip" tooltip="Cargar hoja de transferencia de custodia" tooltip-placement="left"><span class="glyphicon glyphicon-open-file"></span></button>
+
+                                                    <button ng-if="trabajo.estatus == 'TransResponsabilidad'"  data-loading-text="Loading..." ng-hide="userData.idTipoUsuario == 4 || userData.idTipoUsuario == 3" class="btn btn-success" type="button" ng-click="generaCertificadoConformidadPDF(trabajo.idTrabajo, trabajo.idTAR, trabajo.montoOrden, trabajo.indice)" data-toggle="tooltip" tooltip="Generar certificado de conformidad" tooltip-placement="up"><span class="{{trabajo.class_buttonCeritficado}}"></span></button>
+
+                                                    <button ng-if="trabajo.estatus == 'CertificadoGenerado'" ng-hide="userData.idTipoUsuario == 3 || userData.idTipoUsuario == 4" class="btn btn-success" type="button" ng-click="adjuntar(trabajo,5,1,0)" data-toggle="tooltip" tooltip="Cargar certificado de conformidad" tooltip-placement="up"><span class="glyphicon glyphicon-upload"></span></button>
+
+                                                    <a ng-if="trabajo.estatus == 'CertificadoCall'" ng-hide="userData.userData.idTipoUsuario == 3" type="button" data-toggle="tooltip" tooltip="Descargar certificado de conformidad" tooltip-placement="up" href="{{vIpServer}}/uploads/files/{{trabajo.idTrabajo}}/documentos/certificadoConformidad/CConformidadOriginal.pdf" target="_parent" download="CertificadoConformidad" class="btn btn-success" role="button" ng-click="descargaCertificadoConformidadPDF(trabajo.idTrabajo)"><span class="glyphicon glyphicon-download"></span></a>
+
+                                                    <a ng-if="trabajo.estatus == 'CertificadoCall'" ng-hide="userData.idTipoUsuario == 2 || userData.idTipoUsuario == 3" type="button" data-toggle="tooltip" tooltip="Rechazar Trabajo" tooltip-placement="up" class="btn btn-cancela btn-danger btnTerminarTrabajo2" role="button" ng-click="openOrdenTrabajoModal(23, trabajo.idTrabajo)">&nbsp;<i class="fa fa-times"></i></a>
+
+                                                    <button ng-if="trabajo.estatus == 'CertificadoDescargado'" ng-hide="userData.idTipoUsuario == 3" class="btn btn-success" type="button" ng-click="adjuntar(trabajo,6,1,0)" data-toggle="tooltip" tooltip="Cargar certificado de conformidad" tooltip-placement="left"><span class="glyphicon glyphicon-upload"></span></button>
+
+                                                    <!--<button ng-if="trabajo.estatus == 'Terminado'" ng-hide="userData.idTipoUsuario == 4" ng-disabled="trabajo.tieneAnticipo != 0" class="btn btn-success" type="button" ng-click="adjuntar(trabajo, 7, 0, 1)" data-toggle="tooltip" tooltip="Cargar Comprobante (Remisión, Prefactura)" tooltip-placement="left"><span class="glyphicon glyphicon-level-up"></span></button>-->
+
+
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </tab>
+                            <!--<tab heading="Aprobado" index="2">
+                                <br/>
+                                <br/>
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover dataTableTrabajoAprobado" cg-busy="{promise:promise,message:message}">
+                                        <thead>
+                                            <tr>
+                                                <th>Consecutivo</th>
+                                                <th>Número de la Orden</th>
+                                                <th>Número Económico</th>
+                                                <th>TAR</th>
+                                                <th>Marca</th>
+                                                <th>Modelo</th>
+                                                <th>Descripción</th>
+                                                <th>Observaciones</th>
+                                                <th>Estatus</th>
+                                                <th>Fecha</th>
+                                                <th>Acción</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="trabajo in trabajosAprobados">
+                                                <td>{{trabajo.idCita}}</td>
+                                                <td>{{trabajo.numeroTrabajo}}</td>
+                                                <td>{{trabajo.numEconomico}}</td>
+                                                <td>{{trabajo.TAR}}</td>
+                                                <td>{{trabajo.marca}}</td>
+                                                <td>{{trabajo.modeloMarca}}</td>
+                                                <td>{{trabajo.trabajo}}</td>
+                                                <td>{{trabajo.observacion}}</td>
+                                                <td>{{trabajo.descripcionLarga}}</td>
+                                                <td>{{trabajo.fechaFin | date:"dd-MM-yy HH:mm"}}</td>
+                                                <td>
+                                                    <button class="btn btn-info" type="button" ng-click="aprobarTrabajo(trabajo, 1)" data-toggle="tooltip" tooltip="Ver órden de servicio" tooltip-placement="up"><span class="glyphicon glyphicon-sunglasses"></span></button>
+
+                                                    button ng-if="trabajo.estatus == 'Cerrado'" ng-hide="userData.idTipoUsuario == 2 || userData.idTipoUsuario == 4" class="btn btn-success" type="button" ng-click="adjuntar(trabajo,3,1,0)" data-toggle="tooltip" tooltip="Cargar factura" tooltip-placement="up"><span class="glyphicon glyphicon-upload"></span> </button
+
+                                                    <button type="button" ng-click="getCotizacionesOrdenAprobado(trabajo.idTrabajo,trabajo.idEstatus)" ns-popover ns-popover-template="closeAprobacion" ns-popover-trigger="click" ns-popover-theme="ns-popover-tooltip-theme" ns-popover-timeout="1000" ns-popover-hide-on-inside-click="false" ns-popover-hide-on-outside-click="true" ns-popover-hide-on-button-click="true" ns-popover-placement="left" class="btn btn-success" tooltip="Cargar Factura(s)"><span class="glyphicon glyphicon-upload"></span>
+                                                    </button>
+                                                    <script type="text/ng-template" id="closeAprobacion">
+                                                        <div class="triangle"></div>
+                                                        <div class="ns-popover-tooltip">
+                                                            <table class="table table-striped table-bordered table-hover">
+                                                                <thead>
+                                                                    <th>Fecha de la Orden</th>
+                                                                    <th>Número de la Orden</th>
+                                                                    <th>Número de Cotización</th>
+                                                                    <th>Total</th>
+                                                                    <th>Subtotal</th>
+                                                                    <th>Acción</th>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr ng-repeat="cotizacion in cotizacionesOrden" ng-class="{'danger': cotizacion.idProveedor =='0'}">
+                                                                        <td>{{cotizacion.fechaOrden}}</td>
+                                                                        <td>{{cotizacion.numeroTrabajo}}</td>
+                                                                        <td>{{cotizacion.numeroCotizacion}}</td>
+                                                                        <td>{{cotizacion.Total | currency}}</td>
+                                                                        <td>{{cotizacion.subTotal | currency}}</td>
+                                                                        <td>
+                                                                            <button ng-disabled="cotizacion.existe > 0" type="button" class="btn btn-success" ng-click="getCotizacion(cotizacion.idCotizacion, cotizacion.Total, cotizacion.existe, cotizacion.numeroCotizacion, cotizacion.estatusTrabajo); adjuntar(trabajo,3,1,0)" tooltip="Subir Factura"><span class="glyphicon glyphicon-upload"></span></button>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </script>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </tab>-->
+                            <!--<tab heading="Cierre de Orden" index="3" ng-show="userData.idTipoUsuario == 1">
+                                <div class="wrapper wrapper-content">
+                                    <br/>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered table-hover dataTableOrdenporVerificar" cg-busy="{promise:promise,message:message}">
+                                            <thead>
+                                                <tr>
+                                                    <th>Consecutivo</th>
+                                                    <th>Número de la Orden</th>
+                                                    <th>Número Económico</th>
+                                                    <th>TAR</th>
+                                                    <th>Taller</th>
+
+                                                    <th>Orden de Surtimiento</th>
+                                                    <th>Monto de la Orden</th>
+                                                    <th>Descripción de la Orden</th>
+                                                    <th>Estatus</th>
+                                                    <th>Archivos Factura</th>
+                                                    <th>Editar Costos</th>
+                                                    <th>Procesar Pago</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="trabajo in admonOrdenes ">
+                                                    <td>{{trabajo.idCita}}</td>
+                                                    <td>{{trabajo.numeroTrabajo}}</td>
+                                                    <td>{{trabajo.numEconomico}}</td>
+                                                    <td>{{trabajo.TAR}}</td>
+                                                    <td>{{trabajo.razonSocial}}</td>
+
+                                                    <td>{{trabajo.folio}}</td>
+                                                    <td>{{trabajo.montoOrden | currency}}</td>
+                                                    <td>{{trabajo.trabajo}}</td>
+                                                    <td>{{trabajo.descripcionLarga }}</td>
+                                                    <td>
+
+                                                        <button class="btn btn-info" type="button" ng-click="aprobarTrabajo(trabajo, 1)" data-toggle="tooltip" tooltip="Ver órden de servicio" tooltip-placement="up"><span class="glyphicon glyphicon-sunglasses"></span></button>
+
+
+
+                                                        <button type="button" tooltip="Cargar Factura(s)" ng-click="getCotizacionesOrdenAprobado(trabajo.idTrabajo,12)" ns-popover ns-popover-template="closeValidacion" ns-popover-trigger="click" ns-popover-theme="ns-popover-tooltip-theme" ns-popover-timeout="1000" ns-popover-hide-on-inside-click="false" ns-popover-hide-on-outside-click="true" ns-popover-hide-on-button-click="true" ns-popover-placement="left" class="btn btn-success"><span class="glyphicon glyphicon-upload"></span>
+                                                        </button>
+                                                        <script type="text/ng-template" id="closeValidacion">
+                                                            <div class="triangle"></div>
+                                                            <div class="ns-popover-tooltip">
+                                                                <table class="table table-striped table-bordered table-hover">
+
+                                                                    <th>Fecha de la Orden</th>
+                                                                    <th>Número de la Orden</th>
+                                                                    <th>Número de Cotización</th>
+                                                                    <th>Total</th>
+                                                                    <th>Subtotal</th>
+                                                                    <th>Acción</th>
+
+                                                                    <tr ng-repeat="cotizacion in cotizacionesOrden" ng-class="{'danger': cotizacion.idProveedor =='0'}">
+                                                                        <td>{{cotizacion.fechaOrden}}</td>
+                                                                        <td>{{cotizacion.numeroTrabajo}}</td>
+                                                                        <td>{{cotizacion.numeroCotizacion}}</td>
+                                                                        <td>{{cotizacion.Total | currency}}</td>
+                                                                        <td>{{cotizacion.subTotal | currency}}</td>
+                                                                        <td>
+                                                                            <button ng-disabled="cotizacion.existe > 0" type="button" class="btn btn-success" ng-click="getCotizacion(cotizacion.idCotizacion, cotizacion.Total, cotizacion.existe,cotizacion.numeroCotizacion, cotizacion.estatusTrabajo); adjuntar(trabajo,3,1,0)" tooltip="Subir Factura"><span class="glyphicon glyphicon-upload"></span></button>
+                                                                            <button class="btn btn-success" type="button" ng-click="verFactura(cotizacion.idCotizacion,cotizacion.idTrabajo,cotizacion.numeroCotizacion)" data-toggle="tooltip" tooltip="Ver  Factura" tooltip-placement="left"><span class="glyphicon glyphicon-eye-open"></span></button>
+                                                                        </td>
+                                                                    </tr>
+
+                                                                </table>
+                                                            </div>
+                                                        </script>
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-success" type="button" ng-click="lookAt(trabajo, 0)" data-toggle="tooltip" tooltip="Editar Costos" tooltip-placement="left"><span class="glyphicon glyphicon-usd"></span></button>
+                                                    </td>
+                                                    <td>
+                                                        <a type="button" ng-disabled="trabajo.sinProveedor > 0" data-toggle="tooltip" tooltip="Pagar" tooltip-placement="left" class="btn btn-primary btnVerificarOrden" role="button" ng-click="verificaOrden(trabajo.idTrabajo,trabajo.sinProveedor)"><span class="fa fa-check"></span></a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </tab>-->
+                        </tabset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal inmodal" id="finalizarTrabajoModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated flipInY">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Terminar trabajo</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <textarea placeholder="Observaciones" class="form-control" rows="4" ng-model="observacionTrabajo"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Salir</button>
+                <button type="button" class="btn btn-danger btnTerminarTrabajo">Terminar trabajo</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalCargaArchivos" class="modal inmodal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content animated flipInY">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{tituloModal}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive m-t">
+                    <div id="dropeZoneFiles" class="dropzone" options="dzOptionsFactura" callbacks="dzCallbacks" methods="dzMethods" ng-dropzone></div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnUploadFiles" type="button" class="btn btn-success" ng-click="dzMethods.processQueue();">{{textoBoton}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="datosEntradaCertificadoModal" class="modal inmodal fade" role="dialog">
+    <div class="modal-dialog modal-md">
+
+        <!-- Modal content-->
+        <div class="modal-content animated flipInY">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Datos de entrada del Certificado de conformidad</h4>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive m-t">
+                    <form role="form">
+                        <div class="form-group">
+                            <input type="text" placeholder="Número de reporte" class="form-control" ng-model="certificadoParams.noReporte">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="Region" class="form-control" ng-model="certificadoParams.gerencia">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="TAD" class="form-control" ng-model="certificadoParams.tad">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="Solpe" class="form-control" ng-model="certificadoParams.solpe">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="Orden de surtimiento" class="form-control" ng-model="certificadoParams.ordenSurtimiento">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="Monto OS" ng-model="certificadoParams.montoOS" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="Nombre del emisor" class="form-control" ng-model="certificadoParams.nombreEmisor">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="Nombre del proveedor" class="form-control" ng-model="certificadoParams.nombreProveedor">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="Puesto del proveedor" class="form-control" ng-model="certificadoParams.puestoProveedor">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" ng-click="generaCertificadoConformidadPDF()"> Generar certificado</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal inmodal" id="finalizarTrabajoModal2" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated flipInY">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Rechazar trabajo</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <textarea placeholder="Observaciones" class="form-control" rows="4" ng-model="observacionRechazo"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Salir</button>
+                <button type="button" class="btn btn-danger btnTerminarTrabajo2">Rechzar trabajo</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal inmodal" id="cargafechainIciorealTrabajo" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated flipInY">
+            <div class="modal-header">
+                <h4 class="modal-title">Capturar Fecha Inicio Real de Trabajos</h4>
+            </div>
+            <br>
+            <form role="form">
+                <div class="col-xs-10">
+                    <div class="form-group" id="fechaTrabajo">
+                        <div class="input-group date">
+                            <input type="text" placeholder="Introduzca la fecha inicio del trabajo" class="form-control" value="" ng-model="fecha">
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <br>
+                <div class="col-xs-10">
+                    <div class="input-group clockpicker" data-autoclose="true">
+                        <input type="text" placeholder="Introduzca la hora inicio del trabajo" class="form-control" value="" ng-model="hora">
+                        <span class="input-group-addon">
+                                    <span class="fa fa-clock-o"></span>
+                        </span>
+                    </div>
+                </div>
+            </form>
+            <br>
+            <br>
+            <br>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal" ng-click="cleanfecha()">Salir</button>
+                <button type="button" class="btn btn-success" ng-click="guardaFecha()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<div id="modalCargaComprobante" class="modal inmodal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+         Modal content
+        <div class="modal-content animated flipInY">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Solicitud de Anticipo</h4>
+
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive m-t">
+                    
+                    <div id="dropeZoneFiles2" class="dropzone" options="dzOptionsPreFactura" callbacks="dzCallbacks" methods="dzMethods" ng-dropzone></div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnUploadFiles" type="button" class="btn btn-success" ng-click="dzMethods.processQueue();">Solicitar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->
