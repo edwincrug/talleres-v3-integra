@@ -1,30 +1,68 @@
-<div class="headTitleTallerCita">
-        <span class="title">Reporte de Sustituto</span>
+<link href="../../css/inspinia/sweetalert/sweetalert2.css" rel="stylesheet">
+<link rel="stylesheet" href="../../css/tutorial.css">
+<div ng-init="init()" class="animated bounceInRight ">
+    <div class="headTitleTallerCita">
+        <span class="title">Reporte Sustituto</span>
+         <span class="glyphicon glyphicon-info-sign btn_info" tooltip="Información" ng-click="info()"></span>     
+    </div>
+    <br>
+    <div class="wrapper wrapper-content center_content {{class_width}}">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">                       
+                        <br/>
+                        <div class="row">
+                            <div class="col-md-12">
+                                
+                                <table class="table table-striped table-bordered table-hover">
+                                      <thead>
+                                          <tr>
+                                              <th>Unidad en Reparación</th>
+                                              <th>Ubicación</th>
+                                              <th>Unidad Sustituto</th>
+                                              <th>Ubicación</th>
+                                              <th>Tiempo</th>
+                                              <th>Estatus Orden</th>
+                                              <th>Acción</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                          <tr >
+                                            <td>Hola</td>
+                                            <td>
+                                                      <button type="button" class="btn btn-success"
+                                                      data-toggle="tooltip" tooltip-placement="top" tooltip="Agregar">
+                                                      <span class="glyphicon glyphicon-map-marker"
+                                                      ></span>
+                                                      </button>
+                                                      
+                                                  </td>
+                                            <td>Tal</td>
+                                            <td>
+                                                      <button type="button" class="btn btn-success"
+                                                      data-toggle="tooltip" tooltip-placement="top" tooltip="Agregar">
+                                                      <span class="glyphicon glyphicon-map-marker"
+                                                      ></span>
+                                                      </button>
+                                                  </td>
+                                            <td>has</td>
+                                            <td>estado</td>
+                                            <td>                                                     
+                                            </td>
+                                          </tr>
+                                      </tbody>
+                                  </table>
+                            </div>
+                        </div>                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     
 </div>
 
-<div class="table-responsive">
-        <table class="table table-striped table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th>Unidad en Reparación</th>
-                    <th>Ubicación</th>
-                    <th>Unidad Sustituto</th>
-                    <th>Ubicación</th>
-                    <th>Tiempo</th>
-                    <th>Estatus Orden</th>
-                    <th>Acción</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr >
-        			<td>Hola</td>
-        			<td>Que</td>
-        			<td>Tal</td>
-        			<td>Como</td>
-        			<td>has</td>
-        			<td>estado</td>
-        			<td></td>
-                </tr>
-            </tbody>
-        </table>
-</div>
+
+
+
