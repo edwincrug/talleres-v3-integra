@@ -1,0 +1,33 @@
+<div ng-init="initNuevaCita()" class="animated fadeInRight">
+    <div class="headTitleTallerCita">
+        <span class="title"> Asignación <span class="subtitle"></span></span>
+    </div>
+
+    <div class="wrapper wrapper-content">
+        <div class="row">
+        		<div class="col-md-6">
+        			<form class="form-horizontal">
+                        <br/>
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-sm-12">
+
+                                	<input type="text" placeholder="Buscar unidad" ng-model="datoUnidad" ng-change="habilitaBuscar(datoUnidad)" class="form-control ng-pristine ng-untouched ng-valid" ng-enter="lookUpUnidad(selectedCliente.idCliente, datoUnidad)">
+
+                                    <select class="form-control" name="cliente" ng-model="selectedCliente" ng-options="cliente.nombre for cliente in clientes">
+                                        <option value=''>Selecionar </option><!--default option -->
+                                    </select>
+
+                                     <button id="btnBuscar" busy="Buscando.." type="button" class="btn btn-primary" ng-click="lookUpUnidad(selectedCliente.idCliente, datoUnidad)"><span class="glyphicon glyphicon-search"></span></button>
+                                </div>
+                            </div>  
+                        </div>
+                    </form>
+        		</div>
+        		<div class="col-md-6">
+        			
+        		</div>
+        </div>
+     </div>  
+
+</div>    
