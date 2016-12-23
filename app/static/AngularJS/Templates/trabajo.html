@@ -1,4 +1,4 @@
-<link href="../../css/inspinia/sweetalert/sweetalert.css" rel="stylesheet">
+<link href="../../css/inspinia/sweetalert/sweetalert2.css" rel="stylesheet">
 <link rel="stylesheet" href="../../css/administracionOrden.css">
 <link rel="stylesheet" href="../../css/nsPopover.css">
 <link rel="stylesheet" href="../../css/trabajo.css">
@@ -193,7 +193,14 @@
                                                         <ul class="dropdown-menu dropdown-messages">
                                                         </ul>
                                                     </div> 
-                                                    <button ng-if="trabajo.estatus == 'Terminado'" ng-hide="userData.idTipoUsuario == 4" class="btn btn-primary" type="button" ng-click="adjuntar(trabajo,2,1,0)" data-toggle="tooltip" tooltip="Cargar hoja de transferencia de custodia" tooltip-placement="left"><span class="glyphicon glyphicon-open-file"></span></button>
+
+                                                    <button  class="btn btn btn-informa" type="button"  data-toggle="tooltip" tooltip="Aprobar" tooltip-placement="left" ng-click="aprobar()"><span class="glyphicon glyphicon-ok"></span></button>
+
+                                                    <!-- ng-if="trabajo.estatus == 'Terminado'" ng-hide="userData.idTipoUsuario == 4"-->
+
+                                                    <button  class="btn btn-primary" type="button" ng-click="adjuntar(trabajo,2,1,0)" data-toggle="tooltip" tooltip="Cargar hoja de transferencia de custodia" tooltip-placement="left"><span class="glyphicon glyphicon-open-file"></span></button>
+
+                                                    <div ng-hide="hide_integra== false">
 
                                                     <button ng-if="trabajo.estatus == 'TransResponsabilidad'"  data-loading-text="Loading..." ng-hide="userData.idTipoUsuario == 4 || userData.idTipoUsuario == 3" class="btn btn-success" type="button" ng-click="generaCertificadoConformidadPDF(trabajo.idTrabajo, trabajo.idTAR, trabajo.montoOrden, trabajo.indice)" data-toggle="tooltip" tooltip="Generar certificado de conformidad" tooltip-placement="up"><span class="{{trabajo.class_buttonCeritficado}}"></span></button>
 
@@ -201,10 +208,12 @@
 
                                                     <a ng-if="trabajo.estatus == 'CertificadoCall'" ng-hide="userData.userData.idTipoUsuario == 3" type="button" data-toggle="tooltip" tooltip="Descargar certificado de conformidad" tooltip-placement="up" href="{{vIpServer}}/uploads/files/{{trabajo.idTrabajo}}/documentos/certificadoConformidad/CConformidadOriginal.pdf" target="_parent" download="CertificadoConformidad" class="btn btn-success" role="button" ng-click="descargaCertificadoConformidadPDF(trabajo.idTrabajo)"><span class="glyphicon glyphicon-download"></span></a>
 
-                                                    <a ng-if="trabajo.estatus == 'CertificadoCall'" ng-hide="userData.idTipoUsuario == 2 || userData.idTipoUsuario == 3" type="button" data-toggle="tooltip" tooltip="Rechazar Trabajo" tooltip-placement="up" class="btn btn-cancela btn-danger btnTerminarTrabajo2" role="button" ng-click="openOrdenTrabajoModal(23, trabajo.idTrabajo)">&nbsp;<i class="fa fa-times"></i></a>
-
                                                     <button ng-if="trabajo.estatus == 'CertificadoDescargado'" ng-hide="userData.idTipoUsuario == 3" class="btn btn-success" type="button" ng-click="adjuntar(trabajo,6,1,0)" data-toggle="tooltip" tooltip="Cargar certificado de conformidad" tooltip-placement="left"><span class="glyphicon glyphicon-upload"></span></button>
 
+                                                    </div>
+                                                    <a ng-if="trabajo.estatus == 'CertificadoCall'" ng-hide="userData.idTipoUsuario == 2 || userData.idTipoUsuario == 3" type="button" data-toggle="tooltip" tooltip="Rechazar Trabajo" tooltip-placement="up" class="btn btn-cancela btn-danger btnTerminarTrabajo2" role="button" ng-click="openOrdenTrabajoModal(23, trabajo.idTrabajo)">&nbsp;<i class="fa fa-times"></i></a>
+
+                                                    
                                                     <!--<button ng-if="trabajo.estatus == 'Terminado'" ng-hide="userData.idTipoUsuario == 4" ng-disabled="trabajo.tieneAnticipo != 0" class="btn btn-success" type="button" ng-click="adjuntar(trabajo, 7, 0, 1)" data-toggle="tooltip" tooltip="Cargar Comprobante (Remisión, Prefactura)" tooltip-placement="left"><span class="glyphicon glyphicon-level-up"></span></button>-->
 
 

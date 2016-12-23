@@ -10,6 +10,7 @@ registrationModule.controller('trabajoController', function ($scope, $modal, $ro
     $scope.init = function () {
         //configuraciones de dropzone
         Dropzone.autoDiscover = false;
+        $scope.hide_integra=false;
         $scope.dzOptionsFactura = uploadRepository.getDzOptions('text/xml,application/pdf,image/bmp,image/gif,image/jpeg,image/png', 2);
         $scope.userData = localStorageService.get('userData');
         getTrabajo($scope.userData.idUsuario);
@@ -594,6 +595,39 @@ registrationModule.controller('trabajoController', function ($scope, $modal, $ro
             alertFactory.error("Error al enviar el email");
         });
 
+    }
+
+    $scope.aprobar = function (){
+
+        swal({
+            title: "Advertencia",
+            text: '¿Desea aprobar o rechazar el trabajo?',
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#67BF11",
+            confirmButtonText: "Aprobar",
+            cancelButtonText: "Rechazar",
+            closeOnConfirm: true,
+            closeOnCancel: true,
+            showCloseButton: true
+        }/*,
+        function (isConfirm) {
+            if (isConfirm) {
+                trabajoRepository.cotizacionespago($scope.idTrabajo, $scope.userData.idUsuario).then(function (ordenVerificada) {
+                  
+                    if (ordenVerificada.data[0].idHistorialProceso == 1) {
+                        swal("Orden Provisionada!");
+                        //location.href = '/ordenesporcobrar';
+                    } else {
+                        swal("No se puede procesar la provisión porque algunas cotizaciones no tienen facturas.");
+                        // alertFactory.error("No se puede procesar la provisión porque algunas cotizaciones no tienen facturas.");
+                    }
+                }, function (error) {
+                    alertFactory.error("Error al verificar la orden");
+                });
+                swal("Orden Provisionada!");
+            }
+        }*/);
     }
 
     $scope.openOrdenTrabajoModal = function (idEstatus, idTrabajo) {
