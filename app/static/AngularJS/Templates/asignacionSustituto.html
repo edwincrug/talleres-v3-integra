@@ -1,30 +1,99 @@
-<div ng-init="initNuevaCita()" class="animated fadeInRight">
+
+<div  class="animated fadeInRight">
     <div class="headTitleTallerCita">
         <span class="title"> Asignación <span class="subtitle"></span></span>
     </div>
 
     <div class="wrapper wrapper-content">
         <div class="row">
-        		<div class="col-md-6">
+        		<div class="col-md-8">
         			<form class="form-horizontal">
                         <br/>
                         <div class="row">
                             <div class="form-group">
                                 <div class="col-sm-12">
 
-                                	<input type="text" placeholder="Buscar unidad" ng-model="datoUnidad" ng-change="habilitaBuscar(datoUnidad)" class="form-control ng-pristine ng-untouched ng-valid" ng-enter="lookUpUnidad(selectedCliente.idCliente, datoUnidad)">
+                                	<div class="col-sm-6">
+                                		<input type="text" placeholder="Buscar unidad" ng-model="datoUnidad" ng-change="habilitaBuscar(datoUnidad)" class="form-control ng-pristine ng-untouched ng-valid" ng-enter="lookUpUnidad(selectedCliente.idCliente, datoUnidad)">
+                                	</div>
 
-                                    <select class="form-control" name="cliente" ng-model="selectedCliente" ng-options="cliente.nombre for cliente in clientes">
-                                        <option value=''>Selecionar </option><!--default option -->
-                                    </select>
+                                	<div class="col-sm-5">
+                                    	<select class="form-control" name="motivo" ng-model="selectedCliente" ng-options="motivo.nombre for motivo in motivos">
+                                        	<option value=''>Selecionar </option><!--default option -->
+                                    	</select>
+                                    </div>
 
-                                     <button id="btnBuscar" busy="Buscando.." type="button" class="btn btn-primary" ng-click="lookUpUnidad(selectedCliente.idCliente, datoUnidad)"><span class="glyphicon glyphicon-search"></span></button>
+                                     <div class="col-sm-1">
+                                    	 <button id="btnBuscar" busy="Buscando.." type="button" class="btn btn-primary" ng-click="lookUpUnidad(selectedCliente.idCliente, datoUnidad)"><span class="glyphicon glyphicon-search"></span></button>
+                                    </div>
                                 </div>
                             </div>  
                         </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover dataTableUnidad" cg-busy="{promise:promise,message:message}">
+                                <thead>
+                                    <tr>
+                                        <th>Unidad</th>
+                                        <th>Número de la Orden</th>
+                                        <th>Estatus</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="trabajo in aprobacionTrabajos | filter:searchText ">
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            
+                        </div>
+
+                        </br>
+                        </br>
+
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-sm-12">
+
+                                	<div class="col-sm-11">
+                                		<input type="text" placeholder="Buscar sustituto" ng-model="datoUnidad"  class="form-control ng-pristine ng-untouched ng-valid" >
+                                	</div>
+
+
+                                     <div class="col-sm-1">
+                                    	 <button id="btnBuscar" busy="Buscando.." type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
+                                    </div>
+                                </div>
+                            </div>  
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover dataTableUnidad" cg-busy="{promise:promise,message:message}">
+                                <thead>
+                                    <tr>
+                                        <th>Unidad</th>
+                                        <th>Número de la Orden</th>
+                                        <th>Estatus</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="trabajo in aprobacionTrabajos | filter:searchText ">
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            
+                        </div>
                     </form>
         		</div>
-        		<div class="col-md-6">
+        		<div class="col-md-4">
+        			
         			
         		</div>
         </div>

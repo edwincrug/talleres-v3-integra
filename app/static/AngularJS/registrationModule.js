@@ -6,7 +6,7 @@
 // -- Fecha: 
 // -- =============================================
 var registrationModule = angular.module("registrationModule", ["ngRoute", "LocalStorageModule",
-        "ui.bootstrap", "angularUtils.directives.dirPagination", "cgBusy", "frapontillo.bootstrap-switch","thatisuday.dropzone","nsPopover"])
+        "ui.bootstrap", "angularUtils.directives.dirPagination", "cgBusy", "frapontillo.bootstrap-switch","thatisuday.dropzone","nsPopover", "google-maps"])
     .config(function ($routeProvider, $locationProvider) {
 
         /*change the routes*/
@@ -174,6 +174,12 @@ var registrationModule = angular.module("registrationModule", ["ngRoute", "Local
          $routeProvider.when('/reporte',{
             templateUrl:'AngularJS/Templates/ReporteSustituto.html',
             controller:'ReporteSustitutoController'
+         });
+
+
+         $routeProvider.when('/asignacion',{
+            templateUrl:'AngularJS/Templates/asignacionSustituto.html',
+            controller:'asignacionSustitutoController'
          });
         
         $locationProvider.html5Mode({
