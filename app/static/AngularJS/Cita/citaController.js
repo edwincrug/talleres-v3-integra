@@ -20,8 +20,13 @@ registrationModule.controller('citaController', function (MarkerCreatorService, 
     localStorageService.remove('idCotizacionEdit');
     obtieneFechaActual();
     $scope.selectedCliente='';
+
     $scope.address = '';
-        
+
+    $scope.show_slide=false;
+    $scope.class_info="animate_off";
+    $scope.class_width="content_info";
+    $scope.class_info_width="";
 
 
     $scope.init = function () {
@@ -1178,8 +1183,22 @@ var getidCita = function (idCita) {
             window.open($rootScope.vIpServer + '/uploads/tutorial/citas_cliente.mp4', '_blank', 'Cita');
          }
 
-/*   $scope.mapaGoogle = function () {
-$scope.map = {
+        $scope.info = function () {
+            if ($scope.show_slide==false) {
+                $scope.show_slide=true;
+                $scope.class_info="animate_on";
+                $scope.class_width="content_width";
+                $scope.class_info_width="info_width";
+            }else{
+                $scope.show_slide=false;
+                $scope.class_info="animate_off";
+                $scope.class_width="content_info";
+                $scope.class_info_width="";
+            }
+         }
+
+/* $scope.mapaGoogle = function () {
+        $scope.map = {
             center: {
                 latitude: 19.3307311, 
                 longitude: -99.2025618
@@ -1201,11 +1220,10 @@ $scope.map = {
                 draggable: true
             }
 
-        };
-}*/
+        }; }*/
 
      MarkerCreatorService.createByCoords(19.4353367, -99.1379815, function (marker) {
-            marker.options.labelContent = 'NO SE DONDE ESTOY';
+            marker.options.labelContent = 'Posición';
             $scope.autentiaMarker = marker;
         });
         
@@ -1226,13 +1244,12 @@ $scope.map = {
 
         $scope.addCurrentLocation = function () {
             MarkerCreatorService.createByCurrentLocation(function (marker) {
-                marker.options.labelContent = 'Aqui estoy YO ADOLFO PAPI CHULO';
+                marker.options.labelContent = 'Usted se encuentra Aqui';
                 $scope.map.markers.push(marker);
                 refresh(marker);
             });
         }
-        
-/*        $scope.addAddress = function() {
+        /* $scope.addAddress = function() {
             var address = $scope.address;
             if (address !== '') {
                 MarkerCreatorService.createByAddress(address, function(marker) {
@@ -1241,7 +1258,6 @@ $scope.map = {
                 });
             }
         }*/
-
         function refresh(marker) {
             $scope.map.control.refresh({latitude: marker.latitude,
                 longitude: marker.longitude});

@@ -7,6 +7,8 @@
         &nbsp;&nbsp;
         <a href="#" ng-hide="userData.idTipoUsuario == 4" ng-click="videoTutorialAdministrador()">Ver Tutorial</a>
         <a href="#" ng-hide="userData.idTipoUsuario != 4" ng-click="videoTutorialCliente()">Ver Tutorial</a>
+        &nbsp;&nbsp;
+        <a class="glyphicon glyphicon-info-sign btn_info" ng-click="info()">&nbsp;Información</a>
     </div>
 
     <div class="wrapper wrapper-content animated fadeInRight">
@@ -91,10 +93,10 @@
                                     <option value="">Seleccione el tipo de cita</option>
                                     <option value="1">Traslado a taller</option>
                                     <option value="4">Refacciones</option>  
-                                    <option value="5">Esta en taller</option>  
-                                    <option value="6">Seguro (sccidente, corralon)</option>  
-                                    <option value="7">Robo total</option>  
-                                    <option value="8">Corralon</option> 
+                                    <option value="1">Esta en taller</option>  
+                                    <option value="1">Seguro (sccidente, corralon)</option>  
+                                    <option value="1">Robo total</option>  
+                                    <option value="1">Corralon</option> 
                                 </select>        
                                 </select>
                             </div>
@@ -179,6 +181,45 @@
                     </form>
                 </div>
                <div class="col-xs-4"> 
+<!--                         <div class="widget-head-color-box navy-bgv2 p-lg text-center">
+                            <div class="m-b-md">
+                            <h2 class="font-bold no-margins">
+                                Ficha Técnica de Unidad
+                            </h2>
+                            </div>
+                            <div>
+                            <br><br>
+                            <strong>{{nombre}}</strong>
+                            <address><h3>
+                            <strong>Zona:</strong> {{unidadInfo.GAR}}<br><br>
+                            <strong>TAR:</strong> {{unidadInfo.TAR}}<br><br>
+                            <strong>No. TAR:</strong> {{unidadInfo.numTAR}}<br><br>
+                            <strong>Unidad:</strong> {{unidadInfo.marca}} - {{unidadInfo.modelo}}<br><br>
+                            <strong>No. Económico:</strong> {{unidadInfo.clienteNumEconomico}}<br><br>
+                            <strong>No. Inventario:</strong> {{unidadInfo.clienteNumInventario}}<br><br>
+                            <strong>Ubicación:</strong> {{unidadInfo.ubicacion}}<br><br>
+                            <strong>Autotanque:</strong> {{unidadInfo.modeloMarca}}<br><br>
+                            </h3></address>
+                            </div>
+                        </div> -->
+                        <div class="map_container" >
+                            <google-map center="map.center" zoom="map.zoom" draggable="true" options="map.options" control="map.control">
+                            <markers models="map.markers" coords="'self'" options="'options'" isLabel='true'>
+                            </markers>
+                        </google-map>
+                    </div> 
+                    <div class="controls">
+                </div>
+            </div>
+         </div> 
+    </div>
+</div>
+
+<div id="cotizador_slide" class="{{class_info}} {{class_info_width}} " ng-show="show_slide" >
+      <div  class="well well-lg">
+        <div aria-hidden="true" id="icon_slide" class="title title_info">
+          <a  ng-mouseenter="hover_slide(true)" ng-mouseleave="hover_slide(false)"  >Información</a>
+        </div>
                         <div class="widget-head-color-box navy-bgv2 p-lg text-center">
                             <div class="m-b-md">
                             <h2 class="font-bold no-margins">
@@ -200,11 +241,8 @@
                             </h3></address>
                             </div>
                         </div>
-                </div>
-            </div>
-         </div> 
-    </div>
-</div>
+      </div>
+  </div>
 
 <div class="modal inmodal fade " id="citaServicioModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">

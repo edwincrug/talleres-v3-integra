@@ -49,7 +49,7 @@ registrationModule.factory('MarkerCreatorService', function () {
                 invokeSuccessCallback(successCallback, marker);
             });
         } else {
-            alert('Unable to locate current position');
+            alert('No se puedo obtener la ubicacion porfavor intente mas tarde!');
         }
     }
 
