@@ -53,9 +53,9 @@ registrationModule.factory('MarkerCreatorService', function () {
         }
     }
 
-    return {
-        createByCoords: createByCoords,
-/*        createByAddress: createByAddress,*/
+   return {
+         createByCoords: createByCoords,
+        /*createByAddress: createByAddress,*/
         createByCurrentLocation: createByCurrentLocation
     };
 

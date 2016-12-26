@@ -38,6 +38,7 @@ registrationModule.controller('citaController', function (MarkerCreatorService, 
 
     //init de la pantalla  nuevaCita
     $scope.initNuevaCita = function () {
+        
         $scope.edita = localStorageService.get('ModoEdicion');
         localStorageService.remove('ModoEdicion');
         getCliente();
@@ -75,6 +76,7 @@ registrationModule.controller('citaController', function (MarkerCreatorService, 
         $scope.datosCita = {};
         $scope.unidadInfo = localStorageService.get('unidad');
         $scope.labelItems = 0;
+        $scope.obtieneUbicacionUnidad();
     }
 
     //init de la pantalla tallerCita
@@ -1202,17 +1204,51 @@ var getidCita = function (idCita) {
 
         }; }*/
 
+            $scope.obtieneUbicacionUnidad = function () {
+                citaRepository.ubicaUnidad($scope.unidadInfo.idUnidad).then(function (result) {        
+                     if (result.data.length > 0) {
+                       alertFactory.info('La unidad ha sido ubicada exitosamente');
+                       $scope.latitud = result.data[0].lat;
+                       $scope.longitud = result.data[0].long;
+                       $scope.direccion = result.data[0].direccion;
+
+                        MarkerCreatorService.createByCoords(parseFloat($scope.latitud), parseFloat($scope.longitud), function (marker) {
+                            marker.options.labelContent = $scope.direccion;
+                            $scope.autentiaMarker = marker;
+                        });
+                                $scope.map = {
+                                center: {
+                                    latitude: $scope.autentiaMarker.latitude,
+                                    longitude: $scope.autentiaMarker.longitude
+                                },
+                                zoom: 17,
+                                markers: [],
+                                control: {},
+                                options: {
+                                    scrollwheel: false
+                                }
+                            }
+                            $scope.map.markers.push($scope.autentiaMarker);
+                    }else{
+                        alertFactory.info('La unidad aun no tiene ubicacion GPS');
+                    }
+                }, function (error) {
+                    alertFactory.error('No se encontro la ubicacion de la Unidad');
+               });
+            }
+
      MarkerCreatorService.createByCoords(19.4353367, -99.1379815, function (marker) {
             marker.options.labelContent = 'Posición';
             $scope.autentiaMarker = marker;
         });
-        
+
+
         $scope.map = {
             center: {
                 latitude: $scope.autentiaMarker.latitude,
                 longitude: $scope.autentiaMarker.longitude
             },
-            zoom: 12,
+            zoom: 17,
             markers: [],
             control: {},
             options: {
@@ -1246,7 +1282,7 @@ var getidCita = function (idCita) {
         $scope.info = function () {
              $('#informacionUnidad').appendTo("body").modal('show');
         }
-        
+
         $scope.CierraModal = function () {
              $('#informacionUnidad').modal('hide');
         }

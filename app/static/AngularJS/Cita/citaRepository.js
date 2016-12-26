@@ -272,6 +272,18 @@ registrationModule.factory('citaRepository', function ($http, $q) {
                     'Content-Type': 'application/json'
                 }
             });
+        },
+        ubicaUnidad: function (idUnidad) {
+            return $http({
+                url: citaUrl + 'unidadUbicacion/',
+                method: "GET",
+                params: {
+                    idUnidad: idUnidad
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
         }
     };
 });
