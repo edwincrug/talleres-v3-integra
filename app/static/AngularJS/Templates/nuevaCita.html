@@ -215,17 +215,15 @@
     </div>
 </div>
 
-<div id="cotizador_slide" class="{{class_info}} {{class_info_width}} " ng-show="show_slide" >
-      <div  class="well well-lg">
-        <div aria-hidden="true" id="icon_slide" class="title title_info">
-          <a  ng-mouseenter="hover_slide(true)" ng-mouseleave="hover_slide(false)"  >Información</a>
-        </div>
+<div class="modal inmodal fade " id="informacionUnidad" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content animated flipInY">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Ficha Técnica de Unidad</h4>
+            </div>
+            <div class="modal-body">
                         <div class="widget-head-color-box navy-bgv2 p-lg text-center">
-                            <div class="m-b-md">
-                            <h2 class="font-bold no-margins">
-                                Ficha Técnica de Unidad
-                            </h2>
-                            </div>
                             <div>
                             <br><br>
                             <strong>{{nombre}}</strong>
@@ -241,8 +239,13 @@
                             </h3></address>
                             </div>
                         </div>
-      </div>
-  </div>
+                        <button type="button" class="btn btn-primary" ng-click="CierraModal()" >Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 <div class="modal inmodal fade " id="citaServicioModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">

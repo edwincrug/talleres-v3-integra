@@ -23,11 +23,6 @@ registrationModule.controller('citaController', function (MarkerCreatorService, 
 
     $scope.address = '';
 
-    $scope.show_slide=false;
-    $scope.class_info="animate_off";
-    $scope.class_width="content_info";
-    $scope.class_info_width="";
-
 
     $scope.init = function () {
       //  $scope.mapaGoogle();
@@ -412,7 +407,6 @@ $scope.nuevaCotizacion = function (cita, preCotizacion, nvaCotizacion) {
         $('.dataTablePiezaTaller').DataTable().destroy();
         $('#citaServicioModal').appendTo("body").modal('show');
     }
-
     //init de servicio controller
     $scope.initCitaServicio = function () {
         $scope.listaPiezas = [];
@@ -1183,20 +1177,6 @@ var getidCita = function (idCita) {
             window.open($rootScope.vIpServer + '/uploads/tutorial/citas_cliente.mp4', '_blank', 'Cita');
          }
 
-        $scope.info = function () {
-            if ($scope.show_slide==false) {
-                $scope.show_slide=true;
-                $scope.class_info="animate_on";
-                $scope.class_width="content_width";
-                $scope.class_info_width="info_width";
-            }else{
-                $scope.show_slide=false;
-                $scope.class_info="animate_off";
-                $scope.class_width="content_info";
-                $scope.class_info_width="";
-            }
-         }
-
 /* $scope.mapaGoogle = function () {
         $scope.map = {
             center: {
@@ -1261,6 +1241,14 @@ var getidCita = function (idCita) {
         function refresh(marker) {
             $scope.map.control.refresh({latitude: marker.latitude,
                 longitude: marker.longitude});
+        }
+
+        $scope.info = function () {
+             $('#informacionUnidad').appendTo("body").modal('show');
+        }
+        
+        $scope.CierraModal = function () {
+             $('#informacionUnidad').modal('hide');
         }
 
 
