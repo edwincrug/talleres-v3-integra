@@ -19,13 +19,13 @@
                         <br/>
                         <div class="row">
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">Cliente: </label>
+<!--                                 <label class="col-sm-2 control-label">Cliente: </label>
                                 <div class="col-sm-9">
                                     <select class="form-control" name="cliente" ng-model="selectedCliente" ng-options="cliente.nombre for cliente in clientes" ng-disabled="edita == 1 || userData.idTipoUsuario == 4">
-                                        <option value=''>Selecionar cliente</option><!--default option -->
+                                        <option value=''>Selecionar cliente</option>
                                     </select>
-                                </div>
-                            </div>  
+                                </div> -->
+                            </div>   
                         </div>
                         <br/>
 
@@ -75,7 +75,7 @@
                             </div>
                         </div> -->
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">Estado del autotanque: </label>
+                            <label class="col-sm-3 control-label">Estado de la Unidad: </label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="estadoAutotanque" ng-model="idEstadoAutotanque" ng-change="unidadParada(idEstadoAutotanque)">
                                     <option value="">Seleccione el estado del autotanque</option>
@@ -90,7 +90,12 @@
                                 <select class="form-control" name="proceso" ng-model="procesAutotanque" ng-change="radioSelect(procesAutotanque)">
                                     <option value="">Seleccione el tipo de cita</option>
                                     <option value="1">Traslado a taller</option>
-                                    <option value="4">Refacciones</option>          
+                                    <option value="4">Refacciones</option>  
+                                    <option value="5">Esta en taller</option>  
+                                    <option value="6">Seguro (sccidente, corralon)</option>  
+                                    <option value="7">Robo total</option>  
+                                    <option value="8">Corralon</option> 
+                                </select>        
                                 </select>
                             </div>
                         </div>

@@ -8,7 +8,7 @@
 // -- Fecha: 08/07/2016
 // -- =============================================
 
-registrationModule.controller('citaController', function ($scope, $route, $modal, $rootScope, localStorageService, alertFactory, globalFactory, citaRepository, ordenServicioRepository, cotizacionRepository, trabajoRepository, uploadRepository) {
+registrationModule.controller('citaController', function (MarkerCreatorService, $scope, $route, $modal, $rootScope, localStorageService, alertFactory, globalFactory, citaRepository, ordenServicioRepository, cotizacionRepository, trabajoRepository, uploadRepository) {
     var idTrabajoNew = '';
     $scope.message = 'Buscando...';
     $scope.userData = localStorageService.get('userData');
@@ -20,8 +20,12 @@ registrationModule.controller('citaController', function ($scope, $route, $modal
     localStorageService.remove('idCotizacionEdit');
     obtieneFechaActual();
     $scope.selectedCliente='';
+    $scope.address = '';
+        
+
 
     $scope.init = function () {
+      //  $scope.mapaGoogle();
        // getCliente();
     }
 
@@ -37,8 +41,6 @@ registrationModule.controller('citaController', function ($scope, $route, $modal
         $scope.edita = localStorageService.get('ModoEdicion');
         localStorageService.remove('ModoEdicion');
         getCliente();
-
-        
 
         $scope.idEstadoAutotanque = '';
         $scope.procesAutotanque = '';
@@ -1175,5 +1177,75 @@ var getidCita = function (idCita) {
         $scope.videoTutorialCliente = function () {
             window.open($rootScope.vIpServer + '/uploads/tutorial/citas_cliente.mp4', '_blank', 'Cita');
          }
+
+/*   $scope.mapaGoogle = function () {
+$scope.map = {
+            center: {
+                latitude: 19.3307311, 
+                longitude: -99.2025618
+            }, 
+            zoom: 15,
+            options : {
+                scrollwheel: false
+            },
+            control: {}
+        };
+        
+        $scope.marker = {
+            id: 0,
+            coords: {
+                latitude: 19.3307311,
+                longitude: -99.2025618
+            },
+            options: {
+                draggable: true
+            }
+
+        };
+}*/
+
+     MarkerCreatorService.createByCoords(19.4353367, -99.1379815, function (marker) {
+            marker.options.labelContent = 'NO SE DONDE ESTOY';
+            $scope.autentiaMarker = marker;
+        });
+        
+        $scope.map = {
+            center: {
+                latitude: $scope.autentiaMarker.latitude,
+                longitude: $scope.autentiaMarker.longitude
+            },
+            zoom: 12,
+            markers: [],
+            control: {},
+            options: {
+                scrollwheel: false
+            }
+        }
+
+        $scope.map.markers.push($scope.autentiaMarker);
+
+        $scope.addCurrentLocation = function () {
+            MarkerCreatorService.createByCurrentLocation(function (marker) {
+                marker.options.labelContent = 'Aqui estoy YO ADOLFO PAPI CHULO';
+                $scope.map.markers.push(marker);
+                refresh(marker);
+            });
+        }
+        
+/*        $scope.addAddress = function() {
+            var address = $scope.address;
+            if (address !== '') {
+                MarkerCreatorService.createByAddress(address, function(marker) {
+                    $scope.map.markers.push(marker);
+                    refresh(marker);
+                });
+            }
+        }*/
+
+        function refresh(marker) {
+            $scope.map.control.refresh({latitude: marker.latitude,
+                longitude: marker.longitude});
+        }
+
 
 });
