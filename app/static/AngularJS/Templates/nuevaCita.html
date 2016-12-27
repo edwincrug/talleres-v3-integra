@@ -1,324 +1,335 @@
-<div ng-init="initNuevaCita()" class="animated fadeInRight">
-    <div class="headTitleTallerCita">
-        <span class="title"> Citas<span class="subtitle">Call Center / Taller</span></span>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <!-- <button type="button" class="btn btn-success" ng-click="videoTutorial()" data-toggle="tooltip" tooltip-placement="right"> -->
-        <span class="glyphicon glyphicon-facetime-video"></span><!-- </button> -->
-        &nbsp;&nbsp;
-        <a href="#" ng-hide="userData.idTipoUsuario == 4" ng-click="videoTutorialAdministrador()">Ver Tutorial</a>
-        <a href="#" ng-hide="userData.idTipoUsuario != 4" ng-click="videoTutorialCliente()">Ver Tutorial</a>
-        &nbsp;&nbsp;
-        <a class="glyphicon glyphicon-info-sign btn_info" ng-click="info()">&nbsp;Información</a>
-    </div>
+    <div ng-init="initNuevaCita()" class="animated fadeInRight">
+        <div class="headTitleTallerCita">
+            <span class="title"> Citas<span class="subtitle">Call Center / Taller</span></span>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <!-- <button type="button" class="btn btn-success" ng-click="videoTutorial()" data-toggle="tooltip" tooltip-placement="right"> -->
+            <span class="glyphicon glyphicon-facetime-video"></span><!-- </button> -->
+            &nbsp;&nbsp;
+            <a href="#" ng-hide="userData.idTipoUsuario == 4" ng-click="videoTutorialAdministrador()">Ver Tutorial</a>
+            <a href="#" ng-hide="userData.idTipoUsuario != 4" ng-click="videoTutorialCliente()">Ver Tutorial</a>
+            &nbsp;&nbsp;
+            <a class="glyphicon glyphicon-info-sign btn_info" ng-click="info()">&nbsp;Información</a>
+        </div>
 
-    <div class="wrapper wrapper-content animated fadeInRight">
-        <div class="ibox-content"> 
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="ibox-content"> 
 
-            <div class="row">
-            <div class="col-xs-8 my-scroll-sp"> 
-               <!--  <div class="col-lg-offset-0 col-lg-7"> -->
-                    <form class="form-horizontal">
-                        <br/>
-                        <div class="row">
-                            <div class="form-group">
-<!--                                 <label class="col-sm-2 control-label">Cliente: </label>
-                                <div class="col-sm-9">
-                                    <select class="form-control" name="cliente" ng-model="selectedCliente" ng-options="cliente.nombre for cliente in clientes" ng-disabled="edita == 1 || userData.idTipoUsuario == 4">
-                                        <option value=''>Selecionar cliente</option>
-                                    </select>
-                                </div> -->
-                            </div>   
-                        </div>
-                        <br/>
+                <div class="row">
+                <div class="col-xs-8 my-scroll-sp"> 
+                   <!--  <div class="col-lg-offset-0 col-lg-7"> -->
+                        <form class="form-horizontal">
+                            <br/>
+                            <div class="row">
+                                <div class="form-group">
+    <!--                                 <label class="col-sm-2 control-label">Cliente: </label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control" name="cliente" ng-model="selectedCliente" ng-options="cliente.nombre for cliente in clientes" ng-disabled="edita == 1 || userData.idTipoUsuario == 4">
+                                            <option value=''>Selecionar cliente</option>
+                                        </select>
+                                    </div> -->
+                                </div>   
+                            </div>
+                            <br/>
 
-                        <div class="row" ng-hide="userData.idTipoUsuario == 4">
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">Buscar taller: </label>
-                                <div class="col-sm-9">
-                                    <input class="form-control" type="text" ng-model="datoTaller" ng-enter="lookUpTaller(datoTaller)">
-                                </div>
-                                <div class="col-sm-0">
-                                    <button type="button" class="btn btn-primary" ng-click="lookUpTaller(datoTaller)" data-toggle="tooltip" tooltip="Buscar taller" tooltip-placement="right"><span class="glyphicon glyphicon-search"></span></button>
+                            <div class="row" ng-hide="userData.idTipoUsuario == 4">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Buscar taller: </label>
+                                    <div class="col-sm-9">
+                                        <input class="form-control" type="text" ng-model="datoTaller" ng-enter="lookUpTaller(datoTaller)">
+                                    </div>
+                                    <div class="col-sm-0">
+                                        <button type="button" class="btn btn-primary" ng-click="lookUpTaller(datoTaller)" data-toggle="tooltip" tooltip="Buscar taller" tooltip-placement="right"><span class="glyphicon glyphicon-search"></span></button>
+                                    </div>
                                 </div>
                             </div>
+                            <br/><br/>
+                            <div class="table-responsive" ng-hide="userData.idTipoUsuario == 4">
+                                <table class="table table-striped table-bordered table-hover dataTableTaller" cg-busy="{promise:promise,message:message}">
+                                    <thead>
+                                        <th>Taller</th>
+                                        <th>Dirección</th>
+                                        <th>Seleccionar</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="taller in talleres">
+                                            <td>{{taller.razonSocial}}</td>
+                                            <td>{{taller.direccion}}</td>
+                                            <td>
+                                                <input type="radio" name="optTaller" ng-click="getTaller(taller.idTaller)" />
+                                            </td>
+                                        </tr>
+                                        <tr ng-show="edita == 1 && datosCita.direccion != null">
+                                            <td>{{datosCita.razonSocial}}</td>
+                                            <td>{{datosCita.direccion}}</td>
+                                            <td>
+                                                <input type="radio" name="optTaller" ng-click="getTaller(datosCita.idTaller)" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+    <!--                         <div class="form-group">
+                                <label class="col-sm-3 control-label">Estado del autotanque: </label>
+                                <div class="col-sm-9">
+                                    <select class="form-control m-b" name="estadoAutotanque" ng-model="datosCita.idEstadoAutotanque" ng-options="autotanque.idEstadoAutotanque as autotanque.descripcionEstadoAutotanque for autotanque in estadosAutotanque" ng-change="unidadParada(datosCita.idEstadoAutotanque)">
+                                        <option value="">Seleccione el estado del autotanque</option>
+                                    </select>
+                                </div>
+                            </div> -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Estado de la Unidad: </label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" name="estadoAutotanque" ng-model="idEstadoAutotanque" ng-change="unidadParada(idEstadoAutotanque)">
+                                        <option value="">Seleccione el estado del autotanque</option>
+                                        <option value="1">Unidad Parada</option>
+                                        <option value="2">Unidad en Operación</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-show="idEstadoAutotanque == 1 || idEstadoAutotanque == 2">
+                                <label class="col-sm-3 control-label">Tipo de cita:</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" name="proceso" ng-model="procesAutotanque" ng-change="radioSelect(procesAutotanque)">
+                                        <option value="">Seleccione el tipo de cita</option>
+                                        <option value="1">Traslado a taller</option>
+                                        <option value="4">Refacciones</option>  
+                                        <option value="1">Esta en taller</option>  
+                                        <option value="1">Seguro (sccidente, corralon)</option>  
+                                        <option value="1">Robo total</option>  
+                                        <option value="1">Corralon</option> 
+                                    </select>        
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-show="procesAutotanque == 1" ng-hide="idEstadoAutotanque=='' || procesAutotanque == 4 || procesAutotanque == ''">
+                                <label class="col-sm-3 control-label">Requiere grúa: </label>
+                                <div class="col-sm-9">
+                                    <div class="input-group m-b">
+                                        <div class="radio radio-info radio-inline">
+                                            <input type="radio" id="inlineRadio1" value="1" name="radioInline" checked="" ng-model="requiereGrua">
+                                            <label for="inlineRadio1"> Si </label>
+                                        </div>
+                                        <div class="radio radio-inline">
+                                            <input type="radio" id="inlineRadio2" value="0" name="radioInline" ng-model="requiereGrua">
+                                            <label for="inlineRadio2"> No </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-show="procesAutotanque == 1" ng-hide="procesAutotanque == 4 || procesAutotanque == '' || idEstadoAutotanque==''">
+                                <label class="col-sm-3 control-label">Clasificación de cita: </label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" name="clasificacionCita" ng-model="clasificacionCita">
+                                        <option value="">Seleccione la clasificación de cita</option>
+                                        <option value="1">Preventiva</option>
+                                        <option value="2">Correctiva</option>
+                                        <option value="3">Predictiva</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" ng-if="procesAutotanque == ''">Fecha: </label>
+                                <label class="col-sm-3 control-label" ng-if="procesAutotanque == 1">Fecha de cita: </label>
+                                <label class="col-sm-3 control-label" ng-if="procesAutotanque == 4">Fecha de entrega: </label>
+                                <div class="col-sm-9">
+                                    <div id="fechaTrabajo">
+                                        <div class="input-group date">
+                                            <input type="text" class="form-control" value="" ng-model="datosCita.fechaCita" ng-change="validaHoraCita()">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" ng-if="procesAutotanque == ''">Hora: </label>
+                                <label class="col-sm-3 control-label" ng-if="procesAutotanque == 1">Hora de cita: </label>
+                                <label class="col-sm-3 control-label" ng-if="procesAutotanque == 4">Hora de entrega: </label>
+                                <div class="col-sm-9">
+                                    <div class="input-group clockpicker" data-autoclose="true">
+                                        <input type="text" class="form-control" value="" ng-model="datosCita.horaCita" ng-change="validaHoraCita()">
+                                        <span class="input-group-addon">
+                                                    <span class="fa fa-clock-o"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Comentarios Adicionales: </label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" ng-model="datosCita.trabajoCita" value="">
+                                </div>
+                            </div>
+                            <!--  <div class="form-group">
+                                <label class="col-sm-3 control-label">Observaciones: </label>
+                                <div class="col-sm-9">
+                                    <textarea class="form-control" rows="4" ng-model="datosCita.observacionCita"></textarea>
+                                </div>
+                            </div> -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label"></label>
+                                <div class="col-sm-9">
+                                    <div>
+                                        <button type="button" class="btn btn-primary pull-left m-t-n-xs" ng-click="showCitaServicioModal()" ng-disabled="selectedTaller || procesAutotanque == '' || selectedCliente == '' || selectedCliente == null" ><span class="glyphicon glyphicon-usd"></span><strong> Pre-orden de servicio</strong></button>
+                                        <button type="button" class="btn btn-danger pull-left m-t-n-xs">{{labelItems}} Items</button>
+
+                                        <button ng-hide="edita == 1" type="button" class="btn btn-success pull-right m-t-n-xs" ng-click="addCita()"><span class="glyphicon glyphicon-calendar"></span><strong> Agendar cita</strong></button>
+
+                                        <button ng-show="edita == 1" type="button" class="btn btn-success pull-right m-t-n-xs" ng-click="updateCita(idCita)"><span class="glyphicon glyphicon-calendar"></span><strong> Actualizar cita</strong></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                   <div class="col-xs-4"> 
+    <!--                         <div class="widget-head-color-box navy-bgv2 p-lg text-center">
+                                <div class="m-b-md">
+                                <h2 class="font-bold no-margins">
+                                    Ficha Técnica de Unidad
+                                </h2>
+                                </div>
+                                <div>
+                                <br><br>
+                                <strong>{{nombre}}</strong>
+                                <address><h3>
+                                <strong>Zona:</strong> {{unidadInfo.GAR}}<br><br>
+                                <strong>TAR:</strong> {{unidadInfo.TAR}}<br><br>
+                                <strong>No. TAR:</strong> {{unidadInfo.numTAR}}<br><br>
+                                <strong>Unidad:</strong> {{unidadInfo.marca}} - {{unidadInfo.modelo}}<br><br>
+                                <strong>No. Económico:</strong> {{unidadInfo.clienteNumEconomico}}<br><br>
+                                <strong>No. Inventario:</strong> {{unidadInfo.clienteNumInventario}}<br><br>
+                                <strong>Ubicación:</strong> {{unidadInfo.ubicacion}}<br><br>
+                                <strong>Autotanque:</strong> {{unidadInfo.modeloMarca}}<br><br>
+                                </h3></address>
+                                </div>
+                            </div> -->
+                                <div class="map_container" >
+                                <div ng-if="bandera == 0">
+                                <google-map center="map.center" zoom="map.zoom" draggable="true" options="map.options" control="map.control">
+                                    <markers models="map.markers" coords="'self'" options="'options'" isLabel='true'>
+                                    </markers>
+                                </google-map>
+                                </div>
+                                    <div ng-if="bandera == 1">
+                                    <div class="alert alert-warning" role="alert">
+                                    <br>
+                                      <h4 class="alert-heading">Advertencia!</h4>
+                                      <br>
+                                      <p class="mb-0">No se encontro la ubicación de la unidad</p>
+                                      <br>
+                                    </div>
+                                    </div>
+                                </div> 
+                            <div class="controls">
                         </div>
-                        <br/><br/>
-                        <div class="table-responsive" ng-hide="userData.idTipoUsuario == 4">
-                            <table class="table table-striped table-bordered table-hover dataTableTaller" cg-busy="{promise:promise,message:message}">
+                    </div>
+                 </div> 
+            </div>
+        </div>
+
+    <div class="modal inmodal fade " id="informacionUnidad" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content animated flipInY">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Ficha Técnica de Unidad</h4>
+                </div>
+                <div class="modal-body">
+                            <div class="widget-head-color-box navy-bgv2 p-lg text-center">
+                                <div>
+                                <br><br>
+                                <strong>{{nombre}}</strong>
+                                <address><h3>
+                                <strong>Zona:</strong> {{unidadInfo.GAR}}<br><br>
+                                <strong>TAR:</strong> {{unidadInfo.TAR}}<br><br>
+                                <strong>No. TAR:</strong> {{unidadInfo.numTAR}}<br><br>
+                                <strong>Unidad:</strong> {{unidadInfo.marca}} - {{unidadInfo.modelo}}<br><br>
+                                <strong>No. Económico:</strong> {{unidadInfo.clienteNumEconomico}}<br><br>
+                                <strong>No. Inventario:</strong> {{unidadInfo.clienteNumInventario}}<br><br>
+                                <strong>Ubicación:</strong> {{unidadInfo.ubicacion}}<br><br>
+                                <strong>Autotanque:</strong> {{unidadInfo.modeloMarca}}<br><br>
+                                </h3></address>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-primary" ng-click="CierraModal()" >Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal inmodal fade " id="citaServicioModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content animated flipInY">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Pre-orden de servicio</h4>
+                </div>
+                <div class="modal-body" ng-init="initCitaServicio()">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <input type="text" placeholder="Búsqueda: Servicio/Paquete/Refacción" ng-model="pieza" class="form-control" ng-enter="getPieza(pieza)">
+                        </div>
+                        <div class="col-xs-0">
+                            <button id="btnBuscarPieza" busy="Buscando.." type="button" class="btn btn-primary glyphicon glyphicon-search" ng-click="getPieza(pieza)"></button>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row tablaBusqueda tablaAlign" cg-busy="{promise:promise,message:message}">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover dataTablePiezaTaller">
                                 <thead>
-                                    <th>Taller</th>
-                                    <th>Dirección</th>
-                                    <th>Seleccionar</th>
+                                    <th>No.Partida</th>
+                                    <th>No.Parte</th>
+                                    <th>Descripción</th>
+                                    <th>Agregar</th>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="taller in talleres">
-                                        <td>{{taller.razonSocial}}</td>
-                                        <td>{{taller.direccion}}</td>
+                                    <tr ng-repeat="pieza in piezas">
+                                        <td>{{ pieza.numeroPartida }}</td>
+                                        <td>{{ pieza.numeroParte }}</td>
+                                        <td>{{pieza.item}}</td>
                                         <td>
-                                            <input type="radio" name="optTaller" ng-click="getTaller(taller.idTaller)" />
-                                        </td>
-                                    </tr>
-                                    <tr ng-show="edita == 1 && datosCita.direccion != null">
-                                        <td>{{datosCita.razonSocial}}</td>
-                                        <td>{{datosCita.direccion}}</td>
-                                        <td>
-                                            <input type="radio" name="optTaller" ng-click="getTaller(datosCita.idTaller)" />
+                                            <button class="btn btn-success glyphicon glyphicon-plus" type="button" id="btnCotizar" ng-click="addPieza(pieza)">
+                                            </button>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-<!--                         <div class="form-group">
-                            <label class="col-sm-3 control-label">Estado del autotanque: </label>
-                            <div class="col-sm-9">
-                                <select class="form-control m-b" name="estadoAutotanque" ng-model="datosCita.idEstadoAutotanque" ng-options="autotanque.idEstadoAutotanque as autotanque.descripcionEstadoAutotanque for autotanque in estadosAutotanque" ng-change="unidadParada(datosCita.idEstadoAutotanque)">
-                                    <option value="">Seleccione el estado del autotanque</option>
-                                </select>
-                            </div>
-                        </div> -->
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">Estado de la Unidad: </label>
-                            <div class="col-sm-9">
-                                <select class="form-control" name="estadoAutotanque" ng-model="idEstadoAutotanque" ng-change="unidadParada(idEstadoAutotanque)">
-                                    <option value="">Seleccione el estado del autotanque</option>
-                                    <option value="1">Unidad Parada</option>
-                                    <option value="2">Unidad en Operación</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group" ng-show="idEstadoAutotanque == 1 || idEstadoAutotanque == 2">
-                            <label class="col-sm-3 control-label">Tipo de cita:</label>
-                            <div class="col-sm-9">
-                                <select class="form-control" name="proceso" ng-model="procesAutotanque" ng-change="radioSelect(procesAutotanque)">
-                                    <option value="">Seleccione el tipo de cita</option>
-                                    <option value="1">Traslado a taller</option>
-                                    <option value="4">Refacciones</option>  
-                                    <option value="1">Esta en taller</option>  
-                                    <option value="1">Seguro (sccidente, corralon)</option>  
-                                    <option value="1">Robo total</option>  
-                                    <option value="1">Corralon</option> 
-                                </select>        
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group" ng-show="procesAutotanque == 1" ng-hide="idEstadoAutotanque=='' || procesAutotanque == 4 || procesAutotanque == ''">
-                            <label class="col-sm-3 control-label">Requiere grúa: </label>
-                            <div class="col-sm-9">
-                                <div class="input-group m-b">
-                                    <div class="radio radio-info radio-inline">
-                                        <input type="radio" id="inlineRadio1" value="1" name="radioInline" checked="" ng-model="requiereGrua">
-                                        <label for="inlineRadio1"> Si </label>
-                                    </div>
-                                    <div class="radio radio-inline">
-                                        <input type="radio" id="inlineRadio2" value="0" name="radioInline" ng-model="requiereGrua">
-                                        <label for="inlineRadio2"> No </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group" ng-show="procesAutotanque == 1" ng-hide="procesAutotanque == 4 || procesAutotanque == '' || idEstadoAutotanque==''">
-                            <label class="col-sm-3 control-label">Clasificación de cita: </label>
-                            <div class="col-sm-9">
-                                <select class="form-control" name="clasificacionCita" ng-model="clasificacionCita">
-                                    <option value="">Seleccione la clasificación de cita</option>
-                                    <option value="1">Preventiva</option>
-                                    <option value="2">Correctiva</option>
-                                    <option value="3">Predictiva</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label" ng-if="procesAutotanque == ''">Fecha: </label>
-                            <label class="col-sm-3 control-label" ng-if="procesAutotanque == 1">Fecha de cita: </label>
-                            <label class="col-sm-3 control-label" ng-if="procesAutotanque == 4">Fecha de entrega: </label>
-                            <div class="col-sm-9">
-                                <div id="fechaTrabajo">
-                                    <div class="input-group date">
-                                        <input type="text" class="form-control" value="" ng-model="datosCita.fechaCita" ng-change="validaHoraCita()">
-                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label" ng-if="procesAutotanque == ''">Hora: </label>
-                            <label class="col-sm-3 control-label" ng-if="procesAutotanque == 1">Hora de cita: </label>
-                            <label class="col-sm-3 control-label" ng-if="procesAutotanque == 4">Hora de entrega: </label>
-                            <div class="col-sm-9">
-                                <div class="input-group clockpicker" data-autoclose="true">
-                                    <input type="text" class="form-control" value="" ng-model="datosCita.horaCita" ng-change="validaHoraCita()">
-                                    <span class="input-group-addon">
-                                                <span class="fa fa-clock-o"></span>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">Comentarios Adicionales: </label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" ng-model="datosCita.trabajoCita" value="">
-                            </div>
-                        </div>
-                        <!--  <div class="form-group">
-                            <label class="col-sm-3 control-label">Observaciones: </label>
-                            <div class="col-sm-9">
-                                <textarea class="form-control" rows="4" ng-model="datosCita.observacionCita"></textarea>
-                            </div>
-                        </div> -->
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label"></label>
-                            <div class="col-sm-9">
-                                <div>
-                                    <button type="button" class="btn btn-primary pull-left m-t-n-xs" ng-click="showCitaServicioModal()" ng-disabled="selectedTaller || procesAutotanque == '' || selectedCliente == '' || selectedCliente == null" ><span class="glyphicon glyphicon-usd"></span><strong> Pre-orden de servicio</strong></button>
-                                    <button type="button" class="btn btn-danger pull-left m-t-n-xs">{{labelItems}} Items</button>
-
-                                    <button ng-hide="edita == 1" type="button" class="btn btn-success pull-right m-t-n-xs" ng-click="addCita()"><span class="glyphicon glyphicon-calendar"></span><strong> Agendar cita</strong></button>
-
-                                    <button ng-show="edita == 1" type="button" class="btn btn-success pull-right m-t-n-xs" ng-click="updateCita(idCita)"><span class="glyphicon glyphicon-calendar"></span><strong> Actualizar cita</strong></button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-               <div class="col-xs-4"> 
-<!--                         <div class="widget-head-color-box navy-bgv2 p-lg text-center">
-                            <div class="m-b-md">
-                            <h2 class="font-bold no-margins">
-                                Ficha Técnica de Unidad
-                            </h2>
-                            </div>
-                            <div>
-                            <br><br>
-                            <strong>{{nombre}}</strong>
-                            <address><h3>
-                            <strong>Zona:</strong> {{unidadInfo.GAR}}<br><br>
-                            <strong>TAR:</strong> {{unidadInfo.TAR}}<br><br>
-                            <strong>No. TAR:</strong> {{unidadInfo.numTAR}}<br><br>
-                            <strong>Unidad:</strong> {{unidadInfo.marca}} - {{unidadInfo.modelo}}<br><br>
-                            <strong>No. Económico:</strong> {{unidadInfo.clienteNumEconomico}}<br><br>
-                            <strong>No. Inventario:</strong> {{unidadInfo.clienteNumInventario}}<br><br>
-                            <strong>Ubicación:</strong> {{unidadInfo.ubicacion}}<br><br>
-                            <strong>Autotanque:</strong> {{unidadInfo.modeloMarca}}<br><br>
-                            </h3></address>
-                            </div>
-                        </div> -->
-                        <div class="map_container" >
-                            <google-map center="map.center" zoom="map.zoom" draggable="true" options="map.options" control="map.control">
-                            <markers models="map.markers" coords="'self'" options="'options'" isLabel='true'>
-                            </markers>
-                        </google-map>
-                    </div> 
-                    <div class="controls">
-                </div>
-            </div>
-         </div> 
-    </div>
-</div>
-
-<div class="modal inmodal fade " id="informacionUnidad" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content animated flipInY">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title">Ficha Técnica de Unidad</h4>
-            </div>
-            <div class="modal-body">
-                        <div class="widget-head-color-box navy-bgv2 p-lg text-center">
-                            <div>
-                            <br><br>
-                            <strong>{{nombre}}</strong>
-                            <address><h3>
-                            <strong>Zona:</strong> {{unidadInfo.GAR}}<br><br>
-                            <strong>TAR:</strong> {{unidadInfo.TAR}}<br><br>
-                            <strong>No. TAR:</strong> {{unidadInfo.numTAR}}<br><br>
-                            <strong>Unidad:</strong> {{unidadInfo.marca}} - {{unidadInfo.modelo}}<br><br>
-                            <strong>No. Económico:</strong> {{unidadInfo.clienteNumEconomico}}<br><br>
-                            <strong>No. Inventario:</strong> {{unidadInfo.clienteNumInventario}}<br><br>
-                            <strong>Ubicación:</strong> {{unidadInfo.ubicacion}}<br><br>
-                            <strong>Autotanque:</strong> {{unidadInfo.modeloMarca}}<br><br>
-                            </h3></address>
-                            </div>
-                        </div>
-                        <button type="button" class="btn btn-primary" ng-click="CierraModal()" >Cerrar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-<div class="modal inmodal fade " id="citaServicioModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content animated flipInY">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title">Pre-orden de servicio</h4>
-            </div>
-            <div class="modal-body" ng-init="initCitaServicio()">
-                <div class="row">
-                    <div class="col-xs-5">
-                        <input type="text" placeholder="Búsqueda: Servicio/Paquete/Refacción" ng-model="pieza" class="form-control" ng-enter="getPieza(pieza)">
                     </div>
-                    <div class="col-xs-0">
-                        <button id="btnBuscarPieza" busy="Buscando.." type="button" class="btn btn-primary glyphicon glyphicon-search" ng-click="getPieza(pieza)"></button>
-                    </div>
-                </div>
-                <br/>
-                <div class="row tablaBusqueda tablaAlign" cg-busy="{promise:promise,message:message}">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover dataTablePiezaTaller">
+                    <br/>
+                    <div class="row">
+                        <table class="table table-striped table-bordered table-hover">
                             <thead>
                                 <th>No.Partida</th>
                                 <th>No.Parte</th>
                                 <th>Descripción</th>
-                                <th>Agregar</th>
+                                <th>Cantidad</th>
+                                <th>Eliminar</th>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="pieza in piezas">
-                                    <td>{{ pieza.numeroPartida }}</td>
-                                    <td>{{ pieza.numeroParte }}</td>
+                                <tr dir-paginate="pieza in listaPiezas | itemsPerPage:3" pagination-id="listaPiezasSeleccionadas">
+                                    <td>{{pieza.numeroPartida }}</td>
+                                    <td>{{pieza.numeroParte}}</td>
                                     <td>{{pieza.item}}</td>
+                                    <td>{{pieza.cantidad}}</td>
                                     <td>
-                                        <button class="btn btn-success glyphicon glyphicon-plus" type="button" id="btnCotizar" ng-click="addPieza(pieza)">
+                                        <button class="btn btn-danger glyphicon glyphicon-remove" type="button" id="btnCotizar" ng-click="removePieza(pieza.idItem)">
                                         </button>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
-                </div>
-                <br/>
-                <div class="row">
-                    <table class="table table-striped table-bordered table-hover">
-                        <thead>
-                            <th>No.Partida</th>
-                            <th>No.Parte</th>
-                            <th>Descripción</th>
-                            <th>Cantidad</th>
-                            <th>Eliminar</th>
-                        </thead>
-                        <tbody>
-                            <tr dir-paginate="pieza in listaPiezas | itemsPerPage:3" pagination-id="listaPiezasSeleccionadas">
-                                <td>{{pieza.numeroPartida }}</td>
-                                <td>{{pieza.numeroParte}}</td>
-                                <td>{{pieza.item}}</td>
-                                <td>{{pieza.cantidad}}</td>
-                                <td>
-                                    <button class="btn btn-danger glyphicon glyphicon-remove" type="button" id="btnCotizar" ng-click="removePieza(pieza.idItem)">
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div id="paginationTaller">
-                        <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true" pagination-id="listaPiezasSeleccionadas">
-                        </dir-pagination-controls>
-                    </div>
-                    <div>
-                        <button type="button" class="btn btn-primary pull-right m-t-n-xs" ng-click="generarCitaServicio(pieza)"><span class="glyphicon glyphicon-saved"></span><strong> Generar Pre-orden</strong></button>
+                        <div id="paginationTaller">
+                            <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true" pagination-id="listaPiezasSeleccionadas">
+                            </dir-pagination-controls>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-primary pull-right m-t-n-xs" ng-click="generarCitaServicio(pieza)"><span class="glyphicon glyphicon-saved"></span><strong> Generar Pre-orden</strong></button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
