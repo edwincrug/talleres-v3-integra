@@ -1213,6 +1213,7 @@
                         alertFactory.error('No se encontro la ubicacion de la Unidad');
                    });
                 }
+        /*
          //INICIALIZAMOS LAS COORDENADAS PARA EL MAPA
          MarkerCreatorService.createByCoords(19.4353367, -99.1379815, function (marker) {
                 marker.options.labelContent = 'Posición';
@@ -1241,7 +1242,8 @@
                     $scope.map.markers.push(marker);
                     refresh(marker);
                 });
-            }
+            }*/
+
             /* $scope.addAddress = function() {
                 var address = $scope.address;
                 if (address !== '') {
@@ -1251,6 +1253,7 @@
                     });
                 }
             }*/
+            
             function refresh(marker) {
                 $scope.map.control.refresh({latitude: marker.latitude,
                     longitude: marker.longitude});
