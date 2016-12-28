@@ -684,5 +684,79 @@
         });
     }
 
+    Cita.prototype.get_motivo = function (req, res, next) {
+        //Con req.query se obtienen los parametros de la url
+        //Ejemplo: ?p1=a&p2=b
+        //Retorna {p1:'a',p2:'b'}
+        //Objeto que envía los parámetros
+        var params = [];
+        //Referencia a la clase para callback
+        var self = this;
+
+        //asignación de valores mediante parámetros del request
+        
+
+        this.model.query('SEL_MOTIVO_SUSTITUTO_SP', params, function (error, result) {
+            self.view.expositor(res, {
+                error: error,
+                result: result
+            });
+        });
+    }
+
+
+     Cita.prototype.get_sustituto = function (req, res, next) {
+        //Objeto que almacena la respuesta
+        var object = {};
+        //Referencia a la clase para callback
+        var self = this;
+        //Asigno a params el valor de mis variables    
+        var params = [
+            {
+                name: 'idUnidad',
+                value: req.query.idUnidad,
+                type: self.model.types.INT
+            }
+        ];
+
+        this.model.query('SEL_UNIDAD_SUSTITUTO_SP', params, function (error, result) {
+            //Callback
+            object.error = error;
+            object.result = result;
+
+            self.view.expositor(res, object);
+        });
+    }
+
+    //insertar nueva cita para una unidad
+    Cita.prototype.post_addunidadsustituto = function (req, res, next) {
+        //Referencia a la clase para callback
+        var self = this;
+        //Asigno a params el valor de mis variables
+        var params = [{
+                name: 'idUnidad',
+                value: req.body.idUnidad,
+                type: self.model.types.INT
+            },
+            {
+                name: 'idSustituto',
+                value: req.body.idSustituto,
+                type: self.model.types.INT
+            },
+            {
+                name: 'idUsuario',
+                value: req.body.idUsuario,
+                type: self.model.types.INT
+            }];
+
+        this.model.post('INS_UNIDAD_SUSTITUTO_SP', params, function (error, result) {
+            //Callback
+            self.view.expositor(res, {
+                error: error,
+                result: result
+            });
+        });
+    }
+
 
     module.exports = Cita;

@@ -1,30 +1,34 @@
 
-<div  class="animated fadeInRight">
+<div  class="animated fadeInRight" ng-init="init_asignacion()">
     <div class="headTitleTallerCita">
         <span class="title"> Asignación <span class="subtitle"></span></span>
     </div>
 
     <div class="wrapper wrapper-content">
         <div class="row">
-        		<div class="col-md-8">
-        			<form class="form-horizontal">
-                        <br/>
+        		<div class="col-md-6">
+        			<form class="form-horizontal" style="padding-right: 3%; padding-left: 3%;">
+                        <br/> 
+                        <div class="title" >Unidad </div>
+                         <br/> 
                         <div class="row">
                             <div class="form-group">
                                 <div class="col-sm-12">
+
+                                    <div class="col-sm-5">
+                                        <select class="form-control" name="motivo" ng-model="selectedCliente" ng-options="motivo.Descripcion for motivo in motivos">
+                                            <option value=''>Selecionar  motivo</option><!--default option -->
+                                        </select>
+                                    </div>
 
                                 	<div class="col-sm-6">
-                                		<input type="text" placeholder="Buscar unidad" ng-model="datoUnidad" ng-change="habilitaBuscar(datoUnidad)" class="form-control ng-pristine ng-untouched ng-valid" ng-enter="lookUpUnidad(selectedCliente.idCliente, datoUnidad)">
+                                		<input type="text" placeholder="Buscar unidad" ng-model="datoUnidad" ng-change="habilitaBuscar(datoUnidad)" class="form-control ng-pristine ng-untouched ng-valid" ng-enter="getUnidad(datoUnidad)">
                                 	</div>
 
-                                	<div class="col-sm-5">
-                                    	<select class="form-control" name="motivo" ng-model="selectedCliente" ng-options="motivo.nombre for motivo in motivos">
-                                        	<option value=''>Selecionar </option><!--default option -->
-                                    	</select>
-                                    </div>
+                                	
 
                                      <div class="col-sm-1">
-                                    	 <button id="btnBuscar" busy="Buscando.." type="button" class="btn btn-primary" ng-click="lookUpUnidad(selectedCliente.idCliente, datoUnidad)"><span class="glyphicon glyphicon-search"></span></button>
+                                    	 <button id="btnBuscar" busy="Buscando.." type="button" class="btn btn-primary" ng-click="getUnidad()"><span class="glyphicon glyphicon-search"></span></button>
                                     </div>
                                 </div>
                             </div>  
@@ -34,37 +38,113 @@
                             <table class="table table-striped table-bordered table-hover dataTableUnidad" cg-busy="{promise:promise,message:message}">
                                 <thead>
                                     <tr>
-                                        <th>Unidad</th>
-                                        <th>Número de la Orden</th>
-                                        <th>Estatus</th>
+                                        <th>Número Económico</th>
+                                        <th>Número Económico Cliente</th>
+                                        <th>Seleccionar</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="trabajo in aprobacionTrabajos | filter:searchText ">
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                    <tr ng-repeat="unidad in unidades ">
+                                        <td>{{unidad.numEconomico}}</td>
+                                        <td>{{unidad.clienteNumEconomico}}</td>
+                                        <td>    
+                                            <input type="radio" name="optUnidad" checked="checked"  ng-click="selUnidad(unidad)" />
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
 
                             
                         </div>
+                        <div class="row" style="padding-left: 15%;" ng-show="show_mapUnidad==true">
+                            <div class="map_container" >
+                                <google-map center="map.center" zoom="map.zoom" draggable="true" options="map.options" control="map.control">
+                                    <markers models="map.markers" coords="'self'" options="'options'" isLabel='true'>
+                                    </markers>
+                                </google-map>
+                            </div>
+                        </div>
+                    
 
                         </br>
                         </br>
+
+                        
+                    </form>
+        		</div>
+                <div class="col-md-6">
+                    <form class="form-horizontal" style="padding-right: 3%; padding-left: 3%;">
+                        <br/> 
+                        <div class=" title" >Sustituto </div>
+                         <br/> 
+                        <div class="row" >
+                            <div class="form-group">
+                                <div class="col-sm-12">
+
+                                    <div class="col-sm-11">
+                                        <input type="text" placeholder="Buscar sustituto"  ng-model="dataSustituto" class="form-control ng-pristine ng-untouched ng-valid" ng-enter="getSustituto(dataSustituto)" >
+                                    </div>
+
+
+                                     <div class="col-sm-1">
+                                         <button id="btnSustituto" busy="Buscando.." type="button" class="btn btn-primary " ng-click="getSustituto(dataSustituto)"><span class="glyphicon glyphicon-search"></span></button>
+                                    </div>
+                                </div>
+                            </div>  
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover dataTableSustituto" cg-busy="{promise:promise,message:message}">
+                                <thead>
+                                    <tr>
+                                        <th>Número Económico</th>
+                                        <th>Número Económico Cliente</th>
+                                        <th>Seleccionar</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="sustituto in sustitutos ">
+                                        <td>{{sustituto.numEconomico}}</td>
+                                        <td>{{sustituto.clienteNumEconomico}}</td>
+                                        <td>    
+                                            <input type="radio" name="optUnidad" checked="checked"  ng-click="selsustituto(sustituto)" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row" style="padding-left: 15%;" ng-show="show_mapSustituto==true">
+                            <div class="map_container" >
+                                <google-map center="map.center" zoom="map.zoom" draggable="true" options="map.options" control="map.control">
+                                    <markers models="map.markers" coords="'self'" options="'options'" isLabel='true'>
+                                    </markers>
+                                </google-map>
+                            </div>
+                        </div>
+                    
+
+                        </br>
+                        </br>
+
+                        
+                    </form>
+                </div>
+        		<!--div class="col-md-6">
+                    <form class="form-horizontal">
 
                         <div class="row">
                             <div class="form-group">
                                 <div class="col-sm-12">
 
-                                	<div class="col-sm-11">
-                                		<input type="text" placeholder="Buscar sustituto" ng-model="datoUnidad"  class="form-control ng-pristine ng-untouched ng-valid" >
-                                	</div>
+                                    <div class="col-sm-11">
+                                        <input type="text" placeholder="Buscar sustituto" ng-model="datoUnidad"  class="form-control ng-pristine ng-untouched ng-valid" >
+                                    </div>
 
 
                                      <div class="col-sm-1">
-                                    	 <button id="btnBuscar" busy="Buscando.." type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
+                                         <button id="btnBuscar" busy="Buscando.." type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
                                     </div>
                                 </div>
                             </div>  
@@ -90,13 +170,26 @@
 
                             
                         </div>
-                    </form>
-        		</div>
-        		<div class="col-md-4">
-        			
-        			
-        		</div>
-        </div>
-     </div>  
+                         <div class="row">
+                            <div class="map_container" >
+                                <google-map center="map.center" zoom="map.zoom" draggable="true" options="map.options" control="map.control">
+                                    <markers models="map.markers" coords="'self'" options="'options'" isLabel='true'>
+                                    </markers>
+                                </google-map>
+                            </div>
+                        </div>
+                        
+
+                       
+            			
+            		</div>
+
+            </div-->
+        </form>
+     </div>
+    <div class="row col-md-12">
+        <!--pull-right-->
+        <button type="button" class="btn btn-success  m-t-n-xs" ng-click="addUnidadSusituto()"><span class="glyphicon glyphicon-link"></span><strong> Ligar unidad con sustituto</strong></button>
+    </div>  
 
 </div>    
