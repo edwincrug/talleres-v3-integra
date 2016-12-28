@@ -259,6 +259,11 @@
                 type: self.model.types.INT
             },
             {
+                name: 'idMotivoCita',
+                value: req.body.idMotivoCita,
+                type: self.model.types.INT
+            },
+            {
                 name: 'idCliente',
                 value: req.body.idCliente,
                 type: self.model.types.INT
@@ -435,6 +440,11 @@
             {
                 name: 'idTrasladoUnidad',
                 value: req.body.idTrasladoUnidad,
+                type: self.model.types.INT
+            },
+            {
+                name: 'idMotivoCita',
+                value: req.body.idMotivoCita,
                 type: self.model.types.INT
             }];
 

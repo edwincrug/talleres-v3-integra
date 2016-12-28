@@ -19,8 +19,10 @@
         $scope.isPreCotizacion = false;
         localStorageService.remove('idCotizacionEdit');
         obtieneFechaActual();
-        $scope.selectedCliente='';
-
+        //$scope.selectedCliente='';
+        $scope.selectedCliente = {
+                idCliente: 5
+            }
         $scope.address = '';
 
         $scope.init = function () {
@@ -43,6 +45,7 @@
 
             $scope.idEstadoAutotanque = '';
             $scope.procesAutotanque = '';
+            $scope.idMotivoCita = '';
             //requiereGrua
             //clasificacionCita
 
@@ -241,10 +244,11 @@
                         citaTaller.idUsuario = $scope.userData.idUsuario;
 
                         citaTaller.idTipoCita = $scope.clasificacionCita;
-                        $scope.procesAutotanque == "4" ? citaTaller.idTipoCita = $scope.procesAutotanque : citaTaller.idTipoCita;
+                        $scope.procesAutotanque == "4" ? citaTaller.idTipoCita = $scope.procesAutotanque : citaTaller.idMotivoCita = $scope.procesAutotanque;
                         citaTaller.idTrasladoUnidad = $scope.requiereGrua;
                         citaTaller.idEstadoAutotanque = $scope.idEstadoAutotanque;
-                        citaTaller.idCliente= $scope.selectedCliente.idCliente;
+                        //citaTaller.idCliente = $scope.selectedCliente.idCliente;
+                        citaTaller.idCliente = 5;
                         //citaTaller.idTipoCita = $scope.tipoCita; check
                         //citaTaller.idEstadoAutotanque = $scope.datosCita.idEstadoAutotanque; check       
                         //citaTaller.idTrasladoUnidad = $scope.datosCita.idTrasladoUnidad; check
@@ -643,7 +647,7 @@
                         citaTaller.idUsuario = $scope.userData.idUsuario;
 
                         citaTaller.idTipoCita = $scope.clasificacionCita;
-                        $scope.procesAutotanque == "4" ? citaTaller.idTipoCita = $scope.procesAutotanque : citaTaller.idTipoCita;
+                        $scope.procesAutotanque == "4" ? citaTaller.idTipoCita = $scope.procesAutotanque : citaTaller.idMotivoCita = $scope.procesAutotanque;
                         citaTaller.idTrasladoUnidad = $scope.requiereGrua;
                         citaTaller.idEstadoAutotanque = $scope.idEstadoAutotanque;
 
@@ -728,6 +732,9 @@
                     }
                     if(citaDato[0].idTrasladoUnidad != null){
                     $scope.requiereGrua = citaDato[0].idTrasladoUnidad.toString();
+                    }
+                    if(citaDato[0].idMotivoCita != null){
+                    $scope.procesAutotanque = citaDato[0].idMotivoCita.toString();
                     }
                     //$scope.idTrasladoUnidad = citaDato[0].idTrasladoUnidad;
                     //$scope.datosCita.tipoCita = citaDato[0].NumCita;

@@ -93,10 +93,10 @@
                                         <option value="">Seleccione el tipo de cita</option>
                                         <option value="1">Traslado a taller</option>
                                         <option value="4">Refacciones</option>  
-                                        <option value="1">Esta en taller</option>  
-                                        <option value="1">Seguro (sccidente, corralon)</option>  
-                                        <option value="1">Robo total</option>  
-                                        <option value="1">Corralon</option> 
+                                        <option value="2">Esta en taller</option>  
+                                        <option value="3">Seguro (sccidente, corralon)</option>  
+                                        <option value="5">Robo total</option>  
+                                        <option value="6">Corralon</option> 
                                     </select>        
                                     </select>
                                 </div>
@@ -129,7 +129,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" ng-if="procesAutotanque == ''">Fecha: </label>
-                                <label class="col-sm-3 control-label" ng-if="procesAutotanque == 1">Fecha de cita: </label>
+                                <label class="col-sm-3 control-label" ng-if="procesAutotanque == 1 || procesAutotanque == 2 || procesAutotanque == 3 || procesAutotanque == 5 || procesAutotanque == 6">Fecha de cita: </label>
                                 <label class="col-sm-3 control-label" ng-if="procesAutotanque == 4">Fecha de entrega: </label>
                                 <div class="col-sm-9">
                                     <div id="fechaTrabajo">
@@ -142,7 +142,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" ng-if="procesAutotanque == ''">Hora: </label>
-                                <label class="col-sm-3 control-label" ng-if="procesAutotanque == 1">Hora de cita: </label>
+                                <label class="col-sm-3 control-label" ng-if="procesAutotanque == 1 || procesAutotanque == 2 || procesAutotanque == 3 || procesAutotanque == 5 || procesAutotanque == 6">Hora de cita: </label>
                                 <label class="col-sm-3 control-label" ng-if="procesAutotanque == 4">Hora de entrega: </label>
                                 <div class="col-sm-9">
                                     <div class="input-group clockpicker" data-autoclose="true">
