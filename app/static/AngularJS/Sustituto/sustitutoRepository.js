@@ -13,23 +13,24 @@ var citaUrl = global_settings.urlCORS + '/api/cita/';
                     }
                 })
             },
-            getSustituto: function (idUnidad) {
-                debugger;
+            getSustituto: function (numEconomico, tipo) {
                 return $http({
                     url: citaUrl + 'sustituto/',
                     method: "GET",
                     params: {
-                        idUnidad: idUnidad
+                        numEconomico: numEconomico,
+                        tipo: tipo
                     },
                     headers: {
                         'Content-Type': 'application/json'
                     }
                 })
             },
-            addUnidadSustituto: function (idUnidad, idSustituto, idUsuario) {
+            addUnidadSustituto: function (idUnidad, idSustituto, idMotivo, idUsuario) {
                 var msgObj = {
                     idUnidad: idUnidad,
                     idSustituto: idSustituto,
+                    idMotivo:idMotivo,
                     idUsuario: idUsuario
 
                 }

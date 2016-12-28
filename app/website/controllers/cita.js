@@ -723,9 +723,16 @@
         //Asigno a params el valor de mis variables    
         var params = [
             {
-                name: 'idUnidad',
-                value: req.query.idUnidad,
+                name: 'numEconomico',
+                value: req.query.numEconomico,
+                type: self.model.types.STRING
+                            
+            },
+            {
+                name: 'tipo',
+                value: req.query.tipo,
                 type: self.model.types.INT
+                            
             }
         ];
 
@@ -751,6 +758,11 @@
             {
                 name: 'idSustituto',
                 value: req.body.idSustituto,
+                type: self.model.types.INT
+            },
+            {
+                name: 'idMotivo',
+                value: req.body.idMotivo,
                 type: self.model.types.INT
             },
             {
