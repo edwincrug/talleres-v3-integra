@@ -44,5 +44,15 @@ var citaUrl = global_settings.urlCORS + '/api/cita/';
                 });
             },
 
+            getReporte:function(){
+                return $http({
+                        url: citaUrl + 'reportesustituto',//va al controller de node
+                        method:"GET",                       //el metodo get es porque se realizara una consulta
+                        headers:{'Content-Type':'application/json'
+                    }
+                });
+            }
+
+
         };
     });

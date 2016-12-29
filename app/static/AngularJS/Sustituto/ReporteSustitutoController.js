@@ -1,6 +1,12 @@
-registrationModule.controller('ReporteSustitutoController', function (MarkerCreatorService,$scope, $modal, $route, $rootScope, $location, localStorageService, alertFactory, globalFactory, ordenServicioRepository, uploadRepository, ordenPorCobrarRepository, commonService, ordenAnticipoRepository, trabajoRepository ) {
+registrationModule.controller('ReporteSustitutoController', function (MarkerCreatorService,$scope, $modal, $route, $rootScope, $location, localStorageService, alertFactory, globalFactory, sustitutoRepository,ordenServicioRepository, uploadRepository, ordenPorCobrarRepository, commonService, ordenAnticipoRepository, trabajoRepository ) {
 	
-	
+    $scope.init = function (){
+
+         $scope.getReporteSustituto();
+
+    }
+
+
 MarkerCreatorService.createByCoords(19.4353367, -99.1379815, function (marker) {
         marker.options.labelContent = 'Posición';
         $scope.autentiaMarker = marker;
@@ -57,7 +63,23 @@ MarkerCreatorService.createByCoords(19.4353367, -99.1379815, function (marker) {
             });
         }
 
-        
+            //crea funcion getReporteSustituto
+
+    $scope.getReporteSustituto = function () {
+        sustitutoRepository.getReporte().then(function (reporte) {//va a mi repository y entra a function getReporte [.then(function (reporte)  es para que devuelva repuesta]
+            if (reporte.data.length > 0) { //valida que tenga una caden amayor de cero sino es porque no tiene registros
+                $scope.reporteSustituto = reporte.data;
+                
+                alertFactory.success("Reporte cargado");
+            } else {
+                alertFactory.info("No se encontraron Reporte");
+            }
+        }, function (error) {
+            alertFactory.error("Error al cargar Reporte Sustituto");
+        });
+    }
+
+
 });
 
 

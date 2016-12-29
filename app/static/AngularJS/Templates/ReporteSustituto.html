@@ -29,39 +29,32 @@
                                           </tr>
                                       </thead>
                                       <tbody>
-                                          <tr >
-                                            <td>Hola</td>
+                                          <tr ng-repeat="sustituto in reporteSustituto">
+                                            <td>{{sustituto.numEconomico}}</td>
                                             <td>
                                                       <button type="button" class="btn btn-success"
-                                                      tooltip-placement="top" tooltip="Posicionar" ng-click= "psicion()"
-                                                     >
+                                                      tooltip-placement="top" tooltip="Posicionar" ng-click= "psicion()">
                                                       <span class="glyphicon glyphicon-map-marker"></span>
                                                       </button>                                                     
                                             </td>
-                                            <td>Tal</td>
+                                            <td>{{sustituto.NumEconomicoSustituto}}</td>
                                             <td>
                                                       <button type="button" class="btn btn-success"
-                                                       tooltip-placement="top" tooltip="Posicionar"
-                                                       ng-click="Mapa()"
-                                                       >
+                                                       tooltip-placement="top" tooltip="Posicionar" ng-click= "psicion()">
                                                       <span class="glyphicon glyphicon-map-marker"></span>
                                                       </button>
                                             </td>
-                                            <td>has</td>
-                                            <td>estado</td>
+                                            <td>{{sustituto.tiempoTranscurrido}}</td>
+                                            <td>{{sustituto.estatusText}}</td>
                                             <td>
-                                                      <button type="button" class="btn btn-primary" tooltip-placement="top" tooltip="Desvincular" ng-click="Desvinculacion()"
-                                                      ><!--  data-toggle="modal" data-target="#DesvincularModal"-->
+                                                      <button type="button" class="btn btn-primary" tooltip-placement="top" tooltip="Desvincular" ng-click="Desvinculacion()">
                                                       <span class="fa fa-chain-broken"></span>
                                                       </button>                                                             
                                             </td>
                                           </tr>
                                       </tbody>
                                   </table>
-
                             </div>
-
-
                         </div>                       
                     </div>
                 </div>
@@ -71,25 +64,6 @@
     </div>     
 </div>
 
-<!--Modal  Map>
-<div class="modal inmodal" id="MapaModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content animated flipInY">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>               
-            </div>
-         <div class="modal-body">
-             <div class="map_container" >
-                 <google-map center="map.center" zoom="map.zoom" draggable="true" options="map.options" control="map.control">
-                                    <markers models="map.markers" coords="'self'" options="'options'" isLabel='true'>
-                                    </markers>
-                                </google-map>
-             </div>
-          </div>
-        </div>           
-    </div>
-</div-->
-
 
 <div id="MapaModal" class="modal inmodal fade" role="dialog">
     <div class="modal-dialog modal-lg">
@@ -97,7 +71,7 @@
         <div class="modal-content animated flipInY">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Certificado de Conformidad</h4>
+                <h4 class="modal-title">Posicion</h4>
             </div>
             <div class="modal-body" style="margin: 50px;">
                 <div style="padding: 100px;">
@@ -110,7 +84,3 @@
         </div>
     </div>
 </div>
-<!--
-
--->
-

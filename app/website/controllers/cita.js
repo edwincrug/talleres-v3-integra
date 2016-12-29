@@ -781,4 +781,24 @@
     }
 
 
+
+ 
+    Cita.prototype.get_reportesustituto = function (req, res, next) {
+        //Obtención de valores de los parámetros del request
+        var params = [];
+        //Objeto que almacena la respuesta
+        var object = {};
+        //Referencia a la clase para callback
+        var self = this;
+
+        this.model.query('SEL_REPORTE_SUSTITUTO_SP', params, function (error, result) {
+            self.view.expositor(res, {
+                error: error,
+                result: result
+            });
+        });
+    }
+
+
+
     module.exports = Cita;
