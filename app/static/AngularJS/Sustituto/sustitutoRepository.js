@@ -51,6 +51,15 @@ var citaUrl = global_settings.urlCORS + '/api/cita/';
                         headers:{'Content-Type':'application/json'
                     }
                 });
+            },
+
+            getMapaUnidad:function(){
+                return $http({
+                        url: citaUrl + 'MapaUnidad',
+                        method:"POST",
+                        headers:{'Content-Type':'application/json'
+                    }
+                });
             }
 
 
