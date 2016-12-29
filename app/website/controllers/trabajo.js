@@ -629,4 +629,28 @@ Trabajo.prototype.post_generaCertificado = function (req, res, next) {
     });
 } 
 
+//Actualiza estatus del osur
+Trabajo.prototype.post_ordenSinCopade = function (req, res, next) {
+    var self = this;
+
+     var params = [{
+        name: 'idEstatus',
+        value: req.body.idEstatus,
+        type: self.model.types.INT
+        },
+        {
+        name: 'idTrabajo',
+        value: req.body.idTrabajo,
+        type: self.model.types.INT
+        }];
+
+    this.model.post('UPD_ESTATUS_TRABAJO_SP', params, function (error, result) {
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
+    });
+}
+
 module.exports = Trabajo;
+

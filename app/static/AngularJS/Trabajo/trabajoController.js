@@ -597,43 +597,44 @@ registrationModule.controller('trabajoController', function ($scope, $modal, $ro
 
     }
 
-    $scope.aprobar = function (){
+        $scope.aprobar = function (idTrabajo){
+            $('#aceptaRechazaTrabajo').appendTo("body").modal('show');
+            $scope.idTrabajoApruebaRechaza = idTrabajo;
+        }
 
+
+    $('.btnAprobarOrden').click(function () {
         swal({
-            title: "Advertencia",
-            text: '¿Desea aprobar o rechazar el trabajo?',
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#67BF11",
-            confirmButtonText: "Aprobar",
-            cancelButtonText: "Rechazar",
-            closeOnConfirm: true,
-            closeOnCancel: true,
-            showCloseButton: true
-        }/*,
-        function (isConfirm) {
-            if (isConfirm) {
-                trabajoRepository.cotizacionespago($scope.idTrabajo, $scope.userData.idUsuario).then(function (ordenVerificada) {
-                  
-                    if (ordenVerificada.data[0].idHistorialProceso == 1) {
-                        swal("Orden Provisionada!");
-                        //location.href = '/ordenesporcobrar';
-                    } else {
-                        swal("No se puede procesar la provisión porque algunas cotizaciones no tienen facturas.");
-                        // alertFactory.error("No se puede procesar la provisión porque algunas cotizaciones no tienen facturas.");
+                title: "Advertencia",
+                text: "Esta seguro de aprobar la orden",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#65BD10",
+                confirmButtonText: "Si",
+                cancelButtonText: "No",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+            function (isConfirm) {
+                if (isConfirm) {
+                        trabajoRepository.ordenSinCopade(24, $scope.idTrabajoApruebaRechaza).then(function (result) {
+                            if (result.data.length > 0) {
+                                alertFactory.success("Orden Aprobada correctamente!");
+                                location.href = '/ordenesporcobrar';
+                            } else {
+                                alertFactory.info("No se pudo aprobar la orden.");
+                            }
+                        }, function (error) {
+                            alertFactory.error("Error al verificar la orden");
+                        });
+                    }else {
+                        swal("La Orden no fue Aprobada!");
                     }
-                }, function (error) {
-                    alertFactory.error("Error al verificar la orden");
-                });
-                swal("Orden Provisionada!");
-            }
-        }*/);
-    }
+            });
+   });
 
-    $scope.openOrdenTrabajoModal = function (idEstatus, idTrabajo) {
+    $scope.openOrdenTrabajoModal = function () {
         $('#finalizarTrabajoModal2').appendTo("body").modal('show');
-        $scope.idEstatus = idEstatus;
-        $scope.idTrabajo = idTrabajo;
     }
 
     $('.btnTerminarTrabajo2').click(function () {
@@ -650,8 +651,8 @@ registrationModule.controller('trabajoController', function ($scope, $modal, $ro
             },
             function (isConfirm) {
                 if (isConfirm) {
-                    $scope.ordenGarantia($scope.idEstatus, $scope.idTrabajo, $scope.observacionRechazo);
-                    swal("Trabajo Rechazado!", "El trabajo se ha rechzado", "success");
+                    $scope.ordenGarantia(23, $scope.idTrabajoApruebaRechaza, $scope.observacionRechazo);
+                    swal("Orden Rechazado!", "La Orden se ha rechazado", "success");
                     $scope.observacionRechazo = null;
                 } else {
                     swal("Rechazo Cancelado", "", "error");

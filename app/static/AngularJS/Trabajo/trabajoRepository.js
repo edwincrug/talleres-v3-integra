@@ -444,6 +444,20 @@ registrationModule.factory('trabajoRepository', function ($http) {
                     'Content-Type': 'application/json'
                 }
             })
+        },
+        ordenSinCopade: function (idEstatus,idTrabajo) {
+            return $http({
+                url: trabajoUrl + 'ordenSinCopade/',
+                method: "POST",
+                data: {
+                    idEstatus: idEstatus,
+                    idTrabajo: idTrabajo
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
         }
+
     };
 });

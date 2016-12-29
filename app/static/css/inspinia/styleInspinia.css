@@ -46,6 +46,12 @@ h5 {
   overflow-x:hidden;
 }
 
+.postionWarning{
+    position: inherit;
+    left: 241px;
+    top: -4px;
+}
+
 .my-scroll-nota {
     height: 300px;
     overflow-y: scroll;
