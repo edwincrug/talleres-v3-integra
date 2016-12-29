@@ -35,11 +35,18 @@ MarkerCreatorService.createByCoords(19.4353367, -99.1379815, function (marker) {
         });
     }
 
-        $scope.psicion = function (){
-            debugger;
+        $scope.posicionUnidad = function (){
+            //debugger;
              $('#MapaModal').appendTo("body").modal('show');
         }
 
+         $scope.posicionSustituto = function (){
+            //debugger;
+             $('#MapaModal').appendTo("body").modal('show');
+
+
+
+        }
 
         $scope.Desvinculacion=function () {
         swal({
