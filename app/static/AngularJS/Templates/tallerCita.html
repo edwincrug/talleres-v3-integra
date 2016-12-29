@@ -66,7 +66,7 @@
                                         <td ng-class="{'rowRojo': cita.idEstatus==22}">{{ cita.estatus }}</td>
                                         <td>{{ cita.nombreCompleto }} </td>
                                         <td><div class="col-md-4 block">
-                                            <p class="circle"></p>
+                                            <p class="circle" ng-class="{'rowRojo': cita.idEstatus == 2, 'rowAmarillo': cita.idEstatus == 11, 'rowVerde': cita.idEstatus == 7}"></p>
                                         </div> </td>
                                         <td>
                                             <button ng-hide="cita.idEstatus == 22 || cita.idEstatus == 1 || userData.idTipoUsuario == 4" class="btn btn-success" type="button" data-toggle="tooltip" tooltip="Cargar Comprobante de Recepción" id="btnCotizar" tooltip-placement="top" ng-click="formatoRecepcion(cita)">
