@@ -45,6 +45,7 @@
                                         <!-- <th>Observaciones</th> -->
                                         <th>Estatus</th>
                                         <th>Agendó</th>
+                                        <th>Semáforo</th>
                                         <th>Acción</th>
                                     </tr>
                                 </thead>
@@ -64,6 +65,8 @@
                                         <!-- <td>{{ cita.observacion }}</td> -->
                                         <td ng-class="{'rowRojo': cita.idEstatus==22}">{{ cita.estatus }}</td>
                                         <td>{{ cita.nombreCompleto }} </td>
+                                        <td><div class="col-md-4 block">
+                                        </div> </td>
                                         <td>
                                             <button ng-hide="cita.idEstatus == 22 || cita.idEstatus == 1 || userData.idTipoUsuario == 4" class="btn btn-success" type="button" data-toggle="tooltip" tooltip="Cargar Comprobante de Recepción" id="btnCotizar" tooltip-placement="top" ng-click="formatoRecepcion(cita)">
                                                 <span class="glyphicon glyphicon-cloud-upload"></span>

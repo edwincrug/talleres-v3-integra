@@ -11,5 +11,19 @@
     font-size: 13px;
 }
 
+.circle{
+	background: red;
+  	border-radius: 200px;
+  	color: white;
+  	height: 40px;
+  	font-weight: bold;
+  	width: 40px;
+}
+
+.block{
+  	text-align: center;
+  	vertical-align: middle;
+}
+
 
 
