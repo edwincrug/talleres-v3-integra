@@ -31,14 +31,14 @@
                                               <td>{{sustituto.numEconomico}}</td>
                                               <td>
                                                         <button type="button" class="btn btn-success"
-                                                        tooltip-placement="top" tooltip="Posicionar" ng-click= "posicionUnidad(sustituto.idUnidad, 1)">
+                                                        tooltip-placement="top" tooltip="Posicionar" ng-click= "posicionUnidad(sustituto.idUnidad)">
                                                         <span class="glyphicon glyphicon-map-marker"></span>
                                                         </button>                                                     
                                               </td>
                                               <td>{{sustituto.NumEconomicoSustituto}}</td>
                                               <td>
                                                         <button type="button" class="btn btn-success"
-                                                         tooltip-placement="top" tooltip="Posicionar" ng-click= "posicionUnidad(sustituto.idSustitutoUni, 2)">
+                                                         tooltip-placement="top" tooltip="Posicionar" ng-click= "posicionUnidad(sustituto.idSustitutoUni)">
                                                         <span class="glyphicon glyphicon-map-marker"></span>
                                                         </button>
                                               </td>
@@ -60,37 +60,4 @@
           </div>
         </div>
       </div>     
-  </div>
-  <div id="MapaModal" class="modal inmodal fade" role="dialog" >
-      <div class="modal-dialog modal-lg">
-
-          <!-- Modal content-->
-          <div class="modal-content animated flipInY">
-              <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title">Ubicacion</h4>
-              </div>
-              <div class="modal-body" >
-                  <div style="padding: 100px;" style="margin: 50px;">
-                 <div class="map_container" style="height: 400px!important; position: static;" >
-                      <div ng-if="bandera == 0">
-                      <google-map center="map.center" zoom="map.zoom" draggable="true" options="map.options" control="map.control">
-                          <markers models="map.markers" coords="'self'" options="'options'" isLabel='true'>
-                          </markers>
-                      </google-map>
-                      </div>
-                          <div ng-if="bandera == 1">
-                          <div class="alert alert-warning" role="alert">
-                          <br>
-                            <h4 class="alert-heading">Advertencia!</h4>
-                            <br>
-                            <p class="mb-0">No se encontro la ubicación de la unidad</p>
-                            <br>
-                          </div>
-                          </div>
-                  </div>
-                  </div>                
-              </div>
-          </div>
-      </div>
   </div>

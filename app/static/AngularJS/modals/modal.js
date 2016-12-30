@@ -50,3 +50,25 @@ function modal_detalle_cotizacion($scope, $modal, idTrabajo, origen, utilidad, c
         }
     });
 }
+
+
+function modal_detalle_ubicacion($scope, $modal, idUnidad, callback, error)
+{
+    var modalInstance = $modal.open({
+        templateUrl: '../AngularJS/modals/Template/ubicacionDetalle.html',
+        controller: 'ubicacionDetalle_controller',
+        backdrop: 'static',
+        size: 300,
+        resolve: {
+            idUnidad: function () {
+                return idUnidad;
+            },
+            callback: function () {
+                return callback;
+            },
+            error: function () {
+                return error;
+            }
+        }
+    });
+}
