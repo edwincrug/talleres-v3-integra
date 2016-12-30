@@ -799,25 +799,4 @@
         });
     },
 
-Cita.prototype.get_MapaUnidad =function(req, res, next){
-    //obtiene valores de el parametro idUnidad
-    var params=[{
-                name: 'idUnidad',
-                value: req.body.idUnidad,
-                type: self.model.types.INT
-            }];
-            //aqui en este object alamacenara la respuesta
-            var object={};
-            //referencia a la clase para callback
-            var self=this;
-
-            this.model.query('store',params, function(error, result){
-                self.view.expositor(res,{
-                    error:error,
-                    result:result
-                });
-            });
-}
-
-
     module.exports = Cita;
