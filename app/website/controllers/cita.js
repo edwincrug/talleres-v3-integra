@@ -779,10 +779,7 @@
             });
         });
     }
-
-
-
- 
+    //Obtiene unidades sustituto para su desviculacion
     Cita.prototype.get_reportesustituto = function (req, res, next) {
         //Obtención de valores de los parámetros del request
         var params = [];
@@ -797,6 +794,30 @@
                 result: result
             });
         });
-    },
+    }
+    //Actualiza el estatus de la unidad para sustituto (Desvincula)
+    Cita.prototype.put_unidadDesvinculada = function(req,res,next){
+        //Objeto que almacena la respuesta
+        var object = {};
+        //Objeto que envía los parámetros
+        var params = {};
+        //Referencia a la clase para callback
+        var self = this;
+
+        var params= [
+        {
+            name: 'idUnidadSustituto',
+            value: req.body.idUnidadSustituto,
+            type: self.model.types.INT
+        }];
+
+        this.model.post('UPD_ESTATUS_UNIDAD_SUSTITUTO_SP',params, function (error,result){
+            self.view.expositor(res,{
+                error:error,
+                result:result
+            });
+        });
+
+    }
 
     module.exports = Cita;

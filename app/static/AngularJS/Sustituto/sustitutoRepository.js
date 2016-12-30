@@ -52,12 +52,16 @@ var citaUrl = global_settings.urlCORS + '/api/cita/';
                     }
                 });
             },
-
-            getMapaUnidad:function(){
+            putUnidadDesvicula:function(idUnidadSustituto){
+            var msgObj = {
+                idUnidadSustituto: idUnidadSustituto
+            };
                 return $http({
-                        url: citaUrl + 'UbicacionUnidad',
-                        method:"POST",
-                        headers:{'Content-Type':'application/json'
+                    url: citaUrl + 'unidadDesvinculada',
+                    method:"PUT",
+                    data: msgObj,
+                    headers: {
+                         'Content-Type': 'application/json'
                     }
                 });
             }
@@ -65,3 +69,4 @@ var citaUrl = global_settings.urlCORS + '/api/cita/';
 
         };
     });
+
