@@ -157,6 +157,7 @@
                                                 <th>Estatus provisión</th>
                                                 <th ng-hide="userData.idTipoUsuario == 3">Precio venta sin IVA</th>
                                                 <th>Fecha</th>
+                                                <th>Semáforo</th>
                                                 <th>Acción</th>
                                             </tr>
                                         </thead>
@@ -184,6 +185,14 @@
                                                 </td> -->
                                                 <td ng-hide="userData.idTipoUsuario == 3">{{trabajo.precioOrden | currency: "$"}}</td>
                                                 <td>{{trabajo.fechaFin | date:"dd-MM-yy HH:mm"}}</td>
+                                                <td>
+                                                    <div class="col-md-4 block">
+                                                        <p class="circle" 
+                                                        ng-class="{'rowRojo': trabajo.estatus == 'Terminado', 'rowAmarillo': trabajo.estatusSalida == 1 && trabajo.estatus != 'TransResponsabilidad', 
+                                                        'rowNaranja': trabajo.estatus == 'TransResponsabilidad' && trabajo.estatusSalida != 1, 
+                                                        'rowVerde': trabajo.estatus == 'TransResponsabilidad' && trabajo.estatusSalida == 1}"></p>
+                                                     </div> 
+                                                </td>
                                                 <td>
                                                     <!-- <button class="btn btn-info" type="button" ng-click="aprobarTrabajo(trabajo, 1)" data-toggle="tooltip" tooltip-placement="up"><span class="glyphicon glyphicon-sunglasses"></span></button> --> 
                                                     <div class="alerta"> 
