@@ -598,13 +598,15 @@ registrationModule.controller('trabajoController', function ($scope, $modal, $ro
 
     }
 
-        $scope.aprobar = function (idTrabajo){
+        $scope.aprobar = function (idTrabajo, estatusSalida){
             $('#aceptaRechazaTrabajo').appendTo("body").modal('show');
             $scope.idTrabajoApruebaRechaza = idTrabajo;
+            $scope.estausSalidaUnidad = estatusSalida;
         }
 
 
     $('.btnAprobarOrden').click(function () {
+        if($scope.estausSalidaUnidad == 1){
         swal({
                 title: "Advertencia",
                 text: "Esta seguro de aprobar la orden",
@@ -632,6 +634,13 @@ registrationModule.controller('trabajoController', function ($scope, $modal, $ro
                         swal("La Orden no fue Aprobada!");
                     }
             });
+    }else{
+        swal({
+                title: "Advertencia",
+                text: "La unidad aun no sale del taller",
+                type: "warning"
+            });
+    }
    });
 
     $scope.openOrdenTrabajoModal = function () {
