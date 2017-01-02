@@ -57,11 +57,13 @@
 
                             
                         </div>
-                        <div class="row" style="padding-left: 15%; " ng-show="show_mapUnidad==true">
+
+
+                        <div class="row" style="padding-left: 15%; padding-top: 35%" ng-show="show_mapSustituto==true">
                             <div class="map_container" style="height: 400px!important;" >
                                 <div ng-if="bandera == 0">
-                                <google-map center="map1.center" zoom="map1.zoom" draggable="true" options="map1.options" control="map1.control">
-                                    <markers models="map1.markers" coords="'self'" options="'options'" isLabel='true'>
+                                <google-map center="map.center" zoom="map.zoom" draggable="true" options="map.options" control="map.control">
+                                    <markers models="map.markers" coords="'self'" options="'options'" isLabel='true'>
                                     </markers>
                                 </google-map>
                                 </div>
@@ -76,14 +78,10 @@
                                     </div>
                             </div>
                         </div>
-                    
 
                         </br>
                         </br>
-
-                        
-
-                        
+    
                     </form>
         		</div>
                 <div class="col-md-6">
@@ -128,26 +126,13 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="row" style="padding-left: 15%;" ng-show="show_mapSustituto==true">
-                            <!--div class="map_container" style="height: 400px!important;"-->
-                            <div class="map_container" style="height: 400px!important;" >
-                                <div ng-if="bandera == 0">
-                                <google-map center="map.center" zoom="map.zoom" draggable="true" options="map.options" control="map.control">
-                                    <markers models="map.markers" coords="'self'" options="'options'" isLabel='true'>
-                                    </markers>
-                                </google-map>
-                                </div>
-                                    <div ng-if="bandera == 1">
-                                    <div class="alert alert-warning" role="alert">
-                                    <br>
-                                      <h4 class="alert-heading">Advertencia!</h4>
-                                      <br>
-                                      <p class="mb-0">No se encontro la ubicación de la unidad</p>
-                                      <br>
-                                    </div>
-                                    </div>
-                            </div>
+
+
+                        <div class="row col-md-12" style="padding-top: 400px;" >
+                            <!--pull-right-->
+                            <button type="button" class="btn btn-success" id="btnLigar" ng-click="addUnidadSusituto()" ng-disabled="validateSustituto()==false"><span class="glyphicon glyphicon-link"></span><strong> Ligar unidad con sustituto</strong></button>
                         </div>
+                        
                     
 
                         </br>
@@ -156,12 +141,11 @@
                         
                     </form>
                 </div>
-                <div class="row col-md-12" style="padding-top: 420px;" >
-                    <!--pull-right-->
-                    <button type="button" class="btn btn-success  m-t-n-xs" ng-click="addUnidadSusituto()" ng-disabled="validateSustituto()==false"><span class="glyphicon glyphicon-link"></span><strong> Ligar unidad con sustituto</strong></button>
-                </div>
+
+                
+                
         </form>
      </div>
       
 
-</div>    
+</div>  

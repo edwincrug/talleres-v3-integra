@@ -2,7 +2,6 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
 	
 	$scope.motivos= [];
     $scope.address = '';
-    $scope.show_mapUnidad = false;
     $scope.show_mapSustituto = false;
     $scope.select_sustituto = ''; 
     $scope.select_unidad = '';
@@ -15,6 +14,18 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
 
          $scope.getMotivo();
 
+         $scope.map = {
+                        center: {
+                            latitude: '',
+                            longitude: ''
+                        },
+                        zoom: 10,
+                        markers: [],
+                        control: {},
+                        options: {
+                            scrollwheel: false
+                        }
+                    }
 	}
 
 
@@ -87,24 +98,23 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
 
 
     $scope.selUnidad = function (unidad) {
-         $scope.show_mapUnidad = true;
+         $scope.show_mapSustituto = true;
          $scope.select_unidad=unidad.idUnidad;
-         $scope.obtieneUbicacionUnidad ($scope.select_unidad, 'unidad');
+         $scope.obtieneUbicacionUnidad ($scope.select_unidad, 'Unidad');
 
     }
 
     $scope.selsustituto = function (sustituto) {
         $scope.show_mapSustituto = true;
         $scope.select_sustituto=sustituto.idUnidad;
-        $scope.obtieneUbicacionUnidad ($scope.select_sustituto, 'sustituto');
+        $scope.obtieneUbicacionUnidad ($scope.select_sustituto, 'Sustituto');
 
     }
     
 
     // OBTENEMOS LA UBICACION ACTUAL DE LA UNIDAD Y DE NO TENERLA MANDAMOS UN ALERTA EN BOOTSTRAP
     $scope.obtieneUbicacionUnidad = function (idUnidad, tipo) {
-        citaRepository.ubicaUnidad(idUnidad).then(function (result) {     
-            debugger;   
+        citaRepository.ubicaUnidad(idUnidad).then(function (result) {  
              if (result.data.length > 0) {
                alertFactory.info('La unidad ha sido ubicada exitosamente');
                $scope.latitud = result.data[0].lat;
@@ -112,49 +122,14 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
                $scope.direccion = result.data[0].direccion;
                 $scope.bandera = 0;
 
-                
-                    if (tipo == 'unidad') {
-                        MarkerCreatorService.createByCoords(parseFloat($scope.latitud), parseFloat($scope.longitud), function (marker) {
-                            marker.options.labelContent = $scope.direccion;
-                            $scope.autentiaMarker = marker;
-                        });
-
-                        $scope.map1 = {
-                        centera: {
-                            latitude: $scope.autentiaMarker.latitude,
-                            longitude: $scope.autentiaMarker.longitude
-                        },
-                        zoom: 17,
-                        markers: [],
-                        control: {},
-                        options: {
-                            scrollwheel: false
-                        }
-                    }
-                    $scope.map1.markers.push($scope.autentiaMarker); 
-
-                }else{
-
-                    MarkerCreatorService.createByCoords(parseFloat($scope.latitud), parseFloat($scope.longitud), function (marker) {
-                        marker.options.labelContent = $scope.direccion;
-                        $scope.autentiaMarker = marker;
-                    });
-
-
-                        $scope.map = {
-                        center: {
-                            latitude: $scope.autentiaMarker.latitude,
-                            longitude: $scope.autentiaMarker.longitude
-                        },
-                        zoom: 17,
-                        markers: [],
-                        control: {},
-                        options: {
-                            scrollwheel: false
-                        }
-                    }
-                    $scope.map.markers.push($scope.autentiaMarker);
-                }    
+                MarkerCreatorService.createByCoords(parseFloat($scope.latitud), parseFloat($scope.longitud), function (marker) {
+                    marker.options.labelContent = $scope.direccion + ' - ' + tipo;
+                    $scope.autentiaMarker = marker;
+                });
+             
+                $scope.map.center.latitude=$scope.autentiaMarker.latitude;
+                $scope.map.center.longitude=$scope.autentiaMarker.longitude;
+                $scope.map.markers.push($scope.autentiaMarker);  
             }else{
                 alertFactory.info('La unidad aun no tiene ubicacion GPS');
                 $scope.bandera = 1
@@ -163,6 +138,7 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
             alertFactory.error('No se encontro la ubicacion de la Unidad');
        });
     }
+ 
 
     $scope.validateSustituto = function (){
         if ($scope.select_sustituto != '' || $scope.select_unidad != '' || $scope.selectedMotivo != '') {
@@ -173,11 +149,27 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
     }
 
     $scope.addUnidadSusituto = function () {
-        debugger;
-        sustitutoRepository.addUnidadSustituto($scope.select_unidad, $scope.select_sustituto, $scope.selectedMotivo.idMotivo, $scope.userData.idUsuario ).then(function (motivo) {
-            debugger;
+         $('#btnLigar').button('Buscando...');
+        sustitutoRepository.addUnidadSustituto($scope.select_unidad, $scope.select_sustituto, $scope.selectedMotivo.idMotivo, $scope.userData.idUsuario ).then(function (result) {
+           if (result.data.length > 0) {
+               alertFactory.info('Las unidades fueron asociadas correctamente'); 
+                $scope.dataSustituto = '';
+                $scope.datoUnidad = '';
+                $scope.sustitutos = [];
+                $scope.unidades = [];
+                $scope.motivos = [];
+                $('.dataTableSustituto').DataTable().destroy();
+                $('.dataTableUnidad').DataTable().destroy();
+                $scope.show_mapSustituto = false;
+        
+               $('#btnLigar').button('reset');
+            }else{
+               alertFactory.error("Error al asociar las unidades"); 
+               $('#btnLigar').button('reset');
+            }   
         }, function (error) {
-            alertFactory.error("Error al cargar motivos");
+            alertFactory.error("Error al asociar las unidades");
+            $('#btnLigar').button('reset');
         });
     }
 
