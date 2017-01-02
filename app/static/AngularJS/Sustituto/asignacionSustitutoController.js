@@ -19,7 +19,7 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
                             latitude: '',
                             longitude: ''
                         },
-                        zoom: 10,
+                        zoom: 13,
                         markers: [],
                         control: {},
                         options: {
