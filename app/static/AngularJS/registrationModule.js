@@ -181,6 +181,12 @@ var registrationModule = angular.module("registrationModule", ["ngRoute", "Local
             templateUrl:'AngularJS/Templates/asignacionSustituto.html',
             controller:'asignacionSustitutoController'
          });
+
+         $routeProvider.when('/notificaciones',{
+            templateUrl:'AngularJS/Templates/notificaciones.html',
+            controller:'notificacionesController'
+         });
+        
         
         $locationProvider.html5Mode({
             enabled: true,

@@ -26,6 +26,17 @@ var citaUrl = global_settings.urlCORS + '/api/cita/';
                     }
                 })
             },
+            getNotificaciones: function () {
+                
+                return $http({
+                    url: citaUrl + 'notificacionesUnidad/',
+                    method: "GET",
+                    params: {},
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+            },
             addUnidadSustituto: function (idUnidad, idSustituto, idMotivo, idUsuario) {
                 var msgObj = {
                     idUnidad: idUnidad,

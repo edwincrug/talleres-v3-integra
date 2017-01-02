@@ -820,4 +820,22 @@
 
     }
 
+    Cita.prototype.get_notificacionesUnidad = function (req, res, next) {
+        //Objeto que almacena la respuesta
+        var object = {};
+        //Referencia a la clase para callback
+        var self = this;
+        //Asigno a params el valor de mis variables    
+        var params = [];
+
+        this.model.query('SEl_UNIDAD_NOTIFICACION_SP', params, function (error, result) {
+            //Callback
+            object.error = error;
+            object.result = result;
+
+            self.view.expositor(res, object);
+        });
+    }
+
+
     module.exports = Cita;

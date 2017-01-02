@@ -23,7 +23,7 @@
 
     <!--Librearias JQuery y Bootstrap-->
     <script src="js/libs/jQuery/jquery-2.1.4.js"></script>
-    <script src="js/libs/bootstrap/bootstrap.js"></script>
+    <script src="js/libs/bootstrap/bootstrap.js"></script> 
 
     <!--Menú INSPINIA-->
     <link href="fonts/font-awesome-4.3.0/css/font-awesome.css" rel="stylesheet">
@@ -133,6 +133,10 @@
                         <li><a href="/asignacion">Asignación</a></li>
                         <li><a href="/reporte">Reporte</a></li>
                     </ul>
+                </li>
+
+                <li>
+                    <a href="notificaciones" ng-click="showChat = 0"><i class="glyphicon glyphicon-envelope"></i> <span class="nav-label">Notificaciones</span></a>
                 </li>
             </ul>
 
@@ -361,6 +365,8 @@
     <script src ="AngularJS/Sustituto/ReporteSustitutoController.js"></script>
     <script src ="AngularJS/Sustituto/asignacionSustitutoController.js"></script>
     <script src ="AngularJS/Sustituto/sustitutoRepository.js"></script>
+    <script src ="AngularJS/Notificaciones/notificacionesController.js"></script>
+
     <!-- Mainly scripts -->
     <script src="js/inspinia/metisMenu/jquery.metisMenu.js"></script>
     <script src="js/inspinia/slimscroll/jquery.slimscroll.min.js"></script>
