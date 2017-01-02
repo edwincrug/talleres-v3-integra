@@ -321,6 +321,36 @@ registrationModule.controller('ordenPorCobrarController', function ($scope, loca
 
     }
 
+    $scope.procesarPago = function (idTrabajo) {
+        swal({
+            title: "¿Esta seguro de procesar el pago selecionado?",
+            text: "Se cambiará a PreFactura Generada",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#65BD10",
+            confirmButtonText: "Si",
+            cancelButtonText: "No",
+            closeOnConfirm: false,
+            closeOnCancel: false
+            },
+        function (isConfirm) {
+            if (isConfirm) {
+                $('.dataTableOrdenesPorCobrar').DataTable().destroy();
+                ordenPorCobrarRepository.putTrabajoCobrado(idTrabajo,0).then(function (result) {
+                    if (result.data.length > 0) {
+                        alertFactory.success('Trabajo cobrado exitosamente');
+                    } else {
+                        alertFactory.info('No se pudo actualizar el trabajo cobrado');
+                    }
+                }, function (error) {
+                    alertFactory.error("Error al actualizar el trabajo cobrado");
+                });
+            } else {
+            swal("No procesado", "", "error");
+            }
+        });
+      }
+
     //Asociamos un idtrabajo con DatosCopade
     $scope.asociarCopade = function () {
       
