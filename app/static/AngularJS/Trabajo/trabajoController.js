@@ -1083,4 +1083,8 @@ registrationModule.controller('trabajoController', function ($scope, $modal, $ro
         return [year, month, day].join('-');
     }
 
+    $scope.detalleSemaforo = function (){    
+        modal_detalle_semaforo($scope, $modal, 'trabajo')
+    }
+
 });
