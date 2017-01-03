@@ -46,11 +46,12 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
     }
 
     $scope.validaMotivo = function (motivo){
-
-        if (motivo.Descripcion == 'Por orden' ) {
-            $scope.show_orden=true;
-        }else{
-            $scope.show_orden=false;
+        if ($scope.motivos != '') {
+            if (motivo.Descripcion == 'Por orden' ) {
+                $scope.show_orden=true;
+            }else{
+                $scope.show_orden=false;
+            }
         }
 
     }
@@ -162,6 +163,7 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
 
     $scope.validateSustituto = function (){
         if ($scope.select_sustituto != '' && $scope.select_unidad != '' && $scope.selectedMotivo != '') {
+
             if ($scope.selectedMotivo.Descripcion == 'Por orden' ) {
 
                 if ($scope.numOrden != '') {
@@ -171,8 +173,8 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
                 }
 
             }else{
-              return true;  
-            } 
+              return true; 
+            }             
         }else{
             return false;
         }
@@ -185,9 +187,13 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
                alertFactory.info('Las unidades fueron asociadas correctamente'); 
                 $scope.dataSustituto = '';
                 $scope.datoUnidad = '';
+                $scope.numOrden = '';
                 $scope.sustitutos = [];
                 $scope.unidades = [];
                 $scope.motivos = [];
+                $scope.select_sustituto = '';  
+                $scope.select_unidad = ''; 
+                $scope.selectedMotivo = '';
                 $('.dataTableSustituto').DataTable().destroy();
                 $('.dataTableUnidad').DataTable().destroy();
                 $scope.show_mapSustituto = false;
