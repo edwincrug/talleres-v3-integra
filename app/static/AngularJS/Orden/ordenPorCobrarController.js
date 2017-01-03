@@ -338,7 +338,9 @@ registrationModule.controller('ordenPorCobrarController', function ($scope, loca
                 $('.dataTableOrdenesPorCobrar').DataTable().destroy();
                 ordenPorCobrarRepository.putTrabajoCobrado(idTrabajo,0).then(function (result) {
                     if (result.data.length > 0) {
-                        alertFactory.success('Trabajo cobrado exitosamente');
+                        swal("Trabajo Cobrado Exitosamente!");
+                         $scope.getOrdenesPorCobrar(); 
+                         $scope.preFacturas();
                     } else {
                         alertFactory.info('No se pudo actualizar el trabajo cobrado');
                     }

@@ -146,15 +146,8 @@
                                 <br/>
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered table-hover dataTablePreFacturas" cg-busy="{ promise:promise,message:message } ">
-                                        <thead>
+<!--                                         <thead>
                                             <tr>
-                                                <!--th>Consecutivo</th>
-                                                <th>Número de la Orden</th>
-                                                <th>Número Económico</th>
-                                                <th>Zona</th>
-                                                <th>TAR</th>
-                                                <th>Taller</th>
-                                                <th>Tipo Orden</th-->
                                                 <th>Cliente</th>
                                                 <th>No. COPADE</th>
                                                 <th>Orden de Surtimiento</th>
@@ -164,22 +157,11 @@
                                                 <th>Subtotal</th>
                                                 <th>Fecha COPADE</th>
                                                 <th ng-show="trabajosporCOPADE==1">Números de Órdenes</th>
-                                                <!--th>Estatus</th>
-                                                <th>Precio venta sin IVA</th>
-                                                <th>Fecha</th> 
-                                                <th>Agendó</th-->
                                                 <th ng-hide="userData.idTipoUsuario == 4">Acción</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr ng-repeat="cita in facturas">
-                                                <!--td>{{cita.idCita}}</td>
-                                                <td>{{cita.numeroTrabajo}}</td>
-                                                <td>{{cita.numEconomico}}</td>
-                                                <td>{{cita.zona}}</td>
-                                                <td>{{cita.TAR}}</td>
-                                                <td>{{cita.razonSocial}}</td>
-                                                <td>{{cita.idTipoCita == 4 ? "Refacciones" : "Servicio"}}</td-->
                                                 <td>{{cita.cliente}}</td>
                                                 <td>{{cita.numeroCopade}}</td>
                                                 <td>{{cita.folio}}</td>
@@ -189,15 +171,52 @@
                                                 <td>{{cita.subTotal | currency}}</td>
                                                 <td>{{cita.fechaRecepcionCopade | date:'dd-MM-yyyy'}}</td>
                                                 <td ng-show="trabajosporCOPADE==1">{{cita.numeroTrabajo}}</td>
-                                                <!--td>{{cita.estatus}}</td>
-                                                <td>{{cita.montoOrden | currency}}</td>
-                                                <td>{{cita.fecha | date:'dd-MM-yyyy HH:mm'}}</td>     
-                                                <td>{{cita.nombreCompleto}}</td-->
                                                 <td ng-hide="userData.idTipoUsuario == 4"> 
                                                      <button class="btn btn-success" type="button" ng-click="verOrdenes(cita.idDatosCopade)" data-toggle="tooltip" tooltip="Detalle copade" tooltip-placement="left"><span class="glyphicon glyphicon-eye-open"></span></button>
                                                 </td>
                                             </tr>
+                                        </tbody> -->
+                                        <thead>
+                                            <tr>
+                                                <th>Consecutivo</th>
+                                                <th>Número de la Orden</th>
+                                                <th>Número Económico</th>
+                                                <th>Zona</th>
+                                                <th>Punto de Entrega</th>
+                                                
+                                                <th>Tipo Orden</th>
+                                                <th>Estatus</th>
+                                                <th>Precio venta sin IVA</th>
+                                                <th>Fecha</th> 
+                                                
+                                                <th>Acción</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="cita in facturas">
+                                                <td>{{cita.idCita}}</td>
+                                                <td>{{cita.numeroTrabajo}}</td>
+                                                <td>{{cita.numEconomico}}</td>
+                                                <td>{{cita.zona}}</td>
+                                                <td>{{cita.TAR}}</td>
+                                                
+                                                <td>{{cita.idTipoCita == 4 ? "Refacciones" : "Servicio"}}</td>
+                                                <td>{{cita.estatus}}</td>
+                                                <td>{{cita.montoOrden | currency}}</td>
+                                                <td>{{cita.fecha | date:'dd-MM-yyyy HH:mm'}}</td>     
+                                                
+                                                <td>
+                                                <div class="alerta"> 
+                                                    <button class="dropdown-toggle alerta-form btn btn-info" tooltip="Ver órden de servicio" data-toggle="dropdown" href="#" aria-expanded="true" ng-click="aprobarTrabajo(cita, 1)">
+                                                    <i class="glyphicon glyphicon-sunglasses"></i>  <span ng-hide="cita.numeroNotas == 0" class="letter-labal alerta-color">{{cita.numeroNotas}}</span>
+                                                    </button>
+                                                        <ul class="dropdown-menu dropdown-messages">
+                                                        </ul>
+                                                </div> 
+                                                </td>
+                                            </tr>
                                         </tbody>
+
                                     </table>
                                 </div>
                             </tab>
@@ -210,7 +229,7 @@
                                 <br/>
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered table-hover dataTableFacturados" cg-busy="{ promise:promise,message:message } ">
-                                        <thead>
+<!--                                         <thead>
                                             <tr>
                                                 <th>Cliente</th>
                                                 <th>No. COPADE</th>
@@ -243,7 +262,50 @@
                                                          <button class="btn btn-info" type="button" ng-click="" data-toggle="tooltip" tooltip="Ver Factura" tooltip-placement="left"><span class="glyphicon glyphicon-sunglasses"></span></button>
                                                     </td>
                                             </tr>
+                                        </tbody> -->
+                                         <thead>
+                                            <tr>
+                                                <th>Consecutivo</th>
+                                                <th>Número de la Orden</th>
+                                                <th>Número Económico</th>
+                                                <th>Zona</th>
+                                                <th>Punto de Entrega</th>
+                                                
+                                                <th>Tipo Orden</th>
+                                                <th>Estatus</th>
+                                                <th>Precio venta sin IVA</th>
+                                                <th>Fecha</th> 
+                                                <th>Folio Factura</th>
+                                                
+                                                <th>Acción</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="cita in facturados">
+                                                <td>{{cita.idCita}}</td>
+                                                <td>{{cita.numeroTrabajo}}</td>
+                                                <td>{{cita.numEconomico}}</td>
+                                                <td>{{cita.zona}}</td>
+                                                <td>{{cita.TAR}}</td>
+                                                
+                                                <td>{{cita.idTipoCita == 4 ? "Refacciones" : "Servicio"}}</td>
+                                                <td>{{cita.estatus}}</td>
+                                                <td>{{cita.montoOrden | currency}}</td>
+                                                <td>{{cita.fecha | date:'dd-MM-yyyy HH:mm'}}</td>
+                                                <td>{{cita.COP_IDDOCTO}}</td>    
+                                                
+                                                <td>
+                                                <div class="alerta"> 
+                                                    <button class="dropdown-toggle alerta-form btn btn-info" tooltip="Ver órden de servicio" data-toggle="dropdown" href="#" aria-expanded="true" ng-click="aprobarTrabajo(cita, 1)">
+                                                    <i class="glyphicon glyphicon-sunglasses"></i>  <span ng-hide="cita.numeroNotas == 0" class="letter-labal alerta-color">{{cita.numeroNotas}}</span>
+                                                    </button>
+                                                        <ul class="dropdown-menu dropdown-messages">
+                                                        </ul>
+                                                </div> 
+                                                </td>
+                                            </tr>
                                         </tbody>
+
                                     </table>
                                 </div>
                             </tab>
