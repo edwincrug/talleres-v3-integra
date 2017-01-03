@@ -80,7 +80,7 @@
                 <li>
                     <a href="tallercita" ng-click="showChat = 0"><i class="fa fa-money"></i> <span class="nav-label">Cotizar</span></a>
                 </li>
-                <li>
+                <li ng-hide="true">
                     <a href="cotizacionconsulta" ng-click="showChat = 0"><i class="fa fa-check"></i> <span class="nav-label">Aprobaciones</span><span class="label label-warning pull-right"></span></a>
                 </li>
                 <li>
@@ -92,20 +92,20 @@
                 <li>
                     <a href="#" ng-click="showChat = 0"><i class="fa fa-line-chart"></i> <span class="nav-label">Reporte</span><span class="label label-warning pull-right"></span></a>
                     <ul class="nav nav-second-level">
-                        <li><a href="/reporte" ng-hide="userData.idTipoUsuario == 2 || userData.idTipoUsuario == 3 || userData.idSubtipoUsuario == 3 || userData.idSubtipoUsuario == 4 || userData.idSubtipoUsuario == 10 || userData.idSubtipoUsuario == 11">Reporte General</a></li>
+                        <li ng-hide="true"><a href="/reporte" ng-hide="userData.idTipoUsuario == 2 || userData.idTipoUsuario == 3 || userData.idSubtipoUsuario == 3 || userData.idSubtipoUsuario == 4 || userData.idSubtipoUsuario == 10 || userData.idSubtipoUsuario == 11">Reporte General</a></li>
                         <li><a href="/reportecita">Reporte Citas</a></li>
-                        <li><a href="/reporteorden">Reporte Órdenes</a></li>
+                        <li ng-hide="true"><a href="/reporteorden">Reporte Órdenes</a></li>
                         <li><a href="/reportecotizacion">Reporte Cotizaciones</a></li>
-                        <li ng-hide="userData.idTipoUsuario == 4"><a href="/reporteporcobrar">Reporte Órdenes por Cobrar</a></li>
+                        <li ng-hide="true"><a href="/reporteporcobrar">Reporte Órdenes por Cobrar</a></li>
                         <li ng-show="userData.idTipoUsuario == 1"><a href="/reporteutilidad">Reporte Márgenes de Utilidad</a></li>
-                        <li ng-show="userData.esProveedor == 0"><a href="/reporteunidad">Historial de la unidad</a></li>
-                        <li><a href="/reporteCertificadoConformidad">Certificado Conformidad</a></li>
+                        <li ng-hide="true"><a href="/reporteunidad">Historial de la unidad</a></li>
+                        <li ng-hide="true"><a href="/reporteCertificadoConformidad">Certificado Conformidad</a></li>
                     </ul>
                 </li>
                 <li ng-show="userData.idTipoUsuario == 1">
                     <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">Administración</span></a>
                     <ul class="nav nav-second-level">
-                        <li><a href="/osur">Osur</a></li>
+                        <li ng-hide="true"><a href="/osur">Osur</a></li>
                         <li><a href="/acciontaller">Talleres</a></li>
                     </ul>
                 </li>
@@ -115,7 +115,7 @@
                 <!-- <li ng-show="userData.idTipoUsuario == 1">
                     <a href="ordenanticipo" ng-click="showChat = 0"><i class="fa fa-usd"></i> <span class="nav-label">Anticipos de órdenes</span></a>
                 </li> -->
-                <li ng-show="userData.idUsuario == 190  || userData.idUsuario == 213">
+                <li ng-hide="true" ng-show="userData.idUsuario == 190  || userData.idUsuario == 213">
                     <a href="aprobacionutilidad" ng-click="showChat = 0"><i class="glyphicon glyphicon-ok-circle"></i> <span class="nav-label">Aprobaciones</span></a>
                 </li>
 
@@ -123,12 +123,9 @@
                     <a href="aprobacionProvision" ng-click="showChat = 0"><i class="glyphicon glyphicon-ok-sign"></i> <span class="nav-label">Aprobación Provisión  </span></a>
                 </li>
 
+               
                 <li>
-                    <a href="Tutorial" ng-click="showChat = 0"><i class="glyphicon glyphicon-facetime-video"></i> <span class="nav-label">Tutorial</span></a>
-                </li>
-
-                <li>
-                    <a href="#"><i class="glyphicon glyphicon-share"></i> <span class="nav-label">Sustituto</span></a>
+                    <a href="#"><i class="fa fa-bus"></i> <span class="nav-label">Sustituto</span></a>
                     <ul class="nav nav-second-level">
                         <li><a href="/asignacion">Asignación</a></li>
                         <li><a href="/reporte">Reporte</a></li>
@@ -138,6 +135,11 @@
                 <li>
                     <a href="notificaciones" ng-click="showChat = 0"><i class="glyphicon glyphicon-envelope"></i> <span class="nav-label">Notificaciones</span></a>
                 </li>
+
+                 <li>
+                    <a href="Tutorial" ng-click="showChat = 0"><i class="glyphicon glyphicon-facetime-video"></i> <span class="nav-label">Tutorial</span></a>
+                </li>
+
             </ul>
 
         </div>
