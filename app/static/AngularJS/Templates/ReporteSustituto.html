@@ -23,6 +23,7 @@
                                                 <th>Ubicación</th>
                                                 <th>Tiempo</th>
                                                 <th>Motivo</th>
+                                                <th>Fecha de Asignación</th>
                                                 <th>Estatus Orden</th>
                                                 <th>Acción</th>
                                             </tr>
@@ -44,11 +45,15 @@
                                                         </button>
                                               </td>
                                               <td>{{sustituto.tiempoTranscurrido}}</td>
-                                              <td>Motivo</td>
+                                              <td>{{sustituto.Descripcion}}</td>
+                                              <td>{{sustituto.fecha}}</td>
                                               <td>{{sustituto.estatusText}}</td>
                                               <td>
                                                         <button type="button" class="btn btn-primary" tooltip-placement="top" tooltip="Desvincular" ng-click="Desvinculacion(sustituto.idUnidadSustituto)">
                                                         <span class="fa fa-chain-broken"></span>
+                                                        </button>
+                                                        <button type="button" class="btn btn-informa" tooltip-placement="top" tooltip="Ver Orden">
+                                                        <span class="glyphicon glyphicon-eye-open"></span>
                                                         </button>                                                             
                                               </td>
                                             </tr>

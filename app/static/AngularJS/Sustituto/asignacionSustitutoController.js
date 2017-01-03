@@ -19,7 +19,7 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
                             latitude: '',
                             longitude: ''
                         },
-                        zoom: 0,
+                        zoom: 13,
                         markers: [],
                         control: {},
                         options: {
@@ -131,9 +131,6 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
              
                 $scope.map.center.latitude=$scope.autentiaMarker.latitude;
                 $scope.map.center.longitude=$scope.autentiaMarker.longitude;
-               
-                $scope.map.zoom.marker=$scope.autentiaMarker.latitude;
-               
                 $scope.map.markers.push($scope.autentiaMarker);  
 
 
