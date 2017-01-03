@@ -1267,5 +1267,10 @@
                  $('#informacionUnidad').modal('hide');
             }
 
+            $scope.detalleSemaforo = function (){
+            
+                modal_detalle_semaforo($scope, $modal, 'cita')
+            }
+
 
     });

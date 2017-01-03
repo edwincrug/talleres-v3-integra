@@ -72,3 +72,18 @@ function modal_detalle_ubicacion($scope, $modal, idUnidad, callback, error)
         }
     });
 }
+
+function modal_detalle_semaforo($scope, $modal, origen)
+{ 
+    var modalInstance = $modal.open({
+        templateUrl: '../AngularJS/modals/Template/semaforoDetalle.html',
+        controller: 'semaforoDetalle_controller',
+        backdrop: 'static',
+        size: 300,
+        resolve: {
+            origen: function () {
+                return origen;
+            }
+        }
+    });
+}

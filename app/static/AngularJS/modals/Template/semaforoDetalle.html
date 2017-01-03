@@ -1,0 +1,59 @@
+<link rel="stylesheet" type="text/css" href="../../css/cita.css">
+<link rel="stylesheet" href="../../css/administracionOrden.css">
+<link rel="stylesheet" href="../../css/min.css">
+<div class="modal-header barra_popup" ng-init="init()">
+    <div class="modal-title">
+        <button aria-hidden="true" class="close" data-dismiss="modal" type="button" ng-click="close()">×</button>
+        <h4 class="modal-title">Detalle semáforo</h4>
+        
+    </div>
+</div>
+<div class="modal-body">
+    <div id="content_popDrag">
+
+      <table  class="table  table-bordered table-hover">
+        <thead>
+          <tr>
+            <th class="col-md-3 center">Color</th>
+            <th class="center" ng-show="show_cita==true">Llegada unidad</th>
+            <th class="center" ng-show="show_cita==true">Carga de comprobante de recepción</th>
+            <th class="center" ng-show="show_cita==true">Fecha vencida de la cita</th>
+            <th class="center" ng-show="show_trabajo==true">Salida unidad</th>
+            <th class="center" ng-show="show_trabajo==true">Carga de certificado de conformidad</th>
+          </tr>
+        </thead>
+        <tbody >
+          <tr>
+            <td class="col-md-3 center"><p class="circle rowVerde"></p></td>
+            <td class="center"><span class="glyphicon glyphicon-ok"></span></td>
+            <td class="center"><span class="glyphicon glyphicon-ok"></span></td>
+            <td class="center" ng-show="show_cita==true"></td>
+          </tr>
+          <tr>
+            <td class="col-md-3 center"><p class="circle rowRojo"></p></td>
+            <td class="center"><span class="glyphicon glyphicon-remove"></span></td>
+            <td class="center"><span class="glyphicon glyphicon-remove"></span></td>
+            <td class="center" ng-show="show_cita==true"><span class="glyphicon glyphicon-ok"></span></td>
+          </tr>
+          <tr>
+            <td class="col-md-3 center"><p class="circle rowAmarillo"></p></td>
+            <td class="center"><span class="glyphicon glyphicon-ok"></span></td>
+            <td class="center"><span class="glyphicon glyphicon-remove"></span></td>
+            <td class="center" ng-show="show_cita==true"></td>
+          </tr>
+          <tr>
+            <td class="col-md-3 center"><p class="circle rowMorado"></p></td>
+            <td class="center"><span class="glyphicon glyphicon-remove"></span></td>
+            <td class="center"><span class="glyphicon glyphicon-ok"></span></td>
+            <td class="center" ng-show="show_cita==true"></td>
+          </tr>
+        </tbody>
+      </table>
+       
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-success" ng-click="close()">Aceptar</button>
+</div>
+
+      

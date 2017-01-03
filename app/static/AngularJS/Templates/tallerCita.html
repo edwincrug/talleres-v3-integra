@@ -18,6 +18,9 @@
                 <div id="tab-1" class="tab-pane active">
                     <div class="panel-body">
                         <div class="table-responsive">
+                            <div class="col-sm-4 ng-binding">
+                                <a class="glyphicon" ng-click="detalleSemaforo()">Ver Detalle Semáforo</a> 
+                            </div>
                             <div class="col-lg-3" id="calendario">
                                 <div class="form-group" id="calendar">
                                     <div class="input-group date">
@@ -25,6 +28,7 @@
                                         <input type="text" class="form-control" ng-model="fecha" ng-change="busquedaCita(fecha)">
                                     </div>
                                 </div>
+
                             </div>
                             <br/>
                             <br/>
@@ -36,7 +40,7 @@
                                         <th>Número de la Orden</th>
                                         <th>Número Económico</th>
                                         <th>Zona</th>
-                                        <th>TAR</th>
+                                        <th>Punto de Entrega</th>
                                         <th>Taller</th>
                                         <th>Tipo Orden</th>
                                         <th>Fecha</th>
@@ -45,7 +49,7 @@
                                         <!-- <th>Observaciones</th> -->
                                         <th>Estatus</th>
                                         <th>Agendó</th>
-                                        <th>Semáforo</th>
+                                        <!--th>Semáforo</th-->
                                         <th>Acción</th>
                                     </tr>
                                 </thead>
@@ -54,23 +58,25 @@
                                         <td>{{cita.cliente}}</td>
                                         <td>{{cita.idCita}}</td>
                                         <td>{{cita.numeroTrabajo}}</td>
-                                        <td>{{cita.numEconomico}}</td>
+                                        <td ng-class="{'rowRojo': cita.estatusLLegada != 0 && cita.idEstatus != 15 && cita.vencimientoFecha == 1, 
+                                            'rowAmarillo': cita.estatusLLegada == 0 && cita.idEstatus != 15,
+                                            'rowMorado': cita.estatusLLegada != 0 && cita.idEstatus==15, 'rowVerde': cita.estatusLLegada == 0 && cita.idEstatus == 15 }">{{cita.numEconomico}}</td>
                                         <td>{{cita.zona}}</td>
                                         <td>{{cita.TAR}}</td>
-                                        <td ng-class="{'rowRojo': cita.razonSocial=='SIN TALLER'}">{{ cita.razonSocial }}</td>
+                                        <td ng-class="{'rowAzul': cita.razonSocial=='SIN TALLER'}">{{ cita.razonSocial }}</td>
                                         <td>{{cita.idTipoCita == 4 ? "Refacciones" : "Servicio"}}</td>
                                         <td>{{ cita.Fecha | date:'dd-MM-yyyy HH:mm'}} </td>
                                         <!-- <td ng-class="{'rowRojo': cita.direccion=='SIN TALLER'}">{{ cita.direccion }}</td> -->
                                         <td>{{ cita.trabajo }}</td>
                                         <!-- <td>{{ cita.observacion }}</td> -->
-                                        <td ng-class="{'rowRojo': cita.idEstatus==22}">{{ cita.estatus }}</td>
+                                        <td ng-class="{'rowAzul': cita.idEstatus==22}">{{ cita.estatus }}</td>
                                         <td>{{ cita.nombreCompleto }} </td>
-                                        <td><div class="col-md-4 block">
+                                        <!--td><div class="col-md-4 block">
                                             <p class="circle" 
                                             ng-class="{'rowRojo': cita.estatusLLegada != 0 && cita.idEstatus != 15 && cita.vencimientoFecha == 1, 
                                             'rowAmarillo': cita.estatusLLegada == 0 && cita.idEstatus != 15,
                                             'rowNaranja': cita.estatusLLegada != 0 && cita.idEstatus==15, 'rowVerde': cita.estatusLLegada == 0 && cita.idEstatus == 15 }"></p>
-                                        </div> </td>
+                                        </div> </td-->
                                         <td>
                                             <button ng-hide="cita.idEstatus == 22 || cita.idEstatus == 1 || userData.idTipoUsuario == 4" class="btn btn-success" type="button" data-toggle="tooltip" tooltip="Cargar Comprobante de Recepción" id="btnCotizar" tooltip-placement="top" ng-click="formatoRecepcion(cita)">
                                                 <span class="glyphicon glyphicon-cloud-upload"></span>
