@@ -8,6 +8,8 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
     $scope.selectedMotivo = '';
     $scope.dataSustituto = '';
     $scope.datoUnidad = '';
+    $scope.show_orden=false;
+    $scope.numOrden = '';
         
 
 	$scope.init_asignacion = function (){
@@ -42,11 +44,21 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
             alertFactory.error("Error al cargar motivos");
         });
     }
+
+    $scope.validaMotivo = function (motivo){
+
+        if (motivo.Descripcion == 'Por orden' ) {
+            $scope.show_orden=true;
+        }else{
+            $scope.show_orden=false;
+        }
+
+    }
   
 
     $scope.getUnidad = function (datoUnidad) {
 
-        if ($scope.datoUnidad != '' || $scope.selectedMotivo != '') {
+        if ($scope.datoUnidad != '' ) {
 
             $('#btnBuscar').button('Buscando...');
            // $scope.promise = citaRepository.getUnidadInformation(datoUnidad, $scope.userData.idUsuario).then(function (unidadInfo) {
@@ -149,8 +161,18 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
  
 
     $scope.validateSustituto = function (){
-        if ($scope.select_sustituto != '' || $scope.select_unidad != '' || $scope.selectedMotivo != '') {
-            return true;
+        if ($scope.select_sustituto != '' && $scope.select_unidad != '' && $scope.selectedMotivo != '') {
+            if ($scope.selectedMotivo.Descripcion == 'Por orden' ) {
+
+                if ($scope.numOrden != '') {
+                    return true;  
+                }else{
+                    return false;
+                }
+
+            }else{
+              return true;  
+            } 
         }else{
             return false;
         }
@@ -158,7 +180,7 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
 
     $scope.addUnidadSusituto = function () {
          $('#btnLigar').button('Buscando...');
-        sustitutoRepository.addUnidadSustituto($scope.select_unidad, $scope.select_sustituto, $scope.selectedMotivo.idMotivo, $scope.userData.idUsuario ).then(function (result) {
+        sustitutoRepository.addUnidadSustituto($scope.select_unidad, $scope.select_sustituto, $scope.selectedMotivo.idMotivo, $scope.userData.idUsuario, $scope.numOrden ).then(function (result) {
            if (result.data.length > 0) {
                alertFactory.info('Las unidades fueron asociadas correctamente'); 
                 $scope.dataSustituto = '';

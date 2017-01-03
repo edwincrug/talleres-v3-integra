@@ -768,7 +768,12 @@
             {
                 name: 'idUsuario',
                 value: req.body.idUsuario,
-                type: self.model.types.INT
+                type: self.model.types.INT 
+            },
+            {
+                name: 'numeroTrabajo',
+                value: req.body.numeroTrabajo,
+                type: self.model.types.INT 
             }];
 
         this.model.post('INS_UNIDAD_SUSTITUTO_SP', params, function (error, result) {

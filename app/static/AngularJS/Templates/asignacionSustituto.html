@@ -1,30 +1,34 @@
+<link href="../../css/inspinia/sweetalert/sweetalert.css" rel="stylesheet">
+<link rel="stylesheet" href="../../css/administracionOrden.css">
 
 <div  class="animated fadeInRight" ng-init="init_asignacion()">
     <div class="headTitleTallerCita">
         <span class="title"> Asignación <span class="subtitle"></span></span>
     </div>
+    <br>
+    <div class="wrapper wrapper-content ibox-content">
+          <div class="row col-md-5 pull-right" >
 
-    <div class="wrapper wrapper-content">
-          <div class="row col-md-5"  style="float: right;">
-                        <div class="col-dm-6 row">
-                            <label class="col-sm-3 control-label" >Motivo: </label>
-                            <div class="col-sm-9">
-                                <select class="form-control" name="motivo" ng-model="selectedMotivo" ng-options="motivo.Descripcion for motivo in motivos">
-                                    <option value=''>Selecionar  motivo</option><!--default option -->
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-dm-6 row">
-                            <label class="col-sm-3 control-label" >Número de la Orden: </label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" value="" ng-model="numOrden" ng-change="validaOrden()">
-                            </div>
-                        </div>
-                    <!--pull-right-->
-                        <div class="col-dm-6"  style="float: right;">
-                            <button type="button" class="btn btn-success" id="btnLigar" ng-click="addUnidadSusituto()" ng-disabled="validateSustituto()==false"><span class="glyphicon glyphicon-link"></span><strong> Ligar unidad con sustituto</strong></button>
-                        </div>
-                    </div>
+            <div class="form-group row">
+                <label class="col-sm-3 control-label">Motivo: </label>
+                <div class="col-sm-9">
+                    <select class="form-control" name="motivo" ng-model="selectedMotivo" ng-options="motivo.Descripcion for motivo in motivos" ng-change="validaMotivo(selectedMotivo)">
+                        <option value=''>Selecionar  motivo</option><!--default option -->
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row" ng-show="show_orden==true">
+                <label class="col-sm-3 control-label">Número de la Orden: </label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" value="" ng-model="numOrden" ng-change="validaOrden()">
+                </div>
+            </div>
+
+            <div class="col-dm-6 pull-right row"  >
+                <button type="button" class="btn btn-success" id="btnLigar" ng-click="addUnidadSusituto()" ng-disabled="validateSustituto()==false"><span class="glyphicon glyphicon-link"></span><strong> Ligar unidad con sustituto</strong></button>
+            </div>
+        </div>
         <div class="row">
 
         		<div class="col-md-7">
@@ -44,7 +48,7 @@
 
                                 	
                                      <div class="col-sm-1">
-                                    	 <button id="btnBuscar" busy="Buscando.." type="button" class="btn btn-primary" ng-click="getUnidad()"><span class="glyphicon glyphicon-search"></span></button>
+                                    	 <button id="btnBuscar" busy="Buscando.." type="button" class="btn btn-primary" ng-click="getUnidad(datoUnidad)"><span class="glyphicon glyphicon-search"></span></button>
                                     </div>
                                 </div>
                             </div>  
@@ -130,7 +134,7 @@
                         
                     </form>
         		</div>
-                <div class="col-md-5">
+                <div class="col-md-5 row" id="mapaSutituto">
 
                      <form class="form-horizontal" >
                         <div class="map_container" ng-show="show_mapSustituto==true">

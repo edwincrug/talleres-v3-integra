@@ -37,12 +37,13 @@ var citaUrl = global_settings.urlCORS + '/api/cita/';
                     }
                 })
             },
-            addUnidadSustituto: function (idUnidad, idSustituto, idMotivo, idUsuario) {
+            addUnidadSustituto: function (idUnidad, idSustituto, idMotivo, idUsuario, numeroTrabajo) {
                 var msgObj = {
                     idUnidad: idUnidad,
                     idSustituto: idSustituto,
                     idMotivo:idMotivo,
-                    idUsuario: idUsuario
+                    idUsuario: idUsuario,
+                    numeroTrabajo: numeroTrabajo
 
                 }
                 return $http({
