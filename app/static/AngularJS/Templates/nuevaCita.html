@@ -8,7 +8,7 @@
             <a href="#" ng-hide="userData.idTipoUsuario == 4" ng-click="videoTutorialAdministrador()">Ver Tutorial</a>
             <a href="#" ng-hide="userData.idTipoUsuario != 4" ng-click="videoTutorialCliente()">Ver Tutorial</a>
             &nbsp;&nbsp;
-            <a class="glyphicon glyphicon-info-sign btn_info" ng-click="info()">&nbsp;Información</a>
+            <!-- <a class="glyphicon glyphicon-info-sign btn_info" ng-click="info()">&nbsp;Información</a> -->
         </div>
 
         <div class="wrapper wrapper-content animated fadeInRight">
@@ -31,6 +31,17 @@
                             </div>
                             <br/>
 
+                            <div class="row" ng-hide="userData.idTipoUsuario == 4">
+                                <div class="form-group">
+                                    <label class="col-sm-2" style="text-align: right; margin-bottom: 0;">Unidad: </label>
+                                    <div class="col-sm-4">
+                                         {{unidadInfo.numEconomico}}
+                                         &nbsp;&nbsp;
+                                       <a class="glyphicon" ng-click="info()">&nbsp;Ver Detalle</a> 
+                                    </div>
+                                </div>
+                            </div>
+                        <br>
                             <div class="row" ng-hide="userData.idTipoUsuario == 4">
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Buscar taller: </label>
@@ -93,10 +104,10 @@
                                         <option value="">Seleccione el tipo de cita</option>
                                         <option value="1">Traslado a taller</option>
                                         <option value="4">Refacciones</option>  
-                                        <option value="2">Esta en taller</option>  
-                                        <option value="3">Seguro (sccidente, corralon)</option>  
+                                        <option value="2">Está en taller</option>  
+                                        <option value="3">Seguro (accidente, corralón)</option>  
                                         <option value="5">Robo total</option>  
-                                        <option value="6">Corralon</option> 
+                                        <option value="6">Corralón</option> 
                                     </select>        
                                     </select>
                                 </div>

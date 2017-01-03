@@ -10,15 +10,9 @@ div.map_container {
     position: fixed;
     /*float: left;*/
     width: 35%;
-    height: 100%
+    height: 90%
 }
-<!--Generado por mi-->
-div.map_container2 {
-    position: fixed;
-    /*float: left;*/
-    width: 35px;
-    height: 35px
-}
+
 .angular-google-map-container {
     position: absolute;
     top: 0;
