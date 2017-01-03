@@ -157,7 +157,6 @@
                                                 <th>Estatus provisión</th>
                                                 <th ng-hide="userData.idTipoUsuario == 3">Precio venta sin IVA</th>
                                                 <th>Fecha</th>
-                                                <th>Semáforo</th>
                                                 <th>Acción</th>
                                             </tr>
                                         </thead>
@@ -166,7 +165,9 @@
                                                 <td>{{trabajo.cliente}}</td>
                                                 <td>{{trabajo.idCita}}</td>
                                                 <td>{{trabajo.numeroTrabajo}}</td>
-                                                <td>{{trabajo.numEconomico}}</td>
+                                                <td ng-class="{'rowRojo': trabajo.estatus == 'Terminado', 'rowAmarillo': trabajo.estatusSalida == 1 && trabajo.estatus != 'TransResponsabilidad', 
+                                                'rowMorado': trabajo.estatus == 'TransResponsabilidad' && trabajo.estatusSalida != 1, 
+                                                'rowVerde': trabajo.estatus == 'TransResponsabilidad' && trabajo.estatusSalida == 1}">{{trabajo.numEconomico}}</td>
                                                 <td>{{trabajo.zona}}</td>
                                                 <td>{{trabajo.TAR}}</td>
                                                 <td>{{trabajo.razonSocial}}</td>
@@ -186,14 +187,6 @@
                                                 <td ng-hide="userData.idTipoUsuario == 3">{{trabajo.precioOrden | currency: "$"}}</td>
                                                 <td>{{trabajo.fechaFin | date:"dd-MM-yy HH:mm"}}</td>
                                                 <td>
-                                                    <div class="col-md-4 block">
-                                                        <p class="circle" 
-                                                        ng-class="{'rowRojo': trabajo.estatus == 'Terminado', 'rowAmarillo': trabajo.estatusSalida == 1 && trabajo.estatus != 'TransResponsabilidad', 
-                                                        'rowNaranja': trabajo.estatus == 'TransResponsabilidad' && trabajo.estatusSalida != 1, 
-                                                        'rowVerde': trabajo.estatus == 'TransResponsabilidad' && trabajo.estatusSalida == 1}"></p>
-                                                     </div> 
-                                                </td>
-                                                <td>
                                                     <!-- <button class="btn btn-info" type="button" ng-click="aprobarTrabajo(trabajo, 1)" data-toggle="tooltip" tooltip-placement="up"><span class="glyphicon glyphicon-sunglasses"></span></button> --> 
                                                     <div class="alerta"> 
                                                         <button class="dropdown-toggle alerta-form btn btn-info" tooltip="Ver órden de servicio" data-toggle="dropdown" href="#" aria-expanded="true" ng-click="aprobarTrabajo(trabajo, 1)">
@@ -203,7 +196,7 @@
                                                         </ul>
                                                     </div> 
 
-                                                    <button ng-show="trabajo.estatus == 'TransResponsabilidad'" class="btn btn btn-informa btntrabajoUpdate" type="button"  data-toggle="tooltip" tooltip="Aprobar" tooltip-placement="left" ng-click="aprobar(trabajo.idTrabajo, trabajo.estatusSalida)"><span class="glyphicon glyphicon-ok"></span></button>
+                                                    <button ng-show="trabajo.estatus == 'TransResponsabilidad'" class="btn btn btn-informa btntrabajoUpdate" type="button"  data-toggle="tooltip" tooltip="Aprobar" tooltip-placement="left" ng-click="aprobar(trabajo.idTrabajo, trabajo.estatusUnidad)"><span class="glyphicon glyphicon-ok"></span></button>
 
                                                     <!-- ng-if="trabajo.estatus == 'Terminado'" ng-hide="userData.idTipoUsuario == 4"-->
 
@@ -550,13 +543,14 @@
         <div class="modal-content animated flipInY">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <img src="image/warning.png" width="112" height="112" class="postionWarning">
+                <br><br>
                 <h4 class="modal-title">¿Desea aprobar o rechazar el trabajo?</h4>
+                <br><br>
+                <button type="button" class="btn btn-danger" ng-click="openOrdenTrabajoModal()" data-dismiss="modal">Rechazar</button>&nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-informa btnAprobarOrden" data-dismiss="modal">Aprobar</button>
             </div>
-            <img src="image/warning.png" width="100" height="112" class="postionWarning">
-            <div class="modal-footer">
-                <button type="button" class="btn btn-white" ng-click="openOrdenTrabajoModal()" data-dismiss="modal">Rechazar</button>
-                <button type="button" class="btn btn-danger btnAprobarOrden" data-dismiss="modal">Aprobar</button>
-            </div>
+
         </div>
     </div>
 </div>

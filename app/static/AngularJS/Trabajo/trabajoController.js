@@ -598,15 +598,15 @@ registrationModule.controller('trabajoController', function ($scope, $modal, $ro
 
     }
 
-        $scope.aprobar = function (idTrabajo, estatusSalida){
+        $scope.aprobar = function (idTrabajo, estatusUnidad){
             $('#aceptaRechazaTrabajo').appendTo("body").modal('show');
             $scope.idTrabajoApruebaRechaza = idTrabajo;
-            $scope.estausSalidaUnidad = estatusSalida;
+            $scope.estatusSustitutoUnidad = estatusUnidad;
         }
 
 
     $('.btnAprobarOrden').click(function () {
-        if($scope.estausSalidaUnidad == 1){
+        if($scope.estatusSustitutoUnidad == 1){
         swal({
                 title: "Advertencia",
                 text: "Esta seguro de aprobar la orden",
@@ -637,7 +637,7 @@ registrationModule.controller('trabajoController', function ($scope, $modal, $ro
     }else{
         swal({
                 title: "Advertencia",
-                text: "La unidad aun no sale del taller",
+                text: "La unidad aun tiene un sustito ligado",
                 type: "warning"
             });
     }
