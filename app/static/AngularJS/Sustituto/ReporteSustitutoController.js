@@ -48,7 +48,7 @@
             sustitutoRepository.getReporte().then(function (reporte) {//va a mi repository y entra a function getReporte [.then(function (reporte)  es para que devuelva repuesta]
                 if (reporte.data.length > 0) { //valida que tenga una caden amayor de cero sino es porque no tiene registros
                     $scope.reporteSustituto = reporte.data;
-                    
+                     globalFactory.waitDrawDocument("dataTableReporteSustituto", "ReporteSustituto");
                     alertFactory.success("Reporte cargado");
                 } else {
                     alertFactory.info("No se encontraron Reporte");
