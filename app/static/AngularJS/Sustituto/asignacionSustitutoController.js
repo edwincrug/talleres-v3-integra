@@ -19,7 +19,7 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
                             latitude: '',
                             longitude: ''
                         },
-                        zoom: 13,
+                        zoom: 0,
                         markers: [],
                         control: {},
                         options: {
@@ -120,16 +120,24 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
                $scope.latitud = result.data[0].lat;
                $scope.longitud = result.data[0].long;
                $scope.direccion = result.data[0].direccion;
-                $scope.bandera = 0;
+               $scope.bandera = 0;
+            $scope.arreglos = [latitude,longitude]
 
                 MarkerCreatorService.createByCoords(parseFloat($scope.latitud), parseFloat($scope.longitud), function (marker) {
                     marker.options.labelContent = $scope.direccion + ' - ' + tipo;
                     $scope.autentiaMarker = marker;
+
                 });
              
                 $scope.map.center.latitude=$scope.autentiaMarker.latitude;
                 $scope.map.center.longitude=$scope.autentiaMarker.longitude;
+               
+                $scope.map.zoom.marker=$scope.autentiaMarker.latitude;
+               
                 $scope.map.markers.push($scope.autentiaMarker);  
+
+
+
             }else{
                 alertFactory.info('La unidad aun no tiene ubicacion GPS');
                 $scope.bandera = 1
