@@ -5,9 +5,30 @@
     </div>
 
     <div class="wrapper wrapper-content">
+          <div class="row col-md-5"  style="float: right;">
+                        <div class="col-dm-6 row">
+                            <label class="col-sm-3 control-label" >Motivo: </label>
+                            <div class="col-sm-9">
+                                <select class="form-control" name="motivo" ng-model="selectedMotivo" ng-options="motivo.Descripcion for motivo in motivos">
+                                    <option value=''>Selecionar  motivo</option><!--default option -->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-dm-6 row">
+                            <label class="col-sm-3 control-label" >Número de la Orden: </label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" value="" ng-model="numOrden" ng-change="validaOrden()">
+                            </div>
+                        </div>
+                    <!--pull-right-->
+                        <div class="col-dm-6"  style="float: right;">
+                            <button type="button" class="btn btn-success" id="btnLigar" ng-click="addUnidadSusituto()" ng-disabled="validateSustituto()==false"><span class="glyphicon glyphicon-link"></span><strong> Ligar unidad con sustituto</strong></button>
+                        </div>
+                    </div>
         <div class="row">
-        		<div class="col-md-6">
-        			<form class="form-horizontal" style="padding-right: 3%; padding-left: 3%;">
+
+        		<div class="col-md-7">
+        			<form class="form-horizontal" >
                         <br/> 
                         <div class="title" >Unidad </div>
                          <br/> 
@@ -15,18 +36,13 @@
                             <div class="form-group">
                                 <div class="col-sm-12">
 
-                                    <div class="col-sm-5">
-                                        <select class="form-control" name="motivo" ng-model="selectedMotivo" ng-options="motivo.Descripcion for motivo in motivos">
-                                            <option value=''>Selecionar  motivo</option><!--default option -->
-                                        </select>
-                                    </div>
+                                    
 
-                                	<div class="col-sm-6">
+                                	<div class="col-sm-11">
                                 		<input type="text" placeholder="Buscar unidad" ng-model="datoUnidad" ng-change="habilitaBuscar(datoUnidad)" class="form-control ng-pristine ng-untouched ng-valid" ng-enter="getUnidad(datoUnidad)">
                                 	</div>
 
                                 	
-
                                      <div class="col-sm-1">
                                     	 <button id="btnBuscar" busy="Buscando.." type="button" class="btn btn-primary" ng-click="getUnidad()"><span class="glyphicon glyphicon-search"></span></button>
                                     </div>
@@ -64,9 +80,7 @@
                         </br>
     
                     </form>
-        		</div>
-                <div class="col-md-6">
-                    <form class="form-horizontal" style="padding-right: 3%; padding-left: 3%;">
+                    <form class="form-horizontal">
                         <br/> 
                         <div class=" title" >Sustituto </div>
                          <br/> 
@@ -115,44 +129,38 @@
 
                         
                     </form>
+        		</div>
+                <div class="col-md-5">
+
+                     <form class="form-horizontal" >
+                        <div class="map_container" ng-show="show_mapSustituto==true">
+                            <div ng-if="bandera == 0">
+                            <google-map center="map.center" zoom="map.zoom" draggable="true" shadow="map.shadow" icon="map.icon" options="map.options" control="map.control">
+                                <markers models="map.markers" coords="'self'" options="'options'" isLabel='true'>
+                                </markers>
+                            </google-map>
+                            </div>
+                                <div ng-if="bandera == 1">
+                                <div class="alert alert-warning" role="alert">
+                                <br>
+                                  <h4 class="alert-heading">Advertencia!</h4>
+                                  <br>
+                                  <p class="mb-0">No se encontro la ubicación de la unidad</p>
+                                  <br>
+                                </div>
+                                </div>
+                        </div>
+                    </form>
+
+                    
+                    
+                    
                 </div>
 
                 
                 
         </div>
-         <div class="row">
-                            
-
-            <div class="col-md-10" ng-show="show_mapSustituto==true">
-                <div class="map_container" style="width: 80%!important;" >
-                    <div ng-if="bandera == 0">
-                    <google-map center="map.center" zoom="map.zoom" draggable="true" options="map.options" control="map.control">
-                        <markers models="map.markers" coords="'self'" options="'options'" isLabel='true'>
-                        </markers>
-                    </google-map>
-                    </div>
-                        <div ng-if="bandera == 1">
-                        <div class="alert alert-warning" role="alert">
-                        <br>
-                          <h4 class="alert-heading">Advertencia!</h4>
-                          <br>
-                          <p class="mb-0">No se encontro la ubicación de la unidad</p>
-                          <br>
-                        </div>
-                        </div>
-                </div>
-            </div>
-
-            <div class="col-md-2" style="float: right;">
-
-            <!--pull-right-->
-                <button type="button" class="btn btn-success" id="btnLigar" ng-click="addUnidadSusituto()" ng-disabled="validateSustituto()==false"><span class="glyphicon glyphicon-link"></span><strong> Ligar unidad con sustituto</strong></button>
-            </div>
-
-            </br>
-            </br>
-
-        </div>                
+                        
 
      </div>
 

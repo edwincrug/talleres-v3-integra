@@ -5,13 +5,13 @@
         function create(latitude, longitude) {
             var marker = {
                 options: {
-                    animation: 1,
+                    animation: 0,
                     labelAnchor: "28 -5",
                     labelClass: 'markerlabel'    
                 },
                 latitude: latitude,
                 longitude: longitude,
-                id: ++markerId          
+                id: ++markerId     
             };
             return marker;        
         }
