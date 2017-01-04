@@ -182,7 +182,11 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
 
     $scope.addUnidadSusituto = function () {
          $('#btnLigar').button('Buscando...');
-        sustitutoRepository.addUnidadSustituto($scope.select_unidad, $scope.select_sustituto, $scope.selectedMotivo.idMotivo, $scope.userData.idUsuario, $scope.numOrden ).then(function (result) {
+         var orden = 0
+         if ($scope.selectedMotivo.idMotivo == 1) {
+            orden = $scope.numOrden;
+         }
+        sustitutoRepository.addUnidadSustituto($scope.select_unidad, $scope.select_sustituto, $scope.selectedMotivo.idMotivo, $scope.userData.idUsuario, orden).then(function (result) {
            if (result.data.length > 0) {
                alertFactory.info('Las unidades fueron asociadas correctamente'); 
                 $scope.dataSustituto = '';
