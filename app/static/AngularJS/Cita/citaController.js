@@ -219,9 +219,11 @@
         //inserta una nueva cita
         $scope.addCita = function () {
 
-            if (($scope.datosCita.fechaCita != undefined && $scope.datosCita.fechaCita != "") && ($scope.datosCita.horaCita != undefined && $scope.datosCita.horaCita != "") &&
-                ($scope.datosCita.trabajoCita != undefined && $scope.datosCita.trabajoCita != "") && ($scope.labelItems > 0) &&
-                ($scope.procesAutotanque != "") && ($scope.idEstadoAutotanque != "") && ($scope.selectedCliente != "") && ($scope.selectedCliente != undefined)) {
+            if (($scope.datosCita.fechaCita != undefined && $scope.datosCita.fechaCita != "") && 
+                ($scope.datosCita.horaCita != undefined && $scope.datosCita.horaCita != "") &&
+                ($scope.labelItems > 0) &&
+                ($scope.procesAutotanque != "") && ($scope.idEstadoAutotanque != "") && 
+                ($scope.selectedCliente != "") && ($scope.selectedCliente != undefined)) {
 
                 if (($scope.procesAutotanque == "1" && $scope.requiereGrua == undefined) || ($scope.procesAutotanque == "1" && $scope.clasificacionCita == "")) {
                     alertFactory.info("Llene todos los campos");
@@ -304,7 +306,6 @@
                 }
             } else if (($scope.datosCita.fechaCita != undefined && $scope.datosCita.fechaCita != "") &&
                 ($scope.datosCita.horaCita != undefined && $scope.datosCita.horaCita != "") &&
-                ($scope.datosCita.trabajoCita != undefined && $scope.datosCita.trabajoCita != "") &&
                 ($scope.labelItems <= 0)) {
                 alertFactory.info("Llene la Pre-Orden");
             } else {
@@ -622,8 +623,9 @@
         //realiza la actualización de partidas de la cita
         $scope.updateCita = function () {
 
-            if (($scope.datosCita.fechaCita != undefined && $scope.datosCita.fechaCita != "") && ($scope.datosCita.horaCita != undefined && $scope.datosCita.horaCita != "") &&
-                ($scope.datosCita.trabajoCita != undefined && $scope.datosCita.trabajoCita != "") && ($scope.labelItems > 0) &&
+            if (($scope.datosCita.fechaCita != undefined && $scope.datosCita.fechaCita != "") && 
+                ($scope.datosCita.horaCita != undefined && $scope.datosCita.horaCita != "") &&
+                ($scope.labelItems > 0) &&
                 ($scope.procesAutotanque != "") && ($scope.idEstadoAutotanque != "")) {
 
                 if (($scope.procesAutotanque == "1" && $scope.requiereGrua == undefined) || ($scope.procesAutotanque == "1" && $scope.clasificacionCita == "")) {
@@ -707,7 +709,6 @@
                 }
             } else if (($scope.datosCita.fechaCita != undefined && $scope.datosCita.fechaCita != "") &&
                 ($scope.datosCita.horaCita != undefined && $scope.datosCita.horaCita != "") &&
-                ($scope.datosCita.trabajoCita != undefined && $scope.datosCita.trabajoCita != "") &&
                 ($scope.labelItems <= 0)) {
                 alertFactory.info("Llene la Pre-Orden");
             } else {
