@@ -12,9 +12,13 @@
             <ul class="sortable-list connectList agile-list ui-sortable" id="todo">
                 
                 <li ng-class="{'success-element': notificacion.tipoAcceso == 'Llegada', 
-                            'danger-element': notificacion.tipoAcceso == 'Salida'}" id="task1" ng-repeat="notificacion in notificaciones ">
+                            'danger-element': notificacion.tipoAcceso == 'Salida'}"  ng-repeat="notificacion in notificaciones ">
                     {{notificacion.tipoAcceso}}
-                    <div class="agile-detail"> {{notificacion.numEconomico}} - vin: {{notificacion.vin}}</div>
+                    <div class="agile-detail"> Motivo: {{notificacion.Descripcion}}</div>
+                    <div class="agile-detail"> Unidad: {{notificacion.numEconomico}}  Punto de entrega: {{notificacion.TAR}} </div>
+                    <div class="agile-detail" ng-show="notificacion.idMotivo == 1"> 
+                        Número de la Orden:  {{notificacion.numeroTrabajo}} - estatus: {{notificacion.descripcionLarga}}
+                    </div>
                     <div class="agile-detail">
                         <i class="fa fa-clock-o"></i> {{notificacion.tiempo}}
                     </div>
@@ -24,22 +28,6 @@
         
     </div>
 </div> 
-
-<!--script>
-        $(document).ready(function(){
-
-            $("#todo, #inprogress, #completed").sortable({
-                connectWith: ".connectList",
-                update: function( event, ui ) {
-
-                    var todo = $( "#todo" ).sortable( "toArray" );
-                    var inprogress = $( "#inprogress" ).sortable( "toArray" );
-                    var completed = $( "#completed" ).sortable( "toArray" );
-                    $('.output').html("ToDo: " + window.JSON.stringify(todo) + "<br/>" + "In Progress: " + window.JSON.stringify(inprogress) + "<br/>" + "Completed: " + window.JSON.stringify(completed));
-                }
-            }).disableSelection();
-
-        });
-    </script-->   
+  
 
     
