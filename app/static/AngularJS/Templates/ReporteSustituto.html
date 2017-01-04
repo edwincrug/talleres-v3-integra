@@ -21,10 +21,10 @@
                                                 <th>Ubicación</th>
                                                 <th>Unidad Sustituto</th>
                                                 <th>Ubicación</th>
-                                                <th>Tiempo</th>
                                                 <th>Motivo</th>
-                                                <th>Fecha de Asignación</th>
                                                 <th>Estatus Orden</th>
+                                                <th>Fecha de Asignación</th>
+                                                <th>Tiempo Transcurrido</th>
                                                 <th>Acción</th>
                                             </tr>
                                         </thead>
@@ -44,17 +44,18 @@
                                                         <span class="glyphicon glyphicon-map-marker"></span>
                                                         </button>
                                               </td>
-                                              <td>{{sustituto.tiempoTranscurrido}}</td>
                                               <td>{{sustituto.Descripcion}}</td>
-                                              <td>{{sustituto.fecha}}</td>
                                               <td>{{sustituto.estatusText}}</td>
+                                              <td>{{sustituto.fecha}}</td>
+                                              <td>{{sustituto.tiempoTranscurrido}}</td>
                                               <td>
-                                                        <button type="button" class="btn btn-primary" tooltip-placement="top" tooltip="Desvincular" ng-click="Desvinculacion(sustituto.idUnidadSustituto)">
+                                                        <button type="button" class="btn btn-primary" tooltip-placement="top" tooltip="Desvincular" ng-click="Desvinculacion(sustituto.idUnidadSustituto)" >
                                                         <span class="fa fa-chain-broken"></span>
                                                         </button>
-                                                        <button type="button" class="dropdown-toggle alerta-form btn btn-info" tooltip-placement="top" tooltip="Ver Orden">
+                                                        <button type="button" class="dropdown-toggle alerta-form btn btn-info" tooltip-placement="top" tooltip="Ver Orden"
+                                                        ng-show = "sustituto.idMotivo== 1">
                                                         <span class="glyphicon glyphicon-sunglasses"></span>
-                                                        </button>                                                             
+                                                        </button>                                                    
                                               </td>
                                             </tr>
                                         </tbody>
