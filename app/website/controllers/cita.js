@@ -818,6 +818,14 @@
         //Referencia a la clase para callback
         var self = this;
 
+        var params = [
+            {
+                name: 'idMotivo',
+                value: req.query.idMotivo,
+                type: self.model.types.STRING
+                            
+            }];
+
         this.model.query('SEL_REPORTE_SUSTITUTO_SP', params, function (error, result) {
             self.view.expositor(res, {
                 error: error,
@@ -825,6 +833,7 @@
             });
         });
     }
+
     //Actualiza el estatus de la unidad para sustituto (Desvincula)
     Cita.prototype.put_unidadDesvinculada = function(req,res,next){
         //Objeto que almacena la respuesta

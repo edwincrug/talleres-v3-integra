@@ -68,10 +68,13 @@ var citaUrl = global_settings.urlCORS + '/api/cita/';
                 });
             },
 
-            getReporte:function(){
+            getReporte:function(idMotivo){
                 return $http({
                         url: citaUrl + 'reportesustituto',//va al controller de node
-                        method:"GET",                       //el metodo get es porque se realizara una consulta
+                        method:"GET", 
+                    params: {
+                        idMotivo: idMotivo
+                    },                      //el metodo get es porque se realizara una consulta
                         headers:{'Content-Type':'application/json'
                     }
                 });
