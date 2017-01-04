@@ -26,6 +26,18 @@ var citaUrl = global_settings.urlCORS + '/api/cita/';
                     }
                 })
             },
+            getValidaOrden: function (numeroTrabajo) {
+                return $http({
+                    url: citaUrl + 'validaorden/',
+                    method: "GET",
+                    params: {
+                        numeroTrabajo: numeroTrabajo
+                    },
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+            },
             getNotificaciones: function () {
                 
                 return $http({

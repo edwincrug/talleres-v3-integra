@@ -47,7 +47,7 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
 
     $scope.validaMotivo = function (motivo){
         if ($scope.motivos != '') {
-            if (motivo.Descripcion == 'Por orden' ) {
+            if (motivo.idMotivo == 1 ) {
                 $scope.show_orden=true;
             }else{
                 $scope.show_orden=false;
@@ -164,7 +164,7 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
     $scope.validateSustituto = function (){
         if ($scope.select_sustituto != '' && $scope.select_unidad != '' && $scope.selectedMotivo != '') {
 
-            if ($scope.selectedMotivo.Descripcion == 'Por orden' ) {
+            if ($scope.selectedMotivo.idMotivo == 1 ) {
 
                 if ($scope.numOrden != '') {
                     return true;  
@@ -181,6 +181,37 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
     }
 
     $scope.addUnidadSusituto = function () {
+
+        if ($scope.selectedMotivo.idMotivo == 1) {
+
+            sustitutoRepository.getValidaOrden($scope.numOrden).then(function (result) {
+               
+                if (result.data.length > 0) {
+
+                    if (result.data[0].estatus == 0) {
+                         alertFactory.error("No es válido el número de orden");
+                    }else if (result.data[0].estatus == 1) {  
+                        alertFactory.success("Número de orden válido");
+                        $scope.unidadSustito();
+                    }else if (result.data[0].estatus == 2) {
+                         alertFactory.error("El estatus del número de orden no es válido");
+                    } 
+                    
+                } else {
+                    alertFactory.info("No se encontraron datos");
+                }
+            }, function (error) {
+                alertFactory.error("Error al validar orden");
+            });
+
+        }else{
+            $scope.unidadSustito();
+        }
+        
+    }
+
+    $scope.unidadSustito = function (){
+
          $('#btnLigar').button('Buscando...');
          var orden = 0
          if ($scope.selectedMotivo.idMotivo == 1) {
@@ -194,7 +225,7 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
                 $scope.numOrden = '';
                 $scope.sustitutos = [];
                 $scope.unidades = [];
-                $scope.motivos = [];
+                $scope.show_orden= false;
                 $scope.select_sustituto = '';  
                 $scope.select_unidad = ''; 
                 $scope.selectedMotivo = '';
@@ -211,6 +242,7 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
             alertFactory.error("Error al asociar las unidades");
             $('#btnLigar').button('reset');
         });
+
     }
 
 });

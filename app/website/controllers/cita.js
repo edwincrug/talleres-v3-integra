@@ -745,6 +745,31 @@
         });
     }
 
+    //valida la orden para sustituto
+    Cita.prototype.get_validaorden = function (req, res, next) {
+        //Objeto que almacena la respuesta
+        var object = {};
+        //Referencia a la clase para callback
+        var self = this;
+        //Asigno a params el valor de mis variables    
+        var params = [
+            {
+                name: 'numeroTrabajo',
+                value: req.query.numeroTrabajo,
+                type: self.model.types.INT
+                            
+            }
+        ];
+
+        this.model.query('SEL_VALIDA_ORDEN_SP', params, function (error, result) {
+            //Callback
+            object.error = error;
+            object.result = result;
+
+            self.view.expositor(res, object);
+        });
+    }
+
     //insertar nueva cita para una unidad
     Cita.prototype.post_addunidadsustituto = function (req, res, next) {
         //Referencia a la clase para callback
