@@ -36,6 +36,7 @@
                                                 <th>Ubicación</th>
                                                 <th>Motivo</th>
                                                 <th>Estatus Orden</th>
+                                                <th>Numero de la Orden</th>
                                                 <th>Fecha de Asignación</th>
                                                 <th>Tiempo Transcurrido</th>
                                                 <th>Acción</th>
@@ -68,7 +69,9 @@
                                                         </button>
                                               </td>
                                               <td>{{sustituto.Descripcion}}</td>
-                                              <td>{{sustituto.estatusText}}</td>
+                                              <td>{{sustituto.descripcionLarga}}</td>
+                                              <td ng-if="sustituto.numeroTrabajo != 0">{{sustituto.numeroTrabajo}}</td>
+                                              <td ng-if="sustituto.numeroTrabajo == 0"></td>
                                               <td>{{sustituto.fecha}}</td>
                                               <td>{{sustituto.tiempoTranscurrido}}</td>
                                               <td>

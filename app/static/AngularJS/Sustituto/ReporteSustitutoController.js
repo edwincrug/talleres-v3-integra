@@ -42,7 +42,11 @@ registrationModule.controller('ReporteSustitutoController', function (MarkerCrea
            $scope.validaMotivo = function (motivo){
             $('.dataTableReporteSustituto').DataTable().destroy();
             $scope.reporteSustituto=[];
-             $scope.idMotivoUnidad=motivo.idMotivo;
+            if(motivo != null){
+                $scope.idMotivoUnidad=motivo.idMotivo;
+            }else{
+                 $scope.idMotivoUnidad=null;
+            }  
              $scope.getReporteSustituto();
             }
 
