@@ -3,18 +3,59 @@
 
 <div ng-init="init()" class="animated bounceInRight">
     <div class="headTitleTallerCita">
-        <span class="title"> Notificaciones </span>
+        <span class="title"> Entrada y Salida de Unidades al Taller </span>
     </div>
     <div class="wrapper wrapper-content">
 
-        <div class="ibox-content">
+        <div class="ibox-content clom-md-12">
 
-            <ul class="sortable-list connectList agile-list ui-sortable" id="todo">
+
+            <div class="row col-md-12 ">
+
+                <div class="col-md-3 form-group">
+                    <label class="col-sm-3 control-label">Unidad: </label>
+                    <div class="col-sm-9">
+                       <input type="text" class="form-control" value="" ng-model="unidad" >
+                    </div>
+                </div>
+
+                <div class="col-md-2 form-group">
+                    <label class="col-sm-2 control-label">Tipo: </label>
+                    <div class="col-sm-10">
+                        <select class="form-control" name="tipo" ng-model="selectedTipo" ng-options="tipo.nombre for tipo in tipos" >
+                            <option value=''>Selecionar  tipo</option><!--default option -->
+                        </select>
+                    </div>
+                </div>
+               
+                <div class="col-md-6" id="data_5">
+                    <label class="col-sm-4 control-label">Fecha Inicio a Fecha Fin</label>
+                    <div class="input-daterange input-group col-md-8" id="datepicker">
+                        <input type="text" placeholder="Fecha Inicio" class="input-sm form-control" name="start" ng-model="fechaInicio" ng-change="fechaRango" />
+                        <!-- ng-disabled="fechaMes != null " -->
+                        <span class="input-group-addon">a</span>
+                        <input type="text" placeholder="Fecha Fin" class="input-sm form-control" name="end" ng-model="fechaFin" ng-change="fechaRango()" />
+                        <!-- ng-disabled="fechaMes != null " -->
+                    </div>
+                
+                </div>
+                <div class="col-md-1">
+                    <button id="btnBuscar" busy="Buscando.." type="button" class="btn btn-primary" ng-click="buscaFiltros()"><span class="glyphicon glyphicon-search"></span></button>
+                </div>
+                
+            </div>
+
+            <div class=" row col-md-12 scroll_noti">
+                <ul class="sortable-list connectList agile-list ui-sortable" id="todo">
                 
                 <li ng-class="{'success-element': notificacion.tipoAcceso == 'Llegada', 
                             'danger-element': notificacion.tipoAcceso == 'Salida'}"  ng-repeat="notificacion in notificaciones ">
-                    {{notificacion.tipoAcceso}}
-                    <div class="agile-detail"> Motivo: {{notificacion.Descripcion}}</div>
+                     <div>
+                         <span>{{notificacion.tipoAcceso}}</span>
+                         <span class="pull-right">Fecha : {{notificacion.fecha}}</span>
+                     </div>       
+                    
+                    <div class="agile-detail" ng-show="notificacion.idMotivo != null"> Motivo: {{notificacion.Descripcion}}</div>
                     <div class="agile-detail"> Unidad: {{notificacion.numEconomico}}  Punto de entrega: {{notificacion.TAR}} </div>
                     <div class="agile-detail" ng-show="notificacion.idMotivo == 1"> 
                         Número de la Orden:  {{notificacion.numeroTrabajo}} - estatus: {{notificacion.descripcionLarga}}
@@ -24,6 +65,9 @@
                     </div>
                 </li>
             </ul>
+            </div>
+
+            
         </div>
         
     </div>

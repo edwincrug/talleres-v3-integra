@@ -865,7 +865,30 @@
         //Referencia a la clase para callback
         var self = this;
         //Asigno a params el valor de mis variables    
-        var params = [];
+        var params = [{
+                name: 'idTipo',
+                value: req.query.idTipo,
+                type: self.model.types.STRING
+                            
+            },
+            {
+                name: 'numEconomico',
+                value: req.query.numEconomico,
+                type: self.model.types.STRING
+                            
+            },
+            {
+                name: 'fechaInicio',
+                value: req.query.fechaInicio,
+                type: self.model.types.STRING
+                            
+            },
+            {
+                name: 'fechaFin',
+                value: req.query.fechaFin,
+                type: self.model.types.STRING
+                            
+            }];
 
         this.model.query('SEl_UNIDAD_NOTIFICACION_SP', params, function (error, result) {
             //Callback

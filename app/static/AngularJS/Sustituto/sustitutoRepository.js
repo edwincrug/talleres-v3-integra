@@ -38,12 +38,18 @@ var citaUrl = global_settings.urlCORS + '/api/cita/';
                     }
                 })
             },
-            getNotificaciones: function () {
+            getNotificaciones: function (idTipo, numEconomico, fechaInicio, fechaFin) {
                 
                 return $http({
                     url: citaUrl + 'notificacionesUnidad/',
                     method: "GET",
-                    params: {},
+                    params: {
+                        idTipo: idTipo,
+                        numEconomico: numEconomico,
+                        fechaInicio:fechaInicio,
+                        fechaFin:fechaFin
+
+                    },
                     headers: {
                         'Content-Type': 'application/json'
                     }

@@ -39,6 +39,11 @@
   margin-right: 6%;
 }
 
+.scroll_noti{
+  height: 900px;
+  overflow-y: auto;
+  margin: 0 auto;
+}
 
 
     
