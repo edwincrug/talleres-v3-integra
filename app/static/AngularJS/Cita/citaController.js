@@ -957,11 +957,11 @@
             if ($scope.datosCita.horaCita != null && $scope.datosCita.fechaCita) {
                 var horaArray = $scope.datosCita.horaCita.split(':');
                 var fechaArray = $scope.datosCita.fechaCita.toString().split('/');
-
-                var fechaComparacion = new Date(fechaArray[2], fechaArray[0] - 1, fechaArray[1], horaArray[0] - 1, horaArray[1]);
-                if (!(fechaComparacion >= currentDate)) {
+               // var fechaComparacion = new Date(fechaArray[2], fechaArray[0] - 1, fechaArray[1], horaArray[0] - 1, horaArray[1]);
+                var fechaComparacion = new Date(fechaArray[2], fechaArray[0] -1, fechaArray[1], horaArray[0] - 24, horaArray[1]);
+                if (!(fechaComparacion2 <= currentDate)) {
                     $scope.datosCita.horaCita = null;
-                    alertFactory.info("Debe agendar citas con 1 hora de anticipación como mínimo.")
+                    alertFactory.info("Debe agendar maximo  1 día de anterioridad la cita.")
                 }
             }
         }
