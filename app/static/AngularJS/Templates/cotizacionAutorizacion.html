@@ -72,7 +72,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="articulo in articulos" ng-class="{'rowVerde': articulo.idNivelAutorizacion==1, 'rowAzul': articulo.idNivelAutorizacion == 2, 'rowAmarillo' : articulo.idNivelAutorizacion == 3, 'rowRojo': articulo.idNivelAutorizacion == 4, 'rowEtGlobal': articulo.idNivelAutorizacion == 5}">
+                                <!--tr ng-repeat="articulo in articulos" ng-class="{'rowVerde': articulo.idNivelAutorizacion==1, 'rowAzul': articulo.idNivelAutorizacion == 2, 'rowAmarillo' : articulo.idNivelAutorizacion == 3, 'rowRojo': articulo.idNivelAutorizacion == 4, 'rowEtGlobal': articulo.idNivelAutorizacion == 5}"-->
+                                <tr ng-repeat="articulo in articulos" ng-class="{'rowAzul': articulo.idNivelAutorizacion==1, 'rowAzul': articulo.idNivelAutorizacion == 2, 'rowAzul' : articulo.idNivelAutorizacion == 3, 'rowAzul': articulo.idNivelAutorizacion == 4, 'rowAzul': articulo.idNivelAutorizacion == 5}">
                                     <td>{{articulo.numeroCotizacion}}</td>
                                     <td style="text-align:left; width: 100px;">{{articulo.descripcionLarga}}</td>
                                     <td style="text-align:left;  width:300px;">
