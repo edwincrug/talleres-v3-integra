@@ -80,4 +80,11 @@ registrationModule.controller('ReporteSustitutoController', function (MarkerCrea
             });
         }
 
+    //Visualiza la órden de servicio
+    $scope.aprobarTrabajo = function (sustituto) {
+        localStorageService.set('objTrabajo', sustituto);
+        location.href = '/ordenservicio';
+    }
+
+
         });
