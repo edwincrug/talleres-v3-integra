@@ -9,8 +9,8 @@ html, body, div.map_container {
 div.map_container {
     position: fixed;
     /*float: left;*/
-    width: 650px;
-    height: 650px
+    width: 450px;
+    height: 450px;
 }
 
 .angular-google-map-container {
