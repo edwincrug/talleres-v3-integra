@@ -12,7 +12,7 @@ registrationModule.controller('ReporteSustitutoController', function (MarkerCrea
     $scope.Desvinculacion=function (idUnidadSustituto) {
         swal({
             title: "Advertencia",
-            text: "¿Está seguro en eliminar la Vinculacion ?",
+            text: "¿Está seguro en eliminar la Vinculación ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#67BF11",

@@ -10,6 +10,7 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
     $scope.datoUnidad = '';
     $scope.show_orden=false;
     $scope.numOrden = '';
+    $scope.show_sustituto=false;
         
 
 	$scope.init_asignacion = function (){
@@ -86,7 +87,7 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
 
     $scope.getSustituto = function (dataSustituto) {
 
-        if ($scope.dataSustituto != '' ) {
+        if ($scope.dataSustituto != '' ) {;
             $('#btnSustituto').button('Buscando...');
             sustitutoRepository.getSustituto(dataSustituto, 1).then(function (Info) {
                 $('.dataTableSustituto').DataTable().destroy();
@@ -111,9 +112,28 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
 
 
     $scope.selUnidad = function (unidad) {
+
          $scope.show_mapSustituto = true;
          $scope.select_unidad=unidad.idUnidad;
          $scope.obtieneUbicacionUnidad ($scope.select_unidad, 'Unidad');
+
+          swal({
+            title: "Advertencia",
+            text: '¿Desea asignar un sustituto?',
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#67BF11",
+            confirmButtonText: "Si",
+            cancelButtonText: "No",
+            closeOnConfirm: true,
+            closeOnCancel: true
+        },
+        function (isConfirm) {
+            if (isConfirm) {
+                $scope.show_sustituto=true;
+            }
+        });
+
 
     }
 
@@ -162,7 +182,10 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
  
 
     $scope.validateSustituto = function (){
-        if ($scope.select_sustituto != '' && $scope.select_unidad != '' && $scope.selectedMotivo != '') {
+
+        //$scope.select_sustituto != '' &&
+
+        if ($scope.select_unidad != '' && $scope.selectedMotivo != '') {
 
             if ($scope.selectedMotivo.idMotivo == 1 ) {
 

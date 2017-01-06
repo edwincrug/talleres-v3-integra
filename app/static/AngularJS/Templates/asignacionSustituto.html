@@ -3,32 +3,11 @@
 
 <div  class="animated fadeInRight" ng-init="init_asignacion()">
     <div class="headTitleTallerCita">
-        <span class="title"> Asignación  de auto sustituto<span class="subtitle"></span></span>
+        <span class="title">Unidad Fuera de Operación <span class="subtitle"></span></span>
     </div>
     <br>
     <div class="wrapper wrapper-content ibox-content">
-          <div class="row col-md-5 pull-right" >
-
-            <div class="form-group row">
-                <label class="col-sm-3 control-label">Motivo: </label>
-                <div class="col-sm-9">
-                    <select class="form-control" name="motivo" ng-model="selectedMotivo" ng-options="motivo.Descripcion for motivo in motivos" ng-change="validaMotivo(selectedMotivo)">
-                        <option value=''>Selecionar  motivo</option><!--default option -->
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-group row" ng-show="show_orden==true">
-                <label class="col-sm-3 control-label">Número de la Orden: </label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" value="" ng-model="numOrden" ng-change="validaOrden()">
-                </div>
-            </div>
-
-            <div class="col-dm-6 pull-right row"  >
-                <button type="button" class="btn btn-success" id="btnLigar" ng-click="addUnidadSusituto()" ng-disabled="validateSustituto()==false"><span class="glyphicon glyphicon-link"></span><strong> Ligar unidad con sustituto</strong></button>
-            </div>
-        </div>
+         
         <div class="row">
 
         		<div class="col-md-7">
@@ -84,7 +63,7 @@
                         </br>
     
                     </form>
-                    <form class="form-horizontal">
+                    <form class="form-horizontal" ng-show="show_sustituto==true">
                         <br/> 
                         <div class=" title" >Sustituto </div>
                          <br/> 
@@ -134,10 +113,10 @@
                         
                     </form>
         		</div>
-                <div class="col-md-5 row" id="mapaSutituto">
+                <div class="col-md-5 row" id="mapaSutituto" ng-show="show_mapSustituto==true">
 
                      <form class="form-horizontal" >
-                        <div class="map_container" ng-show="show_mapSustituto==true">
+                        <div class="map_container" >
                             <div ng-if="bandera == 0">
                             <google-map center="map.center" zoom="map.zoom" draggable="true" shadow="map.shadow" icon="map.icon" options="map.options" control="map.control">
                                 <markers models="map.markers" coords="'self'" options="'options'" isLabel='true'>
@@ -155,6 +134,30 @@
                                 </div>
                         </div>
                     </form>
+
+                    <div class="row" style="margin-top: 500px !important;" >
+
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">Motivo: </label>
+                            <div class="col-sm-4">
+                                <select class="form-control" name="motivo" ng-model="selectedMotivo" ng-options="motivo.Descripcion for motivo in motivos" ng-change="validaMotivo(selectedMotivo)">
+                                    <option value=''>Selecionar  motivo</option><!--default option -->
+                                </select>
+                            </div>
+                        
+                            <div  ng-show="show_orden==true">
+                                <label class="col-sm-2 control-label">Número de la Orden: </label>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" value="" ng-model="numOrden" ng-change="validaOrden()">
+                                </div>
+                            </div>
+                            <div class="pull-right">
+                               <button type="button" class="btn btn-success" id="btnLigar" ng-click="addUnidadSusituto()" ng-disabled="validateSustituto()==false"><strong> Guardar</strong></button> 
+                            </div>
+                            
+                       
+                          
+                    </div>
 
                     
                     
