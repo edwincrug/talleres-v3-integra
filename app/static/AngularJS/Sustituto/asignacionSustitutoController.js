@@ -68,7 +68,7 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
                 $('.dataTableUnidad').DataTable().destroy();
                 $scope.unidades = unidadInfo.data;
                 if (unidadInfo.data.length > 0) {
-                    globalFactory.waitDrawDocument("dataTableUnidad", "Unidad");
+                    globalFactory.waitDrawDocumentLength("dataTableUnidad", "Unidad", 5);
                     alertFactory.success('Datos encontrados');
                     $('#btnBuscar').button('reset');
                 } else {
@@ -93,7 +93,7 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
                 $('.dataTableSustituto').DataTable().destroy();
                 $scope.sustitutos = Info.data;
                 if (Info.data.length > 0) {
-                    globalFactory.waitDrawDocument("dataTableSustituto", "Sustituto");
+                    globalFactory.waitDrawDocumentLength("dataTableSustituto", "Sustituto", 5);
                     alertFactory.success('Datos encontrados');
                     $('#btnSustituto').button('reset');
                 } else {
@@ -117,22 +117,8 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
          $scope.select_unidad=unidad.idUnidad;
          $scope.obtieneUbicacionUnidad ($scope.select_unidad, 'Unidad');
 
-          swal({
-            title: "Advertencia",
-            text: '¿Desea asignar un sustituto?',
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#67BF11",
-            confirmButtonText: "Si",
-            cancelButtonText: "No",
-            closeOnConfirm: true,
-            closeOnCancel: true
-        },
-        function (isConfirm) {
-            if (isConfirm) {
-                $scope.show_sustituto=true;
-            }
-        });
+         
+         $('#modal_sustituto').appendTo("body").modal('show');
 
 
     }
@@ -255,6 +241,7 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
                 $('.dataTableSustituto').DataTable().destroy();
                 $('.dataTableUnidad').DataTable().destroy();
                 $scope.show_mapSustituto = false;
+                $scope.show_sustituto=false;
         
                $('#btnLigar').button('reset');
             }else{

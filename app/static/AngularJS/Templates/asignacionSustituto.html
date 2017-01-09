@@ -22,7 +22,7 @@
                                     
 
                                 	<div class="col-sm-11">
-                                		<input type="text" placeholder="Buscar unidad" ng-model="datoUnidad" ng-change="habilitaBuscar(datoUnidad)" class="form-control ng-pristine ng-untouched ng-valid" ng-enter="getUnidad(datoUnidad)">
+                                		<input type="text" placeholder="Buscar unidad" ng-model="datoUnidad" ng-change="habilitaBuscar(datoUnidad)" class="form-control ng-pristine ng-untouched ng-valid" ng-enter="getUnidad(datoUnidad)" onlynumber>
                                 	</div>
 
                                 	
@@ -72,7 +72,7 @@
                                 <div class="col-sm-12">
 
                                     <div class="col-sm-11">
-                                        <input type="text" placeholder="Buscar sustituto"  ng-model="dataSustituto" class="form-control ng-pristine ng-untouched ng-valid" ng-enter="getSustituto(dataSustituto)" >
+                                        <input type="text" placeholder="Buscar sustituto"  ng-model="dataSustituto" class="form-control ng-pristine ng-untouched ng-valid" ng-enter="getSustituto(dataSustituto)" onlynumber>
                                     </div>
 
 
@@ -175,3 +175,21 @@
       
 
 </div>  
+
+
+<div class="modal inmodal" id="modal_sustituto" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated flipInY">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <img src="image/warning.png" width="112" height="112" class="postionWarning">
+                <br><br>
+                <h4 class="modal-title">¿Desea asignar un sustituto?</h4>
+                <br><br>
+                <button type="button" class="btn btn-danger" ng-click="show_sustituto=false" data-dismiss="modal">No</button>&nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-informa btnAprobarOrden" ng-click="show_sustituto=true"  data-dismiss="modal">Si</button>
+            </div>
+
+        </div>
+    </div>
+</div>

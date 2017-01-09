@@ -31,10 +31,10 @@
                 <div class="col-md-6" id="data_5">
                     <label class="col-sm-4 control-label">Fecha Inicio a Fecha Fin</label>
                     <div class="input-daterange input-group col-md-8" id="datepicker">
-                        <input type="text" placeholder="Fecha Inicio" class="input-sm form-control" name="start" ng-model="fechaInicio" ng-change="fechaRango" />
+                        <input type="text" placeholder="Fecha Inicio" class="input-sm form-control" name="start" ng-model="fechaInicio" ng-change="fechaRango" calendar />
                         <!-- ng-disabled="fechaMes != null " -->
                         <span class="input-group-addon">a</span>
-                        <input type="text" placeholder="Fecha Fin" class="input-sm form-control" name="end" ng-model="fechaFin" ng-change="fechaRango()" />
+                        <input type="text" placeholder="Fecha Fin" class="input-sm form-control" name="end" ng-model="fechaFin"  ng-change="fechaRango()" calendar/>
                         <!-- ng-disabled="fechaMes != null " -->
                     </div>
                 

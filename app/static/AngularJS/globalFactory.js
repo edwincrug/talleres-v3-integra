@@ -26,6 +26,31 @@ registrationModule.factory('globalFactory', function () {
                     ]
                 });
             }, 2500);
+        },
+        waitDrawDocumentLength: function (dataTable, title, length) {
+            setTimeout(function () {
+                $('.' + dataTable).DataTable({
+                    dom: '<"html5buttons"B>lTfgitp',
+                    "iDisplayLength": length,
+                    buttons: [
+                        {
+                            extend: 'excel',
+                            title: title
+                        },
+                        {
+                            extend: 'print',
+                            customize: function (win) {
+                                $(win.document.body).addClass('white-bg');
+                                $(win.document.body).css('font-size', '10px');
+
+                                $(win.document.body).find('table')
+                                    .addClass('compact')
+                                    .css('font-size', 'inherit');
+                            }
+                        }
+                    ]
+                });
+            }, 1500);
         }
     }
 

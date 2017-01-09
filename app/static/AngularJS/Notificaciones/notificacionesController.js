@@ -64,10 +64,10 @@ registrationModule.controller('notificacionesController', function ($scope, $rou
     }
 
     //Rango de datos
-    $('#data_5 .input-daterange').datepicker({
+    /*$('#data_5 .input-daterange').datepicker({
         keyboardNavigation: false,
         forceParse: false,
         autoclose: true
-    });
+    });*/
 
  });
