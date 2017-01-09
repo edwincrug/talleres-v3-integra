@@ -1,4 +1,4 @@
-registrationModule.controller('mainController', function ($scope, $rootScope, $location, localStorageService, mainRepository) {
+registrationModule.controller('mainController', function ($scope, $rootScope, $location, localStorageService, mainRepository, alertFactory) {
     $rootScope.showChat = 0;
      var citaMsg = localStorageService.get('citaMsg');
 
@@ -10,6 +10,7 @@ registrationModule.controller('mainController', function ($scope, $rootScope, $l
          $scope.cargaChatTaller();
          $scope.cargaChatCliente();
         $rootScope.userData = localStorageService.get('userData');
+        $scope.NotificacionUnidad();
     }
 
     $scope.cargaChatTaller = function () {
@@ -56,6 +57,22 @@ $scope.cargaChatCliente = function () {
     $scope.BorraComentario = function () {
         $scope.comentario = '';
     }
-    
+
+    $scope.NotificacionUnidad = function () {
+        var socket = io.connect('http://localhost:4200/');
+
+        var messages = [{  
+          id: 1,
+          text: "Peticion Cliente",
+          author: "Talleres-Integra"
+        }];
+        socket.emit('peticionInicio', messages);
+
+        socket.on('notificacion', function(data){
+            alertFactory.notification(data.camion);
+        });
+    }
+
+       
 
 });

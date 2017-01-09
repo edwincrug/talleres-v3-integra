@@ -1,3 +1,4 @@
+
 var Io = require('socket.io'),
 	app_user = {};
 
@@ -6,22 +7,16 @@ var SocketIO = function(config){
 	var io = Io.listen(config.server);
 
 	io.sockets.on('connection', function(socket){
-		socket.join('some::room');
 
-		socket.emit('mejorandola', {hola:'soy mejorandola'});
-
-		socket.on('mejorandolo', function(data){
+		socket.on('peticionInicio', function(data){
 			console.log(data);
+   		//setInterval(function(){
+			socket.emit('notificacion', {camion:'Monitoreo de Unidad'});
+		//},90000);
 		});
 
-		socket.on('app_user',function(user){
-			app_user[user.id] = user
-		});
+		socket.emit('notificacion', {camion:'Entrada Salida Unidad'});
 
-		socket.on('disconnect', function(){
-			// delete app_user[socket.store.id];
-			/*console.log(data);*/
-		})
 	});
 }
 
