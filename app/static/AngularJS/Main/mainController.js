@@ -6,11 +6,25 @@ registrationModule.controller('mainController', function ($scope, $rootScope, $l
     $scope.comentarios = '';
     $scope.comentario = '';
 
+    //Gestiona la conexión con el socket
+    $scope.socket = null;
+    $scope.connected = false;
+
+
     $scope.init = function () {
          $scope.cargaChatTaller();
          $scope.cargaChatCliente();
         $rootScope.userData = localStorageService.get('userData');
-        $scope.NotificacionUnidad();
+       // $scope.NotificacionUnidad();
+
+
+        setInterval(function() {
+            debugger;
+           if (!$scope.connected) {
+               console.log('Intentando reconexión...');
+               SocketConnect();
+           }
+       }, 10000);
     }
 
     $scope.cargaChatTaller = function () {
@@ -58,7 +72,43 @@ $scope.cargaChatCliente = function () {
         $scope.comentario = '';
     }
 
-    $scope.NotificacionUnidad = function () {
+
+     ////////////////////////////////////////////////////////////////////
+    // Funciones de socket
+    ////////////////////////////////////////////////////////////////////
+
+    //Conecta el socket
+    var SocketConnect = function() {
+        //Inicio sesión en el socket para recibir actualizaciones
+        $scope.socket = io.connect('http://localhost:4200/');
+        if ($scope.socket != null) {
+            SocketJoin();
+        }
+    };
+
+      //Declara los mensajes principales del socket
+    var SocketJoin = function() {
+        //Envío mis datos de usuario  
+        $scope.socket.emit('login', { user: $rootScope.empleado });
+        $scope.socket.on('hello', function(data) {
+            debugger;
+            console.log('entra');
+            $scope.connected = true;
+        });
+       // $scope.connected = true;
+
+        $scope.socket.on('pkgNotificacion', function(data) {
+
+            //Obtiene Notificaciones
+            console.log(data.length + ' dato(s) recibido(s) at: ' + new Date().toString())
+            getNSuccessCallback(data, null, null, null);
+        });
+    };
+
+
+    
+
+    /*$scope.NotificacionUnidad = function () {
         var socket = io.connect('http://localhost:4200/');
 
         var messages = [{  
@@ -71,7 +121,7 @@ $scope.cargaChatCliente = function () {
         socket.on('notificacion', function(data){
             alertFactory.notification(data.camion);
         });
-    }
+    }*/
 
        
 
