@@ -6,7 +6,9 @@
 // -- Fecha: 
 // -- =============================================
 registrationModule.factory('alertFactory', function () {
+   
     return {
+
         success: function (text) {
             toastr.options = { "positionClass": "toast-top-right", "closeButton": true}
             toastr.success(text, '¡Éxito!');
@@ -33,7 +35,7 @@ registrationModule.factory('alertFactory', function () {
         },
         notification: function (text) {
 
-            toastr.options = {
+            /*toastr.options = {
               "closeButton": true,
               "debug": false,
               "newestOnTop": true,
@@ -41,18 +43,36 @@ registrationModule.factory('alertFactory', function () {
               "positionClass": "toast-top-full-width",
               "preventDuplicates": false,
               "onclick": null,
-              "showDuration": "300",
-              "hideDuration": "1000",
-              "timeOut": 0,
-              "extendedTimeOut": 0,
-              "showEasing": "swing",
-              "hideEasing": "linear",
-              "showMethod": "fadeIn",
-              "hideMethod": "fadeOut",
-              "tapToDismiss": false
+
+              //"showDuration": "300",
+              //"hideDuration": "1000",
+              "timeOut": 15000,
+              "extendedTimeOut": 0
+              //"showEasing": "swing",
+              //"hideEasing": "linear",
+              //"showMethod": "fadeIn",
+              //"hideMethod": "fadeOut",
+              //"tapToDismiss": false
+            }*/
+
+            toastr.options = {
+             "closeButton": true,
+             "debug": false,
+             "newestOnTop": true,
+             "progressBar": true,
+             "positionClass": "toast-top-full-width",
+             "preventDuplicates": false,
+             "onclick": null
             }
 
-           toastr.info('<br/><a href="/notificaciones" ng-click="alert()">Para más info de click Aqui</a><br/>', text)
+           toastr.info('</br><div class="info"><a href="/notificaciones">Para más info. de click Aqui</a></div>', '<div class="titleInfo">'+text+'</div>')
+            
+           toastr.clear();
+           openedToast = null;
+
+           toastr.on('$destroy', function () {
+                             
+        });
         }
 
 

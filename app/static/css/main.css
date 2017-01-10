@@ -195,3 +195,20 @@ body {
 .rowMarron {
     background-color: #B40431;
 }
+
+.info{
+    text-align: center;
+    font-size: 20px;
+    color: #1485e7 !important;
+}
+
+.info a {
+    border-bottom: 1px solid #1485e7;
+    text-align: center;
+    color: #1485e7 !important;
+}
+
+.titleInfo{
+    text-align: center;
+    font-size: 20px;
+}
