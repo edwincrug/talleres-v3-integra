@@ -202,7 +202,7 @@
                     $scope.talleres = taller.data;
                     //  $scope.arrayCambios = $scope.talleres.slice();
                     if (taller.data.length > 0) {
-                        globalFactory.waitDrawDocument("dataTableTaller", "Citas");
+                        globalFactory.waitDrawDocumentLength("dataTableTaller", "Citas", 5);
                         alertFactory.success('Datos encontrados');
                     } else {
                         alertFactory.info('No se encontraron datos');
@@ -959,7 +959,7 @@
                 var fechaArray = $scope.datosCita.fechaCita.toString().split('/');
                // var fechaComparacion = new Date(fechaArray[2], fechaArray[0] - 1, fechaArray[1], horaArray[0] - 1, horaArray[1]);
                 var fechaComparacion = new Date(fechaArray[2], fechaArray[0] -1, fechaArray[1], horaArray[0] - 24, horaArray[1]);
-                if (!(fechaComparacion2 <= currentDate)) {
+                if (!(fechaComparacion <= currentDate)) {
                     $scope.datosCita.horaCita = null;
                     alertFactory.info("Debe agendar maximo  1 día de anterioridad la cita.")
                 }

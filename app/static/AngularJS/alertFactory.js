@@ -70,9 +70,7 @@ registrationModule.factory('alertFactory', function () {
            toastr.clear();
            openedToast = null;
 
-           toastr.on('$destroy', function () {
-                             
-        });
+      
         }
 
 
