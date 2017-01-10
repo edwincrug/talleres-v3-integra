@@ -907,14 +907,17 @@
         //Asigno a params el valor de mis variables    
         var params = [];
 
-        this.model.query('SEl_NOTIFICACION_UNIDAD_SP', params, function (error, result) {
-            //Callback
-            object.error = error;
-            object.result = result;
+        this.model.query('SEL_NOTIFICACIONES_UNIDAD_SP', params, function (error, result) {
 
-            self.view.expositor(res, object);
+            self.view.expositor(res, {
+                error: error,
+                result: result
+            });
+
         });
     }
 
 
     module.exports = Cita;
+
+

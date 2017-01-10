@@ -15,16 +15,15 @@ registrationModule.controller('mainController', function ($scope, $rootScope, $l
          $scope.cargaChatTaller();
          $scope.cargaChatCliente();
         $rootScope.userData = localStorageService.get('userData');
-       // $scope.NotificacionUnidad();
 
-
-        setInterval(function() {
-            debugger;
+    //Valida que el socket este encendido 
+    setInterval(function() {
            if (!$scope.connected) {
                console.log('Intentando reconexión...');
                SocketConnect();
            }
-       }, 10000);
+    }, 10000);
+
     }
 
     $scope.cargaChatTaller = function () {
@@ -73,56 +72,35 @@ $scope.cargaChatCliente = function () {
     }
 
 
-     ////////////////////////////////////////////////////////////////////
-    // Funciones de socket
+    /////////////////////////////////////////////////////////////////////
+    // FUNCIONES DE SOCKET
     ////////////////////////////////////////////////////////////////////
 
     //Conecta el socket
     var SocketConnect = function() {
-        //Inicio sesión en el socket para recibir actualizaciones
+            //Inicio sesión en el socket para recibir actualizaciones
         $scope.socket = io.connect('http://localhost:4200/');
-        if ($scope.socket != null) {
-            SocketJoin();
-        }
+            if ($scope.socket != null) {
+                SocketJoin();
+            }
     };
 
-      //Declara los mensajes principales del socket
+          //Declara los mensajes principales del socket
     var SocketJoin = function() {
-        //Envío mis datos de usuario  
-        $scope.socket.emit('login', { user: $rootScope.empleado });
+            //Envío mis datos de usuario  
+        $scope.socket.emit('login', {user: 'Integra'});
+
         $scope.socket.on('hello', function(data) {
-            debugger;
-            console.log('entra');
-            $scope.connected = true;
-        });
-       // $scope.connected = true;
+             $scope.connected = true;
+         });
 
         $scope.socket.on('pkgNotificacion', function(data) {
-
-            //Obtiene Notificaciones
-            console.log(data.length + ' dato(s) recibido(s) at: ' + new Date().toString())
-            getNSuccessCallback(data, null, null, null);
+             console.log(data.length)
         });
-    };
 
-
-    
-
-    /*$scope.NotificacionUnidad = function () {
-        var socket = io.connect('http://localhost:4200/');
-
-        var messages = [{  
-          id: 1,
-          text: "Peticion Cliente",
-          author: "Talleres-Integra"
-        }];
-        socket.emit('peticionInicio', messages);
-
-        socket.on('notificacion', function(data){
-            alertFactory.notification(data.camion);
+        $scope.socket.on('disconnect', function() {
+            $scope.connected = false;
         });
-    }*/
-
+     };
        
-
 });
