@@ -92,7 +92,7 @@
                  for (var i = 0; i < data.length; i++) {
                    
                     
-                    alertFactory.notification('La unidad  con Económico '+ data[i].numEconomico +' marca '+  data[i].marca +' modelo '+data[i].modeloMarca+ ' y número de serie '+ data[i].vin+' a '+ data[i].descripcionTipoAcceso+' '+ data[i].descripcionTipoAcceso);
+                    alertFactory.notification('La unidad  con Económico '+ data[i].numEconomico +' marca '+  data[i].marca +' modelo '+data[i].modeloMarca+ ' y número de serie '+ data[i].vin+'  '+ data[i].descripcionTipoAcceso +' '+ data[i].razonSocial );
 
                     mainRepository.putEstatusNotificacion(data[i].idNotificacion).then(function (rest) {
                        

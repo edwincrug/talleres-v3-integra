@@ -48,15 +48,17 @@
             <div class=" row col-md-12 scroll_noti">
                 <ul class="sortable-list connectList agile-list ui-sortable" id="todo">
                 
-                <li ng-class="{'success-element': notificacion.tipoAcceso == 'Llegada', 
-                            'danger-element': notificacion.tipoAcceso == 'Salida'}"  ng-repeat="notificacion in notificaciones ">
+                <li ng-class="{'success-element': notificacion.TipoAcceso == 'Llegada', 
+                            'danger-element': notificacion.TipoAcceso == 'Salida'}"  ng-repeat="notificacion in notificaciones ">
                      <div>
-                         <span>{{notificacion.tipoAcceso}}</span>
+                         <span>{{notificacion.TipoAcceso}}</span>
                          <span class="pull-right">Fecha : {{notificacion.fecha}}</span>
                      </div>       
                     
                     <div class="agile-detail" ng-show="notificacion.idMotivo != null"> Motivo: {{notificacion.Descripcion}}</div>
                     <div class="agile-detail"> Unidad: {{notificacion.numEconomico}}  Punto de entrega: {{notificacion.TAR}} </div>
+                    <div class="agile-detail"> Taller: {{notificacion.razonSocial}} </div>
+                    <div class="agile-detail"> Dirección: {{notificacion.direccion}} </div>
                     <div class="agile-detail" ng-show="notificacion.idMotivo == 1"> 
                         Número de la Orden:  {{notificacion.numeroTrabajo}} - estatus: {{notificacion.descripcionLarga}}
                     </div>
