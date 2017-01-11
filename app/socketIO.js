@@ -29,16 +29,18 @@ var SocketIO = function(config){
 		},function (error, response, body) {
 			    if(response.statusCode == 200){
 			      	var JSONbody = JSON.parse(body);
+			     if(JSONbody[0].id != 0){ 	
 			      	if(JSONbody.length > 0){
 						//Envio los datos al cliente
 			      		io.emit('pkgNotificacion',  JSONbody);
 			      	}
+			      }	
 			    } else {
 			        console.log('error: '+ response.statusCode);
 			        console.log(body);
 			    }
 			});
-	}, 10000);  
+	}, 30000);  
 }
 
 module.exports = SocketIO;

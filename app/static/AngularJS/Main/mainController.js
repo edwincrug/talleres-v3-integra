@@ -21,7 +21,7 @@
                    console.log('Intentando reconexión...');
                    SocketConnect();
                }
-        }, 10000);
+        }, 17000);
 
         }
 
@@ -90,7 +90,6 @@
             $scope.socket.on('pkgNotificacion', function(data) {
                 // console.log(data.length)
                 var txt="";
-            setTimeout(function(){ 
                 for (var i = 0; i < data.length; i++) {
                     if (data[i].tipoAcceso==0) {
                         txt=' al taller';
@@ -99,7 +98,6 @@
                     }
         alertFactory.notification('La unidad '+ data[i].numEconomico +' a '+data[i].descripcionTipoAcceso+txt);
                 };
-             }, 9000);
             });
 
             $scope.socket.on('disconnect', function() {
