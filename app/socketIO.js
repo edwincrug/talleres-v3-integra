@@ -38,7 +38,7 @@ var SocketIO = function(config){
 			        console.log(body);
 			    }
 			});
-	}, 60000);  
+	}, 10000);  
 
 }
 

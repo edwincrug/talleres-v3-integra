@@ -53,7 +53,18 @@ registrationModule.factory('alertFactory', function () {
               //"showMethod": "fadeIn",
               //"hideMethod": "fadeOut",
               //"tapToDismiss": false
-            }*/
+            }
+
+            toastr.options = {
+             "closeButton": true,
+             "debug": false,
+             "newestOnTop": true,
+             "progressBar": true,
+             "timeOut": 95000,
+             "positionClass": "toast-top-full-width",
+             "preventDuplicates": false,
+             "onclick": null
+            }*/ 
 
             toastr.options = {
              "closeButton": true,
@@ -62,7 +73,9 @@ registrationModule.factory('alertFactory', function () {
              "progressBar": true,
              "positionClass": "toast-top-full-width",
              "preventDuplicates": false,
-             "onclick": null
+             "onclick": null,
+             "timeOut": "25000",
+             "extendedTimeOut": "22000"
             }
 
            toastr.info('</br><div class="info"><a href="/notificaciones">Para más info. de click Aqui</a></div>', '<div class="titleInfo">'+text+'</div>')
