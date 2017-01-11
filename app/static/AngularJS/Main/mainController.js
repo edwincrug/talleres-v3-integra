@@ -72,8 +72,9 @@
 
         //Conecta el socket (FUNCIONES DE SOCKET)
         var SocketConnect = function() {
-                //Inicio sesión en el socket para recibir actualizaciones
-            $scope.socket = io.connect('http://localhost:4200/');
+            var url=global_settings.urlCORS;
+            //Inicio sesión en el socket para recibir actualizaciones
+            $scope.socket = io.connect(url+'/');
                 if ($scope.socket != null) {
                     SocketJoin();
                 }
