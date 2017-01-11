@@ -2499,9 +2499,9 @@ label.error {
 .toast-error {
   background-color: #ed5565;
 }
-.toast-info {
+/*.toast-info {
   background-color: #FFD700;
-}
+}*/
 .toast-warning {
   background-color: #f8ac59;
 }

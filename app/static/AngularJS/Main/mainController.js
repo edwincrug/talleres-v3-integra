@@ -88,15 +88,20 @@
              });
 
             $scope.socket.on('pkgNotificacion', function(data) {
-                // console.log(data.length)
-                var txt="";
-                for (var i = 0; i < data.length; i++) {
-                    if (data[i].tipoAcceso==0) {
-                        txt=' al taller';
-                    }else{
-                        txt=' del taller';
-                    }
-        alertFactory.notification('La unidad '+ data[i].numEconomico +' a '+data[i].descripcionTipoAcceso+txt);
+               
+                 for (var i = 0; i < data.length; i++) {
+                   
+                    
+                    alertFactory.notification('La unidad  con Económico '+ data[i].numEconomico +' marca '+  data[i].marca +' modelo '+data[i].modeloMarca+ ' y número de serie '+ data[i].vin+' a '+ data[i].descripcionTipoAcceso+' '+ data[i].descripcionTipoAcceso);
+
+                    mainRepository.putEstatusNotificacion(data[i].idNotificacion).then(function (rest) {
+                       
+                        if (rest.data.length > 0) {
+                            
+                        } 
+                    }, function (error) {
+                        alertFactory.error("Error ");
+                    });
                 };
             });
 

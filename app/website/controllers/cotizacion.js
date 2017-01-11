@@ -355,6 +355,29 @@ Cotizacion.prototype.post_message = function (req, res, next) {
     });
 }
 
+Cotizacion.prototype.post_estatusNotificacion = function (req, res, next) {
+    //Objeto que almacena la respuesta
+    var object = {};
+    //Objeto que envía los parámetros
+    var params = {};
+    //Referencia a la clase para callback
+    var self = this;
+
+    var params = [{
+            name: 'idNotificacion',
+            value: req.body.idNotificacion,
+            type: self.model.types.INT
+        }];
+
+    this.model.post('UPD_ESTATUS_NOTIFICACION_SP', params, function (error, result) {
+        //Callback
+        object.error = error;
+        object.result = result;
+
+        self.view.expositor(res, object);
+    });
+}
+
 //Obtiene la ficha técnica de la unidad
 Cotizacion.prototype.get_ficha = function (req, res, next) {
     //Objeto que almacena la respuesta

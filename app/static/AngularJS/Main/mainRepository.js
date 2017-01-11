@@ -32,6 +32,20 @@ registrationModule.factory('mainRepository', function ($http) {
                     'Content-Type': 'application/json'
                 }
             });
+        },
+        putEstatusNotificacion: function (idNotificacion) {
+            var msgObj = {
+                idNotificacion: idNotificacion
+            };
+
+            return $http({
+                url: searchUrl + 'estatusNotificacion',
+                method: "POST",
+                data: msgObj,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
         }
     };
 });

@@ -40,7 +40,7 @@ var SocketIO = function(config){
 			        console.log(body);
 			    }
 			});
-	}, 30000);  
+	}, 60000);  
 }
 
 module.exports = SocketIO;
