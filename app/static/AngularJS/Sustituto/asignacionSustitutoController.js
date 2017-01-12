@@ -112,7 +112,7 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
 
 
     $scope.selUnidad = function (unidad) {
-
+        $scope.map.markers=[];
          $scope.show_mapSustituto = true;
          $scope.select_unidad=unidad.idUnidad;
          $scope.obtieneUbicacionUnidad ($scope.select_unidad, 'Unidad');

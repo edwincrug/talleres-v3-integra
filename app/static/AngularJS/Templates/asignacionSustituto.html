@@ -38,7 +38,8 @@
                                 <thead>
                                     <tr>
                                         <th>Número Económico</th>
-                                        <th>Número Económico Cliente</th>
+                                        <th>Vin</th>
+                                        <th>Factura</th>
                                         <th>Seleccionar</th>
 
                                     </tr>
@@ -46,7 +47,8 @@
                                 <tbody>
                                     <tr ng-repeat="unidad in unidades ">
                                         <td>{{unidad.numEconomico}}</td>
-                                        <td>{{unidad.clienteNumEconomico}}</td>
+                                        <td>{{unidad.vin}}</td>
+                                        <td>{{unidad.factura}}</td>
                                         <td>    
                                             <input type="radio" name="optUnidad" ng-click="selUnidad(unidad)" />
                                         </td>
@@ -88,7 +90,8 @@
                                 <thead>
                                     <tr>
                                         <th>Número Económico</th>
-                                        <th>Número Económico Cliente</th>
+                                        <th>Vin</th>
+                                        <th>Factura</th>
                                         <th>Seleccionar</th>
 
                                     </tr>
@@ -96,7 +99,8 @@
                                 <tbody>
                                     <tr ng-repeat="sustituto in sustitutos ">
                                         <td>{{sustituto.numEconomico}}</td>
-                                        <td>{{sustituto.clienteNumEconomico}}</td>
+                                        <td>{{sustituto.vin}}</td>
+                                        <td>{{sustituto.factura}}</td>
                                         <td>    
                                             <input type="radio" name="optUnidad"  ng-click="selsustituto(sustituto)" />
                                         </td>
