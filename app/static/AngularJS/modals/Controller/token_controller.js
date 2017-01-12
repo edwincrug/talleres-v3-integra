@@ -11,13 +11,13 @@ registrationModule.controller('token_controller', function ($scope, $modalInstan
 
         if (origen == 'Aprobacion') {
             $scope.show_Aprobacion= true;
-            $scope.idUsuario= 190;
+            $scope.idUsuario= 1;
         }else if (origen == 'Cita'){
             $scope.show_cita= true; 
-            $scope.idUsuario= 190;
+            $scope.idUsuario= 1;
         }else if (origen == 'Trabajo'){
             $scope.show_trabajo= true; 
-            $scope.idUsuario= 47;
+            $scope.idUsuario= 1;
         }
 	}
 	 $scope.close = function () {
