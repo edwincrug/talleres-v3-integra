@@ -20,11 +20,11 @@
           error: function (text) {
               toastr.options = { "positionClass": "toast-top-right", "closeButton": true}
               toastr.error(text , 'Error');
+              $(".toast-error").css('background-color',"#ed5565");
           },
           info: function (text) {
               toastr.options = { "positionClass": "toast-top-right", "closeButton": true}
               toastr.info(text, 'Información');
-              $(".toast-info").css('background-color',"#FFD700 ");
           },
           infoTopFull: function (text) {
 
@@ -46,11 +46,12 @@
                "preventDuplicates": false,
                "onclick": null,
                "timeOut": "15000", 
-               "extendedTimeOut": "8000"}
-             toastr.info('</br><div class="info"><a href="/notificaciones">Para más info. de click Aqui</a></div>', '<div class="titleInfo">'+text+'</div>') 
-             //toastr.clear();
-             $(".toast-info").css('background-color',"#2f96b4 ");
-             openedToast = null;
+               "extendedTimeOut": "8000"
+             }
+             toastr.error('</br><div class="info"><a href="/notificaciones">Para más info. de click Aqui</a></div>', '<div class="titleInfo">'+text+'</div>') 
+            
+             $(".toast-error").css('background-color',"#2f96b4");
+             
           }
       };
   });
