@@ -113,6 +113,7 @@ registrationModule.controller('trabajoController', function ($scope, $modal, $ro
                 obj.numeroNotas = trabajoTerminado.data[i].numeroNotas;
                 obj.cliente = trabajoTerminado.data[i].cliente;
                 obj.estatusSalida = trabajoTerminado.data[i].estatusSalida;
+                obj.estatusUnidad = trabajoTerminado.data[i].estatusUnidad;
                 obj.indice = i;
                 obj.class_buttonCeritficado = 'glyphicon glyphicon-file';
                 obj.idTipoCita = trabajoTerminado.data[i].idTipoCita;
