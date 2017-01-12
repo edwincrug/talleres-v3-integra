@@ -39,19 +39,19 @@ registrationModule.controller('ReporteSustitutoController', function (MarkerCrea
                 });
             }
 
-           $scope.validaMotivo = function (motivo){
-            $('.dataTableReporteSustituto').DataTable().destroy();
-            $scope.reporteSustituto=[];
+        $scope.validaMotivo = function (motivo){
             if(motivo != null){
                 $scope.idMotivoUnidad=motivo.idMotivo;
             }else{
                  $scope.idMotivoUnidad=null;
             }  
              $scope.getReporteSustituto();
-            }
+        }
 
             //crea funcion getReporteSustituto
-            $scope.getReporteSustituto = function () {
+    $scope.getReporteSustituto = function () {
+        $('.dataTableReporteSustituto').DataTable().destroy();
+        $scope.reporteSustituto=[];
                 sustitutoRepository.getReporte($scope.idMotivoUnidad).then(function (reporte) {//va a mi repository y entra a function getReporte [.then(function (reporte)  es para que devuelva repuesta]
                     if (reporte.data.length > 0) { //valida que tenga una caden amayor de cero sino es porque no tiene registros
                         $scope.reporteSustituto = reporte.data;
