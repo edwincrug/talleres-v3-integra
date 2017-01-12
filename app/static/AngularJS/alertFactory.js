@@ -24,8 +24,10 @@
           info: function (text) {
               toastr.options = { "positionClass": "toast-top-right", "closeButton": true}
               toastr.info(text, 'Información');
+              $(".toast-info").css('background-color',"#FFD700 ");
           },
           infoTopFull: function (text) {
+
               toastr.options = { "positionClass": "toast-top-full-width", "closeButton": true}
               toastr.info(text, 'Información'),
                   warning = function (text) {}
@@ -34,6 +36,7 @@
               toastr.warning(text, 'Atención');
           },
           notification: function (text) {
+
               toastr.options = {
                "closeButton": true,
                "debug": false,
@@ -42,10 +45,11 @@
                "positionClass": "toast-top-full-width",
                "preventDuplicates": false,
                "onclick": null,
-               "timeOut": "15000",
+               "timeOut": "15000", 
                "extendedTimeOut": "8000"}
              toastr.info('</br><div class="info"><a href="/notificaciones">Para más info. de click Aqui</a></div>', '<div class="titleInfo">'+text+'</div>') 
              //toastr.clear();
+             $(".toast-info").css('background-color',"#2f96b4 ");
              openedToast = null;
           }
       };

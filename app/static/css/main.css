@@ -203,9 +203,9 @@ body {
 }
 
 .info a {
-    border-bottom: 1px solid #1485e7;
+    border-bottom: 1px solid #000000;
     text-align: center;
-    color: #1485e7 !important;
+    color: #000000 !important;
 }
 
 .titleInfo{
