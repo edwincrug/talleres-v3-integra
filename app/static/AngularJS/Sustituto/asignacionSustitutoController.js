@@ -223,10 +223,15 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
 
          $('#btnLigar').button('Buscando...');
          var orden = 0
+         var sustituto= $scope.select_sustituto;
          if ($scope.selectedMotivo.idMotivo == 1) {
             orden = $scope.numOrden;
          }
-        sustitutoRepository.addUnidadSustituto($scope.select_unidad, $scope.select_sustituto, $scope.selectedMotivo.idMotivo, $scope.userData.idUsuario, orden).then(function (result) {
+
+         if ($scope.select_sustituto == '') {
+            sustituto = 0;
+         }
+        sustitutoRepository.addUnidadSustituto($scope.select_unidad, sustituto, $scope.selectedMotivo.idMotivo, $scope.userData.idUsuario, orden).then(function (result) {
            if (result.data.length > 0) {
                alertFactory.info('Las unidades fueron asociadas correctamente'); 
                 $scope.dataSustituto = '';
