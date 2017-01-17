@@ -94,8 +94,11 @@ registrationModule.controller('trabajoController', function ($scope, $modal, $ro
                 obj.numEconomico = trabajoTerminado.data[i].numEconomico;
                 obj.zona = trabajoTerminado.data[i].zona;
                 obj.TAR = trabajoTerminado.data[i].TAR;
+                obj.vin=trabajoTerminado.data[i].vin;
+                obj.factura=trabajoTerminado.data[i].factura;
                 obj.marca = trabajoTerminado.data[i].marca;
                 obj.modeloMarca = trabajoTerminado.data[i].modeloMarca;
+                obj.modelo=trabajoTerminado.data[i].modelo;
                 obj.trabajo = trabajoTerminado.data[i].trabajo;
                 obj.observacion = trabajoTerminado.data[i].observacion;
                 obj.descripcionLarga = trabajoTerminado.data[i].descripcionLarga;

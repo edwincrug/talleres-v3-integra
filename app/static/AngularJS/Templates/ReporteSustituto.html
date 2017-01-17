@@ -46,10 +46,12 @@
                                             <tr ng-repeat="sustituto in reporteSustituto">
                                               <td><!--{{sustituto.numEconomico}}-->
                                               <div>
-                                              <p><strong>No. Económico: </strong> {{sustituto.numEconomicoUnidad}}</p>
-                                              <p><strong>Zona: </strong>{{sustituto.GAR}}</p>
-                                              <p><strong>Punto de Entrega: </strong>{{sustituto.tarUnidad}}</p>
-                                              <p><strong>Unidad: </strong>{{sustituto.marcaUnidad}} {{sustituto.modeloMarcaUnidad}}</p>
+                                              <p><strong>VIN: &nbsp;</strong> {{sustituto.vin}}</p>
+                                              <p><strong>Factura: &nbsp;</strong>{{sustituto.factura}}</p>
+                                              <p><strong>Unidad: &nbsp;</strong>
+                                              {{sustituto.marca}} &nbsp;
+                                              {{sustituto.modeloMarca}}&nbsp;
+                                              {{sustituto.modelo}}</p>
                                               <div>
                                               </td>
                                               <td>
@@ -60,10 +62,13 @@
                                               </td>
                                               <td>
                                               <div ng-hide="sustituto.idSustitutoUni==0">
-                                              <p><strong>No. Económico: </strong>{{sustituto.numEconomicoSustituto}}</p>
-                                              <p><strong>Zona: </strong>{{sustituto.garSustituto}}</p>
-                                              <p><strong>Punto de Entrega: </strong>{{sustituto.tarSustituto}}</p>
-                                              <p><strong>Unidad: </strong>{{sustituto.marcaSustituto}} {{sustituto.modeloSustituto}}</p>
+                                              <p><strong>VIN: &nbsp;</strong>{{sustituto.vinSustituto}}</p>
+                                              <p><strong>Factura: &nbsp;</strong>{{sustituto.facturaSustituto}}</p>
+                                              <p><strong>Unidad: &nbsp;</strong>
+                                              {{sustituto.marcaSustituto}}&nbsp;
+                                              {{sustituto.modeloMarcaSustituto}}&nbsp;
+                                              {{sustituto.modeloSustituto}}</p>
+                                              
                                               </div>
                                               </td>
                                               <td>

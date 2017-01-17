@@ -15,7 +15,7 @@
         <div class="row">
             <br>
             <div class="posicionSemaforoTrabajo ng-binding">
-                <a href="#" ng-click="detalleSemaforo()">Detalle del Semáforo en Número Económico</a>
+                <a href="#" ng-click="detalleSemaforo()">Detalle del Semáforo en Unidad</a>
             </div>
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
@@ -159,13 +159,13 @@
                                                 <th>Cliente</th>
                                                 <th>Consecutivo</th>
                                                 <th>Número de la Orden</th>
-                                                <th>Número Económico</th>
+                                                <th>Unidad</th>
                                                 <th>Zona</th>
                                                 <th>Punto de Entrega</th>
                                                 <th>Taller</th>
                                                 <th>Tipo Orden</th>
-                                                <th>Marca</th>
-                                                <th>Modelo</th>
+                                                <!--<th>Marca</th>
+                                                <th>Modelo</th>-->
                                                 <th>Descripción</th>
                                                 <th>Observaciones</th>
                                                 <th>Estatus</th>
@@ -182,13 +182,22 @@
                                                 <td>{{trabajo.numeroTrabajo}}</td>
                                                 <td ng-class="{'rowRojo': trabajo.estatus == 'Terminado', 'rowAmarillo': trabajo.estatusSalida == 1 && trabajo.estatus != 'TransResponsabilidad', 
                                                 'rowMorado': trabajo.estatus == 'TransResponsabilidad' && trabajo.estatusSalida != 1, 
-                                                'rowVerde': trabajo.estatus == 'TransResponsabilidad' && trabajo.estatusSalida == 1}">{{trabajo.numEconomico}}</td>
+                                                'rowVerde': trabajo.estatus == 'TransResponsabilidad' && trabajo.estatusSalida == 1}">
+                                                <div>
+                                                <p><strong>VIN:&nbsp;</strong>{{trabajo.vin}}</p>
+                                                <p><strong>Factura:&nbsp;</strong>{{trabajo.factura}}</p>
+                                                <p><strong>Unidad:&nbsp;</strong>
+                                                {{trabajo.marca}}&nbsp;
+                                                {{trabajo.modeloMarca}}&nbsp;
+                                                {{trabajo.modelo}}</p>
+                                                </div>
+                                                </td>
                                                 <td>{{trabajo.zona}}</td>
                                                 <td>{{trabajo.TAR}}</td>
                                                 <td>{{trabajo.razonSocial}}</td>
                                                 <td>{{trabajo.idTipoCita == 4 ? "Refacciones" : "Servicio"}}</td>
-                                                <td>{{trabajo.marca}}</td>
-                                                <td>{{trabajo.modeloMarca}}</td>
+                                                <!--<td>{{trabajo.marca}}</td>
+                                                <td>{{trabajo.modeloMarca}}</td>-->
                                                 <td>{{trabajo.trabajo}}</td>
                                                 <td>{{trabajo.observacion}}</td>
                                                 <td>{{trabajo.descripcionLarga}}</td>
