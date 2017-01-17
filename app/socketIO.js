@@ -9,23 +9,19 @@ var SocketIO = function(config){
 	var io = Io.listen(config.server);
 
 	io.sockets.on('connection', function(socket){
-		socket.join('some::room');
-
+		//socket.join('some::room');
 		socket.on('login', function(data){
 			socket.emit('hello', { mensaje :'Socket se ha conectado correctamente'});
 		});
-
-		socket.on('disconnect', function(){
-
-		});
-
+		/*socket.on('disconnect', function(){
+		});*/
 	});
 
 	//Se programa el envío automático de notificaciones a los usuarios conectados
 	setInterval(function(){
 		request({ 	
 			method: 'GET',
-			url: 'http://189.204.141.193:4200/api/cita/notificaciones/'  
+			url: 'http://localhost:4200/api/cita/notificaciones/'  
 		},function (error, response, body) {
 			    if(response.statusCode == 200){
 			      	var JSONbody = JSON.parse(body);
