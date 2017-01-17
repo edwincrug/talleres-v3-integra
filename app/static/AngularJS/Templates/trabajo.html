@@ -35,13 +35,13 @@
                                                 <th>Cliente</th>
                                                 <th>Consecutivo</th>
                                                 <th>Número de la Orden</th>
-                                                <th>Número Económico</th>
+                                                <th>Unidad</th>
                                                 <th>Zona</th>
                                                 <th>Punto de Entrega</th>
                                                 <th>Taller</th>
                                                 <th>Tipo Orden</th>
-                                                <th>Marca</th>
-                                                <th>Modelo</th>
+                                                <!--<th>Marca</th>
+                                                <th>Modelo</th>-->
                                                 <th>Descripción</th>
                                                 <th>Estatus</th>
                                                 <th>Estatus provisión</th>
@@ -56,13 +56,25 @@
                                                 <td>{{trabajo.cliente}}</td>
                                                 <td>{{trabajo.idCita}}</td>
                                                 <td>{{trabajo.numeroTrabajo}}</td>
-                                                <td>{{trabajo.numEconomico}}</td>
+
+                                                <td>
+                                                <div>
+                                                <p><strong>VIN:&nbsp;</strong>{{trabajo.vin}}</p>
+                                                <p><strong>Factura:&nbsp;</strong>{{trabajo.factura}}</p>
+                                                <p><strong>Unidad:&nbsp;</strong>
+                                                {{trabajo.marca}}&nbsp;
+                                                {{trabajo.modeloMarca}}&nbsp;
+                                                {{trabajo.modelo}}</p>
+                                                
+                                                </div>
+                                                </td>
+
                                                 <td>{{trabajo.zona}}</td>
                                                 <td>{{trabajo.TAR}}</td>
                                                 <td>{{trabajo.razonSocial}}</td>
                                                 <td>{{trabajo.idTipoCita == 4 ? "Refacciones" : "Servicio"}}</td>
-                                                <td>{{trabajo.marca}}</td>
-                                                <td>{{trabajo.modeloMarca}}</td>
+                                                <!--<td>{{trabajo.marca}}</td>
+                                                <td>{{trabajo.modeloMarca}}</td>-->
                                                 <td>{{trabajo.trabajo}}</td>
                                                 <td ng-class="{'rowAzul': trabajo.estatus=='OrdenGarantia'}">{{trabajo.descripcionLarga}}</td>
                                                 <td ng-class="{'rowAzul': trabajo.estatusBPRO=='No provisionada'}">{{trabajo.estatusBPRO}}</td>
