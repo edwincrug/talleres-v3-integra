@@ -210,5 +210,28 @@ body {
 
 .titleInfo{
     text-align: center;
-    font-size: 20px;
+    font-size: 16px;
 }
+
+.title_map{
+    z-index: 100;
+    position: absolute;
+    background-color: #FFA100;
+    color: white;
+    padding: 5px 5px 5px 5px;
+    right: 0;
+    font-size: 16px;
+}
+
+.title_map_modal{
+    z-index: 100;
+    position: absolute;
+    background-color: #FFA100;
+    color: white;
+    padding: 5px 5px 5px 5px;
+    right: 0;
+    font-size: 16px;
+    margin-top: -120px;
+}
+
+
