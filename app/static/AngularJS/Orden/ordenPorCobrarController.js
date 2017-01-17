@@ -321,7 +321,8 @@ registrationModule.controller('ordenPorCobrarController', function ($scope, loca
 
     }
 
-    $scope.procesarPago = function (idTrabajo) {
+    $scope.procesarPago = function (idTrabajo, estatusBPRO) {
+        if (estatusBPRO !='No provisionada'){
         swal({
             title: "¿Esta seguro de procesar el pago selecionado?",
             text: "Se cambiará a PreFactura Generada",
@@ -351,6 +352,9 @@ registrationModule.controller('ordenPorCobrarController', function ($scope, loca
             swal("No procesado", "", "error");
             }
         });
+       }else{
+        swal("La orden no ha sido provisionada", "", "error");
+       }
       }
 
     //Asociamos un idtrabajo con DatosCopade
