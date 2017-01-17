@@ -111,7 +111,7 @@
                                         <th>Cliente</th>
                                         <th>Consecutivo</th>
                                         <th>Orden</th>
-                                        <th>Número Económico</th>
+                                        <th>Unidad</th>
                                         <th>Zona</th>
                                         <th>Punto de Entrega</th>
                                         <th>Taller</th>
@@ -130,7 +130,12 @@
                                         <td>{{margenes.cliente}}</td>
                                         <td>{{margenes.idCita}}</td>
                                         <td>{{margenes.numeroTrabajo}}</td>
-                                        <td>{{margenes.numEconomico}}</td>
+                                        <td><p><strong>VIN:&nbsp;</strong>{{margenes.vin}}</p>
+                                                <p><strong>Factura:&nbsp;</strong>{{margenes.factura}}</p>
+                                                <p><strong>Unidad:&nbsp;</strong>
+                                                {{margenes.marca}}&nbsp;
+                                                {{margenes.modeloMarca}}&nbsp;
+                                                {{margenes.modelo}}</p></td>
                                         <td>{{margenes.Zona}}</td>
                                         <td>{{margenes.TAR}}</td>
                                         <td>{{margenes.razonSocial}}</td>

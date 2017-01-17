@@ -17,7 +17,7 @@
                                         <th>Cliente</th>
                                         <th>Consecutivo</th>
                                         <th>Número de la Orden</th>
-                                        <th>Número Económico</th>
+                                        <th>Unidad</th>
                                         <th>Zona</th>
                                         <th>Punto de Entrega</th>
                                         <th>Taller</th>
@@ -38,7 +38,14 @@
                                         <td>{{cotizacion.cliente}}</td>
                                         <td>{{cotizacion.idCita}}</td>
                                         <td>{{cotizacion.numeroTrabajo}}</td>
-                                        <td>{{cotizacion.numEconomico}}</td>
+                                        <td>
+                                            <p><strong>VIN:&nbsp;</strong>{{cotizacion.vin}}</p>
+                                                <p><strong>Factura:&nbsp;</strong>{{cotizacion.factura}}</p>
+                                                <p><strong>Unidad:&nbsp;</strong>
+                                                {{cotizacion.marca}}&nbsp;
+                                                {{cotizacion.modeloMarca}}&nbsp;
+                                                {{cotizacion.modelo}}</p>
+                                        </td>
                                         <td>{{cotizacion.zona}}</td>
                                         <td>{{cotizacion.TAR}}</td>
                                         <td>{{cotizacion.razonSocial}}</td>
