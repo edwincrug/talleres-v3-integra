@@ -428,7 +428,7 @@
                 $scope.promise = cotizacionRepository.buscarPieza($scope.datosCita.idTaller, nombrePieza, $scope.procesAutotanque, $scope.userData.idUsuario, $scope.selectedCliente.idCliente).then(function (pieza) {
                     $scope.piezas = pieza.data;
                     if (pieza.data.length > 0) {
-                        globalFactory.waitDrawDocument("dataTablePiezaTaller", "Citas");
+                        globalFactory.waitDrawDocumentLength("dataTablePiezaTaller", "Citas", 5);
                         alertFactory.success("Datos obtenidos");
                     } else {
                         $scope.piezas = [];
@@ -961,7 +961,7 @@
                 var fechaComparacion = new Date(fechaArray[2], fechaArray[0] -1, fechaArray[1], horaArray[0] - 24, horaArray[1]);
                 if (!(fechaComparacion <= currentDate)) {
                     $scope.datosCita.horaCita = null;
-                    alertFactory.info("Debe agendar maximo  1 día de anterioridad la cita.")
+                    alertFactory.info("Debe agendar la cita con un día de anticipación.")
                 }
             }
         }

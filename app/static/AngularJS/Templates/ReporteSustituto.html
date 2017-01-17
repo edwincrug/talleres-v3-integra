@@ -45,10 +45,12 @@
                                         <tbody>
                                             <tr ng-repeat="sustituto in reporteSustituto">
                                               <td><!--{{sustituto.numEconomico}}-->
+                                              <div>
                                               <p><strong>No. Económico: </strong> {{sustituto.numEconomicoUnidad}}</p>
                                               <p><strong>Zona: </strong>{{sustituto.GAR}}</p>
                                               <p><strong>Punto de Entrega: </strong>{{sustituto.tarUnidad}}</p>
                                               <p><strong>Unidad: </strong>{{sustituto.marcaUnidad}} {{sustituto.modeloMarcaUnidad}}</p>
+                                              <div>
                                               </td>
                                               <td>
                                                         <button type="button" class="btn btn-success"
@@ -57,13 +59,15 @@
                                                         </button>                                                     
                                               </td>
                                               <td>
+                                              <div ng-hide="sustituto.idSustitutoUni==0">
                                               <p><strong>No. Económico: </strong>{{sustituto.numEconomicoSustituto}}</p>
                                               <p><strong>Zona: </strong>{{sustituto.garSustituto}}</p>
                                               <p><strong>Punto de Entrega: </strong>{{sustituto.tarSustituto}}</p>
                                               <p><strong>Unidad: </strong>{{sustituto.marcaSustituto}} {{sustituto.modeloSustituto}}</p>
+                                              </div>
                                               </td>
                                               <td>
-                                                        <button type="button" class="btn btn-success"
+                                                        <button type="button" class="btn btn-success" ng-hide="sustituto.idSustitutoUni==0"
                                                          tooltip-placement="top" tooltip="Posicionar" ng-click= "posicionUnidad(sustituto.idSustitutoUni)">
                                                         <span class="glyphicon glyphicon-map-marker"></span>
                                                         </button>
@@ -75,7 +79,7 @@
                                               <td>{{sustituto.fecha}}</td>
                                               <td>{{sustituto.tiempoTranscurrido}}</td>
                                               <td>
-                                                        <button type="button" class="btn btn-primary" tooltip-placement="top" tooltip="Desvincular" ng-click="Desvinculacion(sustituto.idUnidadSustituto)" >
+                                                        <button type="button" class="btn btn-primary" tooltip-placement="top" tooltip="Liberar" ng-click="Desvinculacion(sustituto.idUnidadSustituto)" >
                                                         <span class="fa fa-chain-broken"></span>
                                                         </button>
                                                         <button type="button" class="dropdown-toggle alerta-form btn btn-info" tooltip-placement="top" tooltip="Ver Orden"

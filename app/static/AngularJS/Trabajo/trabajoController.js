@@ -632,7 +632,7 @@ registrationModule.controller('trabajoController', function ($scope, $modal, $ro
                             alertFactory.error("Error al verificar la orden");
                         });
                     }else {
-                        swal("La Orden no fue Aprobada!");
+                        swal("La Orden no fue Aprobada!", "", "error");
                     }
             });
     }else{
