@@ -8,7 +8,7 @@
     </div>
 </div>
     <div class="posicionSemaforoCita ng-binding">
-         <a href="#" ng-click="detalleSemaforo()">Detalle del Semáforo en Número Económico</a>
+         <a href="#" ng-click="detalleSemaforo()">Detalle del Semáforo en Unidad</a>
     </div>
 <div class="wrapper wrapper-content animated fadeIn">
     <div class="row">
@@ -39,7 +39,7 @@
                                         <th>Cliente</th>
                                         <th>Consecutivo</th>
                                         <th>Número de la Orden</th>
-                                        <th>Número Económico</th>
+                                        <th>Unidad</th>
                                         <th>Zona</th>
                                         <th>Punto de Entrega</th>
                                         <th>Taller</th>
@@ -61,7 +61,13 @@
                                         <td>{{cita.numeroTrabajo}}</td>
                                         <td ng-class="{'rowRojo': cita.estatusLLegada != 0 && cita.idEstatus != 15 && cita.vencimientoFecha == 1, 
                                             'rowAmarillo': cita.estatusLLegada == 0 && cita.idEstatus != 15,
-                                            'rowMorado': cita.estatusLLegada != 0 && cita.idEstatus==15, 'rowVerde': cita.estatusLLegada == 0 && cita.idEstatus == 15 }">{{cita.numEconomico}}</td>
+                                            'rowMorado': cita.estatusLLegada != 0 && cita.idEstatus==15, 'rowVerde': cita.estatusLLegada == 0 && cita.idEstatus == 15 }">
+                                                <p><strong>VIN:&nbsp;</strong>{{cita.vin}}</p>
+                                                <p><strong>Factura:&nbsp;</strong>{{cita.factura}}</p>
+                                                <p><strong>Unidad:&nbsp;</strong>
+                                                {{cita.marca}}&nbsp;
+                                                {{cita.modeloMarca}}&nbsp;
+                                                {{cita.modelo}}</p></td>
                                         <td>{{cita.zona}}</td>
                                         <td>{{cita.TAR}}</td>
                                         <td ng-class="{'rowAzul': cita.razonSocial=='SIN TALLER'}">{{ cita.razonSocial }}</td>

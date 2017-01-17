@@ -24,7 +24,7 @@
                                                 <th>Cliente</th>
                                                 <th>Consecutivo</th>
                                                 <th>Número de la Orden</th>
-                                                <th>Número Económico</th>
+                                                <th>Unidad</th>
                                                 <th>Zona</th>
                                                 <th>Punto de Entrega</th>
                                                 <th>Taller</th>
@@ -45,7 +45,17 @@
                                                 <td>{{ordenverificada.cliente}}</td>
                                                 <td>{{ordenverificada.idCita}}</td>
                                                 <td>{{ordenverificada.numeroTrabajo}}</td>
-                                                <td>{{ordenverificada.numEconomico}}</td>
+                                                <td>
+                                                    <div>
+                                                        <p><strong>VIN:&nbsp;</strong>{{ordenverificada.vin}}</p>
+                                                        <p><strong>Factura:&nbsp;</strong>{{ordenverificada.factura}}</p>
+                                                        <p><strong>Unidad:&nbsp;</strong>
+                                                        {{ordenverificada.marca}}&nbsp;
+                                                        {{ordenverificada.modeloMarca}}&nbsp;
+                                                        {{ordenverificada.modelo}}</p>
+                                                        
+                                                    </div>
+                                                </td>
                                                 <td>{{ordenverificada.zona}}</td>
                                                 <td>{{ordenverificada.TAR}}</td>
                                                 <td>{{ordenverificada.razonSocial}}</td>
@@ -180,7 +190,7 @@
                                             <tr>
                                                 <th>Consecutivo</th>
                                                 <th>Número de la Orden</th>
-                                                <th>Número Económico</th>
+                                                <th>Unidad</th>
                                                 <th>Zona</th>
                                                 <th>Punto de Entrega</th>
                                                 
@@ -196,7 +206,17 @@
                                             <tr ng-repeat="cita in facturas">
                                                 <td>{{cita.idCita}}</td>
                                                 <td>{{cita.numeroTrabajo}}</td>
-                                                <td>{{cita.numEconomico}}</td>
+                                                <td>
+                                                    <div>
+                                                        <p><strong>VIN:&nbsp;</strong>{{cita.vin}}</p>
+                                                        <p><strong>Factura:&nbsp;</strong>{{cita.factura}}</p>
+                                                        <p><strong>Unidad:&nbsp;</strong>
+                                                        {{cita.marca}}&nbsp;
+                                                        {{cita.modeloMarca}}&nbsp;
+                                                        {{cita.modelo}}</p>
+                                                    
+                                                    </div>
+                                                </td>
                                                 <td>{{cita.zona}}</td>
                                                 <td>{{cita.TAR}}</td>
                                                 
@@ -267,7 +287,7 @@
                                             <tr>
                                                 <th>Consecutivo</th>
                                                 <th>Número de la Orden</th>
-                                                <th>Número Económico</th>
+                                                <th>Unidad</th>
                                                 <th>Zona</th>
                                                 <th>Punto de Entrega</th>
                                                 
@@ -284,7 +304,17 @@
                                             <tr ng-repeat="cita in facturados">
                                                 <td>{{cita.idCita}}</td>
                                                 <td>{{cita.numeroTrabajo}}</td>
-                                                <td>{{cita.numEconomico}}</td>
+                                                <td>
+                                                    <div>
+                                                        <p><strong>VIN:&nbsp;</strong>{{cita.vin}}</p>
+                                                        <p><strong>Factura:&nbsp;</strong>{{cita.factura}}</p>
+                                                        <p><strong>Unidad:&nbsp;</strong>
+                                                        {{cita.marca}}&nbsp;
+                                                        {{cita.modeloMarca}}&nbsp;
+                                                        {{cita.modelo}}</p>
+                                                        
+                                                    </div>
+                                                </td>
                                                 <td>{{cita.zona}}</td>
                                                 <td>{{cita.TAR}}</td>
                                                 
@@ -341,7 +371,7 @@
                                 <tr>
                                     <th>Consecutivo</th>
                                     <th>Número de la Orden</th>
-                                    <th>Número Económico</th>
+                                    <th>Unidad</th>
                                     <th>Zona</th>
                                     <th>TAR</th>
                                     <th>Taller</th>
@@ -357,7 +387,17 @@
                                 <tr ng-repeat="cita in trabajosCobrados">
                                     <td>{{cita.idCita}}</td>
                                     <td>{{cita.numeroTrabajo}}</td>
-                                    <td>{{cita.numEconomico}}</td>
+                                    <td>
+                                        <div>
+                                            <p><strong>VIN:&nbsp;</strong>{{cita.vin}}</p>
+                                            <p><strong>Factura:&nbsp;</strong>{{cita.factura}}</p>
+                                            <p><strong>Unidad:&nbsp;</strong>
+                                            {{cita.marca}}&nbsp;
+                                            {{cita.modeloMarca}}&nbsp;
+                                            {{cita.modelo}}</p>
+                                                
+                                        </div>
+                                    </td>
                                     <td>{{cita.zona}}</td>
                                     <td>{{cita.TAR}}</td>
                                     <td>{{cita.razonSocial}}</td>
@@ -506,7 +546,7 @@ dataTableOrdenesPorCobrar -->
                             <thead>
                                 <tr>
                                     <th>Número de la Orden</th>
-                                    <th>Número Económico</th>
+                                    <th>Unidad</th>
                                     <th>TAR</th>
                                     <th>Orden de Surtimiento</th>
                                     <th>Monto de la Orden</th>
