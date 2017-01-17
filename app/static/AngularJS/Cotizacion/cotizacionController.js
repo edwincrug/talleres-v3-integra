@@ -28,6 +28,7 @@ registrationModule.controller('cotizacionController', function ($scope, $route, 
     $scope.modeloMarca = '';
     $scope.trabajo = '';
     $scope.idCita = '';
+    $scope.idCliente = '';
     $scope.idTaller = null;
     $scope.userData = localStorageService.get('userData');
     $scope.filesName = [];
@@ -170,7 +171,7 @@ registrationModule.controller('cotizacionController', function ($scope, $route, 
                 $('.dataTableItem').DataTable().destroy();
                 $scope.selectedTipo.idTipoCotizacion == 2 ? $scope.refaccion = 4 : $scope.refaccion = 1;
                 /* $('.dataTableCotizacion').DataTable().destroy();*/
-                $scope.promise = cotizacionRepository.buscarPieza($scope.selectedTaller, pieza, $scope.refaccion, $scope.userData.idUsuario, $scope.idCliente).then(function (result) {
+                $scope.promise = cotizacionRepository.buscarPieza($scope.selectedTaller, pieza, $scope.refaccion, $scope.userData.idUsuario, 5).then(function (result) {
                   
                     $scope.listaPiezas = result.data;
                     if (result.data.length > 0) {
@@ -924,7 +925,7 @@ registrationModule.controller('cotizacionController', function ($scope, $route, 
     $scope.verificaRefaccion = function () {
         $scope.datosRefaccion = localStorageService.get('citaRefacciones');
         cotizacionRepository.getcitaRefaccion($scope.datosRefaccion.idCita).then(function (result) {
-            localStorageService.remove('citaRefacciones');
+            //localStorageService.remove('citaRefacciones');
             if (result.data.length > 0) {
                 $scope.verificaRefaccion = result.data[0].idTipoCita;
             }
