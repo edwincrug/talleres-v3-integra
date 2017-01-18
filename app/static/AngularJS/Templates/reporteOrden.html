@@ -10,9 +10,9 @@
                 <div class="ibox-content">
 
 					<span class="title">Reporte de Órdenes</span>
-					<br><br><br>
-							    <span class="col-lg-12 pull-right">  
-							<div class="col-lg-2">
+					<br><br>
+						<span class="col-lg-8 pull-right">  
+							<div class="col-lg-4">
 								<div class="pointer" ng-click="ordenProceso()">
 									<div class="ibox float-e-margins">
 										<div class="ibox-title">
@@ -28,7 +28,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-3">
+							<div class="col-lg-4">
 								<div class="pointer" ng-click="ordenTerminada()">
 							    <div class="ibox float-e-margins">
 							        <div class="ibox-title">
@@ -44,7 +44,7 @@
 							    </div>
 							   </div>
 							</div>
-							<div class="col-lg-2">
+<!-- 							<div class="col-lg-2">
 							  <div class="pointer" ng-click="ordenCustodia()">
 							    <div class="ibox float-e-margins">
 							        <div class="ibox-title">
@@ -75,8 +75,8 @@
 							        </div>
 							    </div>
 							    </div>
-							</div>
-							<div class="col-lg-2">
+							</div> -->
+							<div class="col-lg-4">
 							  <div class="pointer" ng-click="ordenGarantia()">
 							    <div class="ibox float-e-margins">
 							        <div class="ibox-title">
@@ -140,7 +140,7 @@
                                             </table>
                                         </div>
                                     </div>
-                                    <div ng-show="tipoOrden==1">
+<!--                                     <div ng-show="tipoOrden==1">
                                     <span class="subtitle"><strong>Falta Aceptación de Trabajo</strong></span>
                                     <br><br>
                                         <div class="table-responsive">
@@ -226,8 +226,8 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                    </div>
-                                    <div ng-show="tipoOrden==3">
+                                    </div> -->
+                                    <div ng-show="tipoOrden==1">
                                     <span class="subtitle"><strong>Falta Recoger Unidad</strong></span>
                                     <br><br>     
                                         <div class="table-responsive">
@@ -271,7 +271,7 @@
                                             </table>
                                         </div>
                                     </div>
-                                    <div ng-show="tipoOrden==4">
+                                    <div ng-show="tipoOrden==2">
                                     <span class="subtitle"><strong>En Proceso de Reparación </strong></span>
                                     <br><br>     
                                         <div class="table-responsive">

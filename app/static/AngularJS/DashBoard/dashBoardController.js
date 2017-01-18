@@ -167,13 +167,14 @@ registrationModule.controller('dashBoardController', function ($scope, alertFact
                 $scope.ordenesServicio = ordenes.data;
                 $scope.totalHorasOrdenesServicio = 0;
 
-                $scope.ordenesServicio.splice(5, 3);
+                //$scope.ordenesServicio.splice(5, 3);
+                 $scope.ordenesServicio.splice(3, 3);
 
                 ordenes.data.forEach(function (sumatoria) {
                         if (sumatoria.estatus == 'En proceso de reparación') proceso = sumatoria.total;
                         if (sumatoria.estatus == 'Falta recoger unidad') terminados = sumatoria.total;
-                        if (sumatoria.estatus == 'Falta generar certificado') custodia = sumatoria.total;
-                        if (sumatoria.estatus == 'Falta aceptación de trabajo') conformidad = sumatoria.total;
+                        //if (sumatoria.estatus == 'Falta generar certificado') custodia = sumatoria.total;
+                        //if (sumatoria.estatus == 'Falta aceptación de trabajo') conformidad = sumatoria.total;
                         if (sumatoria.estatus == 'Con reclamación de cliente') garantia = sumatoria.total;
 
                         $scope.totalHorasOrdenesServicio = $scope.totalHorasOrdenesServicio + sumatoria.promedio;
@@ -181,7 +182,8 @@ registrationModule.controller('dashBoardController', function ($scope, alertFact
 
                 );
 
-                $scope.totalOrdenes = proceso + terminados + custodia + conformidad + garantia;
+                //$scope.totalOrdenes = proceso + terminados + custodia + conformidad + garantia;
+                $scope.totalOrdenes = proceso + terminados + garantia;
 
                 Morris.Donut({
                     element: 'morris-donut-ordenes',
@@ -190,14 +192,14 @@ registrationModule.controller('dashBoardController', function ($scope, alertFact
                             label: "Con reclamación de cliente",
                             value: garantia
                         },
-                        {
-                            label: "Falta aceptación de trabajo",
-                            value: conformidad
-                        },
-                        {
-                            label: "Falta generar certificado",
-                            value: custodia
-                        },
+                        //{
+                          //  label: "Falta aceptación de trabajo",
+                          //  value: conformidad
+                        //},
+                        //{
+                          //  label: "Falta generar certificado",
+                          //  value: custodia
+                        //},
                         {
                             label: "Falta recoger unidad",
                             value: terminados
@@ -208,7 +210,8 @@ registrationModule.controller('dashBoardController', function ($scope, alertFact
                         }
                     ],
                     resize: true,
-                    colors: ['#4D4040', '#E3D494', '#FFBF75', '#F09090', '#C45C75'],
+                    //colors: ['#4D4040', '#E3D494', '#FFBF75', '#F09090', '#C45C75'],
+                    colors: ['#4D4040', '#F09090', '#C45C75'],
                 }).on('click', function (i, row) {
                     location.href = '/reporteorden?tipoOrden=' + i + '&idZona=' + $scope.zonaSelected + '&idTar=' + $scope.tarSelected;
                 });
@@ -229,10 +232,11 @@ registrationModule.controller('dashBoardController', function ($scope, alertFact
                 $scope.ordenesCobrarD = ordenesCobrar.data;
                 $scope.totalHorasOrdenesCobrar = 0;
 
-                $scope.ordenesCobrarD.splice(0, 5);
+               // $scope.ordenesCobrarD.splice(0, 5);
+                $scope.ordenesCobrarD.splice(0, 3);
 
                 ordenesCobrar.data.forEach(function (sumatoria) {
-                        if (sumatoria.estatus == 'Ordenes sin COPADE') sinFactura = sumatoria.total;
+                        if (sumatoria.estatus == 'Ordenes por Cobrar') sinFactura = sumatoria.total;
                         if (sumatoria.estatus == 'PreFactura generada') esperaCopade = sumatoria.total;
                         if (sumatoria.estatus == 'Factura enviada al cliente') facturado = sumatoria.total;
                         /*if (sumatoria.estatus == 'ESPERA COPADE') revision = sumatoria.total;*/
@@ -247,7 +251,7 @@ registrationModule.controller('dashBoardController', function ($scope, alertFact
                     element: 'morris-donut-cobrar',
                     data: [
                         {
-                            label: "Ordenes sin COPADE",
+                            label: "Ordenes por Cobrar",
                             value: sinFactura
                         },
                         /*{

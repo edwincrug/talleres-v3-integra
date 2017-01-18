@@ -16,7 +16,7 @@
 							    <div class="ibox float-e-margins">
 							        <div class="ibox-title">
 							            <span class="label label-primary pull-right"><i class="glyphicon glyphicon-duplicate"></i></span>
-							            <h5>Ordenes sin COPADE</h5>
+							            <h5>Ordenes por Cobrar</h5>
 							        </div>
 							        <div class="ibox-content">
 							            <h1 class="no-margins">{{cobrarsinfactura}}</h1>
@@ -82,7 +82,8 @@
                                         <div class="table-responsive">
                                             <table class="table table-striped table-bordered table-hover dataTableSinFactura" cg-busy="{promise:promise,message:message}">
                                                 <thead>
-                                                    <tr><th>Cliente</th>
+                                                    <tr>
+                                                        <th>Cliente</th>
                                                         <th>Consecutivo</th>
                                                         <th>Número de la Orden</th>
                                                         <th>Número Económico</th>
@@ -92,7 +93,6 @@
                                                         <th>Fecha Cita</th>
                                                         <th>Fecha Aceptación de Trabajo</th>
                                                         <th>Trabajo</th>
-                                                        <th>Observación</th>
                                                         <th>Estatus Órden Servicio</th>
                                                         <th>Horas en Espera de Factura</th>
                                                     </tr>
@@ -107,10 +107,8 @@
                                                         <td>{{sinfacturas.TAR}}</td>
                                                         <td>{{sinfacturas.razonSocial}}</td>
                                                         <td>{{sinfacturas.fechaCita | date:'dd-MM-yyyy HH:mm'}}</td>
-                                                        <td>{{sinfacturas.fechaEstatus | date:'dd-MM-yyyy HH:mm'}}</td>
-                                                        
+                                                        <td>{{sinfacturas.fechaEstatus | date:'dd-MM-yyyy HH:mm'}}</td>                                                        
                                                         <td>{{sinfacturas.trabajo}}</td>
-                                                        <td>{{sinfacturas.observacion}}</td>
                                                         <td>{{sinfacturas.estatus}}</td>
                                                         <td ng-class="{'rowVerde': sinfacturas.horasRetraso <= 49, 'rowAmarillo': sinfacturas.horasRetraso >= 50 && sinfacturas.horasRetraso  <=100, 'rowRojo': sinfacturas.horasRetraso >= 101}">{{sinfacturas.horasRetraso}}</td>
                                                     </tr> 
@@ -126,27 +124,34 @@
                                                 <thead>
                                                     <tr>
                                                         <th>Cliente</th>
-                                                        <th>No. COPADE</th>
-                                                        <th>Orden de Surtimiento</th>
-                                                        <th>No. Estimación</th>
-                                                        <th>Descripción de la Orden</th>
-                                                        <th>Total</th>
-                                                        <th>Fecha COPADE</th>
-                                                        <!-- <th>Folio Factura</th> -->
-                                                        <th>Horas Facturado</th>
+                                                        <th>Consecutivo</th>
+                                                        <th>Número de la Orden</th>
+                                                        <th>Número Económico</th>
+                                                        <th>Zona</th>
+                                                        <th>Punto de Entrega</th>
+                                                        <th>Nombre Taller</th>
+                                                        <th>Fecha Cita</th>
+                                                        <th>Fecha Aceptación de Trabajo</th>
+                                                        <th>Trabajo</th>
+                                                        <th>Estatus Órden Servicio</th>
+                                                        <th>Horas en Espera de Factura</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr ng-repeat="sincopade in datasincopade">
                                                         <td>{{sincopade.cliente}}</td>
-                                                        <td>{{sincopade.numeroCopade}}</td>
-                                                        <td>{{sincopade.folio}}</td>
-                                                        <td>{{sincopade.numeroEstimacion}}</td>
-                                                        <td>{{sincopade.descripcion}}</td>
-                                                        <td>{{sincopade.total | currency}}</td>
-                                                        <td>{{sincopade.fechaRecepcionCopade | date:'dd-MM-yyyy'}}</td>
-                                                        <!-- <td>Folio Factura</td> -->
-                                                            <td ng-class="{'rowVerde': sincopade.horasRetraso <= 49, 'rowAmarillo': sincopade.horasRetraso >= 50 && sincopade.horasRetraso  <=100, 'rowRojo': sincopade.horasRetraso >= 101}">{{sincopade.horasRetraso}}</td>
+                                                        <td>{{sincopade.idCita}}</td>
+                                                        <td>{{sincopade.numeroTrabajo}}</td>
+                                                        <td>{{sincopade.numEconomico}}</td>
+                                                        <td>{{sincopade.zona}}</td>
+                                                        <td>{{sincopade.TAR}}</td>
+                                                        <td>{{sincopade.razonSocial}}</td>
+                                                        <td>{{sincopade.fechaCita | date:'dd-MM-yyyy HH:mm'}}</td>
+                                                        <td>{{sincopade.fechaEstatus | date:'dd-MM-yyyy HH:mm'}}</td>
+                                                        <td>{{sincopade.trabajo}}</td>
+                                                        <td>{{sincopade.estatus}}</td>
+                                                        <td ng-class="{'rowVerde': sincopade.horasRetraso <= 49, 'rowAmarillo': sincopade.horasRetraso >= 50 && sincopade.horasRetraso  <=100, 'rowRojo': sincopade.horasRetraso >= 101}">{{sincopade.horasRetraso}}</td>
+
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -160,27 +165,36 @@
                                                 <thead>
                                                     <tr>
                                                         <th>Cliente</th>
-                                                        <th>No. COPADE</th>
-                                                        <th>Orden de Surtimiento</th>
-                                                        <th>No. Estimación</th>
-                                                        <th>Descripción de la Orden</th>
-                                                        <th>Total</th>
-                                                        <th>Fecha COPADE</th>
-                                                        <!-- <th>Folio Factura</th> -->
-                                                        <th>Horas Facturado</th>
+                                                        <th>Consecutivo</th>
+                                                        <th>Número de la Orden</th>
+                                                        <th>Número Económico</th>
+                                                        <th>Zona</th>
+                                                        <th>Punto de Entrega</th>
+                                                        <th>Nombre Taller</th>
+                                                        <th>Fecha Cita</th>
+                                                        <th>Fecha Aceptación de Trabajo</th>
+                                                        <th>Numeró Factura</th>
+                                                        <th>Trabajo</th>
+                                                        <th>Estatus Órden Servicio</th>
+                                                        <th>Horas en Espera de Factura</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr ng-repeat="facturado in datafacturada">
                                                         <td>{{facturado.cliente}}</td>
-                                                        <td>{{facturado.numeroCopade}}</td>
-                                                        <td>{{facturado.folio}}</td>
-                                                        <td>{{facturado.numeroEstimacion}}</td>
-                                                        <td>{{facturado.descripcion}}</td>
-                                                        <td>{{facturado.total | currency}}</td>
-                                                        <td>{{facturado.fechaRecepcionCopade | date:'dd-MM-yyyy'}}</td>
-                                                        <!-- <td>Folio Factura</td> -->
-                                                            <td ng-class="{'rowVerde': facturado.horasRetraso <= 49, 'rowAmarillo': facturado.horasRetraso >= 50 && facturado.horasRetraso  <=100, 'rowRojo': facturado.horasRetraso >= 101}">{{facturado.horasRetraso}}</td>
+                                                        <td>{{facturado.idCita}}</td>
+                                                        <td>{{facturado.numeroTrabajo}}</td>
+                                                        <td>{{facturado.numEconomico}}</td>
+                                                        <td>{{facturado.zona}}</td>
+                                                        <td>{{facturado.TAR}}</td>
+                                                        <td>{{facturado.razonSocial}}</td>
+                                                        <td>{{facturado.fechaCita | date:'dd-MM-yyyy HH:mm'}}</td>
+                                                        <td>{{facturado.fechaEstatus | date:'dd-MM-yyyy HH:mm'}}</td>
+                                                        <td>{{facturado.COP_IDDOCTO}}</td>
+                                                        <td>{{facturado.trabajo}}</td>
+
+                                                        <td>{{facturado.estatus}}</td>
+                                                        <td ng-class="{'rowVerde': facturado.horasRetraso <= 49, 'rowAmarillo': facturado.horasRetraso >= 50 && facturado.horasRetraso  <=100, 'rowRojo': facturado.horasRetraso >= 101}">{{facturado.horasRetraso}}</td>
                                                     </tr>
                                                 </tbody>
                                             </table>

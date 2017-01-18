@@ -16,9 +16,9 @@ registrationModule.controller('reporteOrdenController', function ($scope, alertF
                 $scope.registroOrdenes = ordenes.data;
 
               ordenes.data.forEach(function (sumatoria) {
-                    if (sumatoria.ID == 4) $scope.ordencertificado = sumatoria.total;
+                    //if (sumatoria.ID == 4) $scope.ordencertificado = sumatoria.total;
                     if (sumatoria.ID == 5) $scope.ordengarantia = sumatoria.total;
-                    if (sumatoria.ID == 3) $scope.ordencustodia = sumatoria.total;
+                    //if (sumatoria.ID == 3) $scope.ordencustodia = sumatoria.total;
                     if (sumatoria.ID == 2) $scope.ordenterminado = sumatoria.total;
                     if (sumatoria.ID == 1) $scope.ordenproceso = sumatoria.total;
                 });
@@ -36,17 +36,18 @@ registrationModule.controller('reporteOrdenController', function ($scope, alertF
 
         //obtiene el procentaje de las ordenes
     $scope.obtenPorcentaje = function () {
-    var totalOrdenes = $scope.ordengarantia+$scope.ordencertificado+$scope.ordencustodia+$scope.ordenterminado+$scope.ordenproceso;
+    //var totalOrdenes = $scope.ordengarantia+$scope.ordencertificado+$scope.ordencustodia+$scope.ordenterminado+$scope.ordenproceso;
+    var totalOrdenes = $scope.ordengarantia+$scope.ordenterminado+$scope.ordenproceso;
     $scope.porcentajegarantia = ($scope.ordengarantia*100)/totalOrdenes;
-    $scope.porcentajecertificado = ($scope.ordencertificado*100)/totalOrdenes;
-    $scope.porcentajecustodia = ($scope.ordencustodia*100)/totalOrdenes;
+    //$scope.porcentajecertificado = ($scope.ordencertificado*100)/totalOrdenes;
+    //$scope.porcentajecustodia = ($scope.ordencustodia*100)/totalOrdenes;
     $scope.porcentajeterminado = ($scope.ordenterminado*100)/totalOrdenes;
     $scope.porcentajeproceso = ($scope.ordenproceso*100)/totalOrdenes;
         } 
 
             //Muestra el historico de ordenes en Proceso
     $scope.ordenProceso = function () {
-            $scope.tipoOrden = 4;
+            $scope.tipoOrden = 2;
    				reporteOrdenRepository.getHistorialOrden(5,$scope.userData.idUsuario,$scope.idZona,$scope.idTar).then(function (ordenproces) {
    				$('.dataTableProceso').DataTable().destroy();
                 $scope.proceso = ordenproces.data;
@@ -62,7 +63,7 @@ registrationModule.controller('reporteOrdenController', function ($scope, alertF
         }
         //Muestra el historico de ordenes Terminadas
     $scope.ordenTerminada = function () {
-            $scope.tipoOrden = 3;
+            $scope.tipoOrden = 1;
                 reporteOrdenRepository.getHistorialOrden(7,$scope.userData.idUsuario,$scope.idZona,$scope.idTar).then(function (ordentermina) {
                 $('.dataTableTerminada').DataTable().destroy();
                 $scope.terminada = ordentermina.data;
@@ -77,7 +78,7 @@ registrationModule.controller('reporteOrdenController', function ($scope, alertF
             });
         }
         //Muestra el historico de ordenes Transferencia Custodia
-    $scope.ordenCustodia = function () {
+/*    $scope.ordenCustodia = function () {
         $scope.tipoOrden = 2;
             reporteOrdenRepository.getHistorialOrden(14,$scope.userData.idUsuario,$scope.idZona,$scope.idTar).then(function (ordencustodia) {
             	$('.dataTableCustodia').DataTable().destroy();
@@ -91,9 +92,9 @@ registrationModule.controller('reporteOrdenController', function ($scope, alertF
             }, function (error) {
                 alertFactory.error('Error al obtener los datos');
             });
-    }
+    }*/
             //Muestra el historico de ordenes certificado Conformidad
-    $scope.ordenCertificado = function () {
+/*    $scope.ordenCertificado = function () {
             $scope.tipoOrden = 1;
                 reporteOrdenRepository.getHistorialOrden(19,$scope.userData.idUsuario,$scope.idZona,$scope.idTar).then(function (ordenconformidad) {
                 $('.dataTableCertificado').DataTable().destroy();
@@ -107,7 +108,7 @@ registrationModule.controller('reporteOrdenController', function ($scope, alertF
             }, function (error) {
                 alertFactory.error('Error al obtener los datos');
             });
-        }
+        }*/
         
                 //Muestra el historico de ordnes en garantia
     $scope.ordenGarantia = function () {
@@ -147,16 +148,16 @@ registrationModule.controller('reporteOrdenController', function ($scope, alertF
         if($scope.tipoOrden==0){
       		$scope.ordenGarantia();
                  $scope.getNumeroOrdenes();
-        }else if($scope.tipoOrden==1){
+        /*}else if($scope.tipoOrden==1){
             $scope.ordenCertificado();
                  $scope.getNumeroOrdenes();	
         }else if($scope.tipoOrden==2){
             $scope.ordenCustodia();		
-                 $scope.getNumeroOrdenes();
-        }else if($scope.tipoOrden==3){
+                 $scope.getNumeroOrdenes();*/
+        }else if($scope.tipoOrden==1){
             $scope.ordenTerminada();
                  $scope.getNumeroOrdenes();
-        }else if($scope.tipoOrden==4){
+        }else if($scope.tipoOrden==2){
             $scope.ordenProceso();
                  $scope.getNumeroOrdenes();
                       $scope.getNumeroOrdenes();
@@ -173,22 +174,17 @@ registrationModule.controller('reporteOrdenController', function ($scope, alertF
             var indicePorOrdenar = 0;
            if (dataTable == 'dataTableGarantia') {
                 indicePorOrdenar = 12;
-            } else if (dataTable == 'dataTableCertificado') {
+/*            } else if (dataTable == 'dataTableCertificado') {
                 indicePorOrdenar = 12;
             } else if (dataTable == 'dataTableCustodia') {
+                indicePorOrdenar = 12;*/
+            } else if (dataTable == 'dataTableTerminada') {
                 indicePorOrdenar = 12;
-            } 
-
-            else if (dataTable == 'dataTableTerminada') {
-                indicePorOrdenar = 12;
-            }
-                else if (dataTable == 'dataTableProceso') {
+            } else if (dataTable == 'dataTableProceso') {
                 indicePorOrdenar = 13;
-            }
-            else {
+            } else {
                 indicePorOrdenar = 11;
             }
-
 
             $('.' + dataTable).DataTable({
                 order: [[indicePorOrdenar, 'desc']],
