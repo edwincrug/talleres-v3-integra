@@ -12,7 +12,7 @@ registrationModule.controller('ReporteSustitutoController', function (MarkerCrea
     $scope.Desvinculacion=function (idUnidadSustituto) {
         swal({
             title: "Advertencia",
-            text: "¿Está seguro en eliminar la Vinculación ?",
+            text: "¿Está seguro que desea liberar la Unidad?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#67BF11",
@@ -55,7 +55,33 @@ registrationModule.controller('ReporteSustitutoController', function (MarkerCrea
                 sustitutoRepository.getReporte($scope.idMotivoUnidad).then(function (reporte) {//va a mi repository y entra a function getReporte [.then(function (reporte)  es para que devuelva repuesta]
                     if (reporte.data.length > 0) { //valida que tenga una caden amayor de cero sino es porque no tiene registros
                         $scope.reporteSustituto = reporte.data;
-                         globalFactory.waitDrawDocument("dataTableReporteSustituto", "ReporteSustituto");
+                        // globalFactory.waitDrawDocument("dataTableReporteSustituto", "ReporteSustituto");
+                        var dataTableSustituto = 'dataTableReporteSustituto';
+                           setTimeout(function () {  
+                               var indicePorOrdenar = 7;
+                               $('.' + dataTableSustituto).DataTable({
+                                   order: [[indicePorOrdenar, 'desc']],
+                                   dom: '<"html5buttons"B>lTfgitp',
+                                   "iDisplayLength": 100,
+                                   buttons: [
+                                       {
+                                           extend: 'excel',
+                                           title: 'ReporteSustituto'
+                                       },
+                                       {
+                                           extend: 'print',
+                                           customize: function (win) {
+                                               $(win.document.body).addClass('white-bg');
+                                               $(win.document.body).css('font-size', '10px');
+                                               $(win.document.body).find('table')
+                                                   .addClass('compact')
+                                                   .css('font-size', 'inherit');
+                                           }
+                                       }
+                                   ]
+                               });
+                           }, 1500);
+
                         alertFactory.success("Reporte cargado");
                     } else {
                         alertFactory.info("No se encontraron Reporte");

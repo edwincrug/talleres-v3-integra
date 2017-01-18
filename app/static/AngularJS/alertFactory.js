@@ -50,7 +50,7 @@
              }
              toastr.error('</br><div class="info"><a href="/notificaciones">Para más info. de click Aqui</a></div>', '<div class="titleInfo">'+text+'</div>') 
             
-             $(".toast-error").css('background-color',"#2f96b4");
+             $(".toast-error").css('background-color',"#C3B444");
              
           }
       };
