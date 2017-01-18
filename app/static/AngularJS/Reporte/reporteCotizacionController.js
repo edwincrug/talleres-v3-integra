@@ -110,7 +110,7 @@ registrationModule.controller('reporteCotizacionController', function ($scope, a
     //Muestra el historico de sin cotizar
     $scope.cotizacionSinCotizar = function () {
         $scope.tipoCotizacion = 1;
-        reporteCotizacionRepository.getHistorialCotizacion($scope.idZona,$scope.idTar,15,$scope.userData.idUsuario).then(function (sincotizar) {
+        reporteCotizacionRepository.getHistorialCotizacion($scope.idZona,$scope.idTar,8,$scope.userData.idUsuario).then(function (sincotizar) {
             $('.dataTableSinCotizar').DataTable().destroy();
             $scope.datasincotizacion = sincotizar.data;
             waitDrawDocument("dataTableSinCotizar");
