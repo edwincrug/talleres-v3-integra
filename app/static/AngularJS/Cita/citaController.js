@@ -1269,8 +1269,12 @@
             }
 
             $scope.detalleSemaforo = function (){
-            
                 modal_detalle_semaforo($scope, $modal, 'cita')
+            }
+
+              //Ver la informacion de la unidad en flotillas Control Documental  
+            $scope.lookControlDocumental = function (vin){
+                window.open('http://189.204.141.193:3700/unidad'+vin+'&'+$scope.userData.usuario);
             }
 
 

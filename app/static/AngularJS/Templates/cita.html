@@ -35,7 +35,7 @@
                                         <th>Modelo</th>
                                         <th>GAR</th>
                                         <th>Punto de Entrega</th>                                         
-                                        <th>Seleccionar</th>
+                                        <th>Acción</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -51,6 +51,8 @@
                                         <td>{{unidad.TAR}}</td>                                                          
                                         <td>
                                             <button class="btn btn-primary" tooltip="Seleccionar Unidad" type="button" ng-click="lookUpCita(unidad)"><span class="glyphicon glyphicon-check"></span></button>
+                                             <button class="btn btn-success" tooltip="Ver control docmental" type="button" ng-click="lookControlDocumental(unidad.vin)"><span class="glyphicon glyphicon-eye-open"></span></button>
+                                            
                                         </td>
                                     </tr>
                                 </tbody>
