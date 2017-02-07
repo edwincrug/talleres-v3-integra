@@ -85,7 +85,7 @@
                                             'rowNaranja': cita.estatusLLegada != 0 && cita.idEstatus==15, 'rowVerde': cita.estatusLLegada == 0 && cita.idEstatus == 15 }"></p>
                                         </div> </td-->
                                         <td>
-                                            <button ng-hide="cita.idEstatus == 22 || cita.idEstatus == 1 || userData.idTipoUsuario == 4" class="btn btn-success" type="button" data-toggle="tooltip" tooltip="Cargar Comprobante de Recepción" id="btnCotizar" tooltip-placement="top" ng-click="formatoRecepcion(cita)">
+                                            <button ng-hide="cita.idEstatus == 22 || cita.idEstatus == 1 || userData.idTipoUsuario == 4" class="btn btn-success" type="button" data-toggle="tooltip" tooltip="Comprobante de Recepción" id="btnCotizar" tooltip-placement="top" ng-click="formatoRecepcion(cita)">
                                                 <span class="glyphicon glyphicon-cloud-upload"></span>
                                             </button>
                                             <!--<button ng-hide="cita.idEstatus == 22 || cita.idEstatus == 1 || userData.idTipoUsuario == 4" class="btn btn-info" type="button" data-toggle="tooltip" tooltip="Cotizar" id="btnCotizar" tooltip-placement="top" ng-click="nuevaCotizacion(cita)">

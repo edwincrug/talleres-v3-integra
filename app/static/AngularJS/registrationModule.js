@@ -186,6 +186,11 @@ var registrationModule = angular.module("registrationModule", ["ngRoute", "Local
             templateUrl:'AngularJS/Templates/notificaciones.html',
             controller:'notificacionesController'
          });
+
+         $routeProvider.when('/comprobanteRecepcion', {
+            templateUrl: 'AngularJS/Templates/comprobanteRecepcion.html',
+            controller: 'comprobanteRecepcionController'
+        });
         
         
         $locationProvider.html5Mode({
