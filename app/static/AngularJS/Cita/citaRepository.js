@@ -1,4 +1,5 @@
-    var citaUrl = global_settings.urlCORS + '/api/cita/';
+var citaUrl = global_settings.urlCORS + '/api/cita/';
+var cotizacionUrl = global_settings.urlCORS + '/api/cotizacion/';
 
     registrationModule.factory('citaRepository', function ($http, $q) {
         var deferred = $q.defer();
@@ -284,6 +285,41 @@
                         'Content-Type': 'application/json'
                     }
                 });
+            },
+            addComprobanteRecepcion: function (item) {
+                return $http({
+                    url: citaUrl + 'addcomprobanterecepcion/',
+                    method: "POST",
+                    data: item,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+            },
+            getGeneraPdf: function (idCita) {
+                return $http({
+                    url: citaUrl + 'generapdf',
+                    method: "GET",
+                    params: {
+                        idCita: idCita
+                    },
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+            },
+            callExternalPdf: function (jsonData) {
+                return $http({
+                    url: cotizacionUrl + 'newpdf/',
+                    method: "POST",
+                    data: {
+                        values: jsonData
+                    },
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
             }
+        
         };
     });

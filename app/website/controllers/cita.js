@@ -917,6 +917,329 @@
         });
     }
 
+    //insertar registro para comprobante de recepción 
+    Cita.prototype.post_addcomprobanterecepcion = function (req, res, next) {
+        //Referencia a la clase para callback
+        var self = this;
+        //Asigno a params el valor de mis variables
+        var params = [{
+                name: 'ext_Claxon',
+                value: req.body.ext_Claxon,
+                type: self.model.types.INT
+            },
+            {
+                name: 'ext_TaponGasolina',
+                value: req.body.ext_TaponGasolina,
+                type: self.model.types.INT
+            },
+            {
+                name: 'ext_TaponLlantas',
+                value: req.body.ext_TaponLlantas,
+                type: self.model.types.INT
+            },
+            {
+                name: 'ext_FarosDelanteros',
+                value: req.body.ext_FarosDelanteros,
+                type: self.model.types.INT
+            },
+            {
+                name: 'ext_Antena',
+                value: req.body.ext_Antena,
+                type: self.model.types.INT
+            },
+            {
+                name: 'ext_Emblemas',
+                value: req.body.ext_Emblemas,
+                type: self.model.types.INT
+            },
+            {
+                name: 'ext_Cristales',
+                value: req.body.ext_Cristales,
+                type: self.model.types.INT
+            },
+            {
+                name: 'int_EspejoRetrovisor',
+                value: req.body.int_EspejoRetrovisor,
+                type: self.model.types.INT
+            },
+            {
+                name: 'int_Radio',
+                value: req.body.int_Radio,
+                type: self.model.types.INT
+            },
+            {
+                name: 'int_CinturonSeguridad',
+                value: req.body.int_CinturonSeguridad,
+                type: self.model.types.INT
+            },
+            {
+                name: 'int_ManijasSeguros',
+                value: req.body.int_ManijasSeguros,
+                type: self.model.types.INT
+            },
+            {
+                name: 'int_Encendedor',
+                value: req.body.int_Encendedor,
+                type: self.model.types.INT
+            },
+            {
+                name: 'int_Cenicero',
+                value: req.body.int_Cenicero,
+                type: self.model.types.INT
+            },
+            {
+                name: 'int_Tapetes',
+                value: req.body.int_Tapetes,
+                type: self.model.types.INT
+            },
+            {
+                name: 'int_Ac',
+                value: req.body.int_Ac,
+                type: self.model.types.INT
+            },
+            {
+                name: 'int_Lector',
+                value: req.body.int_Lector,
+                type: self.model.types.INT
+            },
+            {
+                name: 'int_BolsaAireDelantera',
+                value: req.body.int_BolsaAireDelantera,
+                type: self.model.types.INT
+            },
+            {
+                name: 'int_BolsaAireLateral',
+                value: req.body.int_BolsaAireLateral,
+                type: self.model.types.INT
+            },
+            {
+                name: 'int_Usb',
+                value: req.body.int_Usb,
+                type: self.model.types.INT
+            },
+            {
+                name: 'int_LlavesUnidad',
+                value: req.body.int_LlavesUnidad,
+                type: self.model.types.INT
+            },
+            {
+                name: 'acs_Gato',
+                value: req.body.acs_Gato,
+                type: self.model.types.INT
+            },
+            {
+                name: 'acs_ManeralGato',
+                value: req.body.acs_ManeralGato,
+                type: self.model.types.INT
+            },
+            {
+                name: 'acs_LlaveRuedas',
+                value: req.body.acs_LlaveRuedas,
+                type: self.model.types.INT
+            },
+            {
+                name: 'acs_Reflejantes',
+                value: req.body.acs_Reflejantes,
+                type: self.model.types.INT
+            },
+            {
+                name: 'acs_Extintor',
+                value: req.body.acs_Extintor,
+                type: self.model.types.INT
+            },
+            {
+                name: 'acs_LlantaRefaccion',
+                value: req.body.acs_LlantaRefaccion,
+                type: self.model.types.INT
+            },
+            {
+                name: 'acs_CableCorriente',
+                value: req.body.acs_CableCorriente,
+                type: self.model.types.INT
+            },
+            {
+                name: 'acs_PeliculaAntiasalto',
+                value: req.body.acs_PeliculaAntiasalto,
+                type: self.model.types.INT
+            },
+            {
+                name: 'acs_BirlosTuercas',
+                value: req.body.acs_BirlosTuercas,
+                type: self.model.types.INT
+            },
+            {
+                name: 'acs_ProteccionEspejoLateral',
+                value: req.body.acs_ProteccionEspejoLateral,
+                type: self.model.types.INT
+            },
+            {
+                name: 'acs_Gps',
+                value: req.body.acs_Gps,
+                type: self.model.types.INT
+            },
+            {
+                name: 'com_TaponAceite',
+                value: req.body.com_TaponAceite,
+                type: self.model.types.INT
+            },
+            {
+                name: 'com_TaponRadiador',
+                value: req.body.com_TaponRadiador,
+                type: self.model.types.INT
+            },
+            {
+                name: 'com_VarillaAceite',
+                value: req.body.com_VarillaAceite,
+                type: self.model.types.INT
+            },
+            {
+                name: 'com_Bateria',
+                value: req.body.com_Bateria,
+                type: self.model.types.INT
+            },
+            {
+                name: 'com_TaponMotor',
+                value: req.body.com_TaponMotor,
+                type: self.model.types.INT
+            },
+            {
+                name: 'doc_PolizaSeguro',
+                value: req.body.doc_PolizaSeguro,
+                type: self.model.types.INT
+            },
+            {
+                name: 'doc_TarjetaCirculacion',
+                value: req.body.doc_TarjetaCirculacion,
+                type: self.model.types.INT
+            },
+            {
+                name: 'doc_Engomado',
+                value: req.body.doc_Engomado,
+                type: self.model.types.INT
+            },
+            {
+                name: 'doc_Verificacion',
+                value: req.body.doc_Verificacion,
+                type: self.model.types.INT
+            },
+            {
+                name: 'doc_ManualesUnidad',
+                value: req.body.doc_ManualesUnidad,
+                type: self.model.types.INT
+            },
+            {
+                name: 'doc_PermisoProvisional',
+                value: req.body.doc_PermisoProvisional,
+                type: self.model.types.INT
+            },
+            {
+                name: 'tab_Descripcion',
+                value: req.body.tab_Descripcion,
+                type: self.model.types.STRING
+            },
+            {
+                name: 'tab_Odometro',
+                value: req.body.tab_Odometro,
+                type: self.model.types.INT
+            },
+            {
+                name: 'ubi_Delantera',
+                value: req.body.ubi_Delantera,
+                type: self.model.types.INT
+            },
+            {
+                name: 'ubi_DelanteraDesc',
+                value: req.body.ubi_DelanteraDesc,
+                type: self.model.types.STRING
+            },
+            {
+                name: 'ubi_Trasera',
+                value: req.body.ubi_Trasera,
+                type: self.model.types.INT
+            },
+            {
+                name: 'ubi_TraseraDesc',
+                value: req.body.ubi_TraseraDesc,
+                type: self.model.types.STRING
+            },
+            {
+                name: 'ubi_ParteDerecha',
+                value: req.body.ubi_ParteDerecha,
+                type: self.model.types.INT
+            },
+            {
+                name: 'ubi_ParteDerechaDesc',
+                value: req.body.ubi_ParteDerechaDesc,
+                type: self.model.types.STRING
+            },
+            {
+                name: 'ubi_ParteIzquierda',
+                value: req.body.ubi_ParteIzquierda,
+                type: self.model.types.INT
+            },
+            {
+                name: 'ubi_ParteIzquierdaDesc',
+                value: req.body.ubi_ParteIzquierdaDesc,
+                type: self.model.types.STRING
+            },
+            {
+                name: 'ubi_Techo',
+                value: req.body.ubi_Techo,
+                type: self.model.types.INT
+            },
+            {
+                name: 'ubi_TechoDesc',
+                value: req.body.ubi_TechoDesc,
+                type: self.model.types.STRING
+            },
+            {
+                name: 'aprobacion',
+                value: req.body.aprobacion,
+                type: self.model.types.INT
+            },
+            {
+                name: 'idCita',
+                value: req.body.idCita,
+                type: self.model.types.INT
+            },
+            {
+                name: 'idUsuario',
+                value: req.body.idUsuario,
+                type: self.model.types.INT
+            }];
+
+        this.model.post('INS_DATOS_UNIDAD_SP', params, function (error, result) {
+            //Callback
+            self.view.expositor(res, {
+                error: error,
+                result: result
+            });
+        });
+    }
+
+    //Devuelve la inforción para PDF Comprobante de Recepción
+    Cita.prototype.get_generapdf = function (req, res, next) {
+        //Objeto que almacena la respuesta
+        var object = {};
+        //Referencia a la clase para callback
+        var self = this;
+        //Asigno a params el valor de mis variables    
+        var params = [
+            {
+                name: 'idCita',
+                value: req.query.idCita,
+                type: self.model.types.INT
+            }
+        ];
+
+        this.model.query('SEL_COMPROBANTE_RECEPCION_SP', params, function (error, result) {
+            //Callback
+            object.error = error;
+            object.result = result;
+
+            self.view.expositor(res, object);
+        });
+    }
 
     module.exports = Cita;
 

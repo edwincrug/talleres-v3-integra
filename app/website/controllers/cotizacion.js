@@ -1364,4 +1364,74 @@ Cotizacion.prototype.get_citabyRefaccion = function (req, res, next) {
     });
 }
 
+Cotizacion.prototype.post_newpdf = function(req, res, next) {
+
+    var http = require('http'),
+        fs = require('fs');
+    var idTrabajo = req.body.values.data.DatosUnidad.idTrabajo;
+    var filename = 'ComprobanteRecepcion_' + idTrabajo;
+    var filePath = dirname + idTrabajo + '/documentos/comprobanteRecepcion/'+ filename + '.pdf';
+    var fileresponse = '/uploads/files/' + idTrabajo + '/documentos/comprobanteRecepcion/'+ filename + '.pdf';
+    if(idTrabajo != undefined || idTrabajo != null){
+        if (!fs.existsSync(dirname + idTrabajo))
+            fs.mkdirSync(dirname + idTrabajo);
+        if (!fs.existsSync(dirname + idTrabajo + '/multimedia'))
+            fs.mkdirSync(dirname + idTrabajo + '/multimedia');
+        if (!fs.existsSync(dirname + idTrabajo + '/documentos'))
+            fs.mkdirSync(dirname + idTrabajo + '/documentos');
+        if (!fs.existsSync(dirname + idTrabajo + '/evidenciaTrabajo'))
+            fs.mkdirSync(dirname + idTrabajo + '/evidenciaTrabajo');
+        if (!fs.existsSync(dirname + idTrabajo + '/documentos/comprobanteRecepcion'))
+            fs.mkdirSync(dirname + idTrabajo + '/documentos/comprobanteRecepcion')
+        if (!fs.existsSync(dirname + idTrabajo + '/documentos/transferenciaCustodia'))
+            fs.mkdirSync(dirname + idTrabajo + '/documentos/transferenciaCustodia')
+        if (!fs.existsSync(dirname + idTrabajo + '/documentos/certificadoConformidad'))
+            fs.mkdirSync(dirname + idTrabajo + '/documentos/certificadoConformidad');
+        if (!fs.existsSync(dirname + idTrabajo + '/documentos/factura'))
+            fs.mkdirSync(dirname + idTrabajo + '/documentos/factura');
+        if (!fs.existsSync(dirname + idTrabajo + '/documentos/adendaCopade'))
+            fs.mkdirSync(dirname + idTrabajo + '/documentos/adendaCopade');
+        if (!fs.existsSync(dirname + idTrabajo + '/documentos/preFactura'))
+            fs.mkdirSync(dirname + idTrabajo + '/documentos/preFactura');
+    }
+    var options = {
+        "method": "POST",
+        "hostname": "189.204.141.193",
+        "port": "5488",
+        "path": "/api/report",
+        "headers": {
+            "content-type": "application/json"
+        }
+    };
+
+    var request = http.request(options, function(response) {
+        var chunks = [];
+
+        response.on("data", function(chunk) {
+            chunks.push(chunk);
+        });
+
+        response.on("end", function() {
+            var body = Buffer.concat(chunks);
+
+            fs.writeFile(filePath, body, function(err) {
+                if (err) return console.log(err);
+                //console.log('Archivo creado');
+            });
+
+        });
+    });
+
+    request.write(JSON.stringify(req.body.values));
+    request.end();
+
+    var self = this;
+
+    self.view.expositor(res, {
+        error: null,
+        //result: filename
+        result: fileresponse
+    });
+};
+
 module.exports = Cotizacion;
