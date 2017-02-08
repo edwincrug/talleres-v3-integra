@@ -2,7 +2,6 @@ registrationModule.controller('comprobanteRecepcionController', function ($scope
 
 	
 	$scope.init = function(){
-		debugger;
 		$scope.infoCita=localStorageService.get('cita');
 		$scope.show_exteriores=true;
 		$scope.show_interiores=false;
@@ -365,8 +364,8 @@ registrationModule.controller('comprobanteRecepcionController', function ($scope
 					       "modeloMarca":result.data[0].modeloMarca,
 					       "motor":result.data[0].motor,
 					       "capacidadLts":result.data[0].capacidadLts,
-					       "idTar":result.data[0].idTar
-					       "vin":result.data[0].vin
+					       "idTar":result.data[0].idTar,
+					       "vin":result.data[0].vin,
 					       "factura":result.data[0].factura
 					       }
 					}	
