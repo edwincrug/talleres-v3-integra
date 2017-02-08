@@ -186,7 +186,6 @@ registrationModule.controller('comprobanteRecepcionController', function ($scope
 			citaRepository.addComprobanteRecepcion(data).then(function (rest) {
 				
 	            if (rest.data[0].id > 0) {
-	                alertFactory.success("Se insertó correctamente");
 	                $scope.updateEstatusTrabajo();
 	                //location.href = '/tallercita';
 	            }else{
