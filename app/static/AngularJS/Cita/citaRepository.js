@@ -1,4 +1,5 @@
-    var citaUrl = global_settings.urlCORS + '/api/cita/';
+var citaUrl = global_settings.urlCORS + '/api/cita/';
+var cotizacionUrl = global_settings.urlCORS + '/api/cotizacion/';
 
     registrationModule.factory('citaRepository', function ($http, $q) {
         var deferred = $q.defer();
