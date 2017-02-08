@@ -2,6 +2,7 @@ registrationModule.controller('comprobanteRecepcionController', function ($scope
 
 	
 	$scope.init = function(){
+		debugger;
 		$scope.infoCita=localStorageService.get('cita');
 		$scope.show_exteriores=true;
 		$scope.show_interiores=false;
@@ -365,20 +366,28 @@ registrationModule.controller('comprobanteRecepcionController', function ($scope
 					       "motor":result.data[0].motor,
 					       "capacidadLts":result.data[0].capacidadLts,
 					       "idTar":result.data[0].idTar
+					       "vin":result.data[0].vin
+					       "factura":result.data[0].factura
 					       }
 					}	
 				}	
    
         var jsonData = {
             "template": {
-                "name": "talleresUnidad_rpt" 
+                "name": "integraUnidad_rpt" 
             },
             "data": data
         }
 	        citaRepository.callExternalPdf(jsonData).then(function (result) {	        	
 	        	setTimeout(function () {
-		            window.open($rootScope.vIpServer + result.data);
-		            location.href = '/tallercita';
+		              var url = $rootScope.vIpServer + result.data;
+				      var a = document.createElement('a');
+				      a.href = url;
+				      a.download = 'Comprobante de Recepción';
+				      //a.target = '_blank';
+				      a.click();
+
+		             location.href = '/tallercita';
 		         }, 5000);	        	   			
 	        });
 

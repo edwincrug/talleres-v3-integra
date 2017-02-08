@@ -18,12 +18,10 @@
                         <div class="col-sm-6">
                             <strong>Unidad:</strong>
                             <address>
-                                <strong>{{infoCita.marca}} - {{infoCita.modelo}}</strong><br>
+                                <strong>{{infoCita.marca}}  {{infoCita.modeloMarca}} - {{infoCita.modelo}}</strong><br>
                                 <strong>No. Económico: </strong>{{infoCita.clienteNumEconomico}}<br>
-                                <strong>No. Inventario: </strong> {{infoCita.clienteNumInventario}}<br>
-                                <strong>No. TAR: </strong> {{infoCita.numTAR}}<br>
-                                <strong>TAR: </strong> {{infoCita.TAR}}<br>
-                                <strong>GAR: </strong>  {{infoCita.GAR}}
+                                <strong>Vin: </strong> {{infoCita.vin}}<br>
+                                <strong>Factura: </strong> {{infoCita.factura}}<br>
                             </address>
                         </div>
                         <div class="col-sm-6 text-right">
@@ -777,7 +775,8 @@
                                         <option value="Lleno">Lleno</option>
                                         <option value="Tres Cuartos">Tres Cuartos</option>
                                         <option value="Mitad">Mitad</option>
-                                        <option value="Un Cuaro">Un Cuarto</option>
+                                        <option value="Un Cuarto">Un Cuarto</option> 
+                                        <option value="Reserva">Reserva</option>
                                     </select>
                                 </div>
                                 
@@ -803,24 +802,24 @@
                         <div class="row col-md-12 center">
                             <div class="col-md-3"></div>
                             <div class="col-md-6">
-                                <img  src="image/comprobanteRecepcion/PIPA-DER.png"></img>
+                                <img  src="image/comprobanteRecepcion/AUTO-DER.png"></img>
                                 <input type="checkbox" id="ubi_ParteDerecha" value="0" name="ubi_ParteDerecha" ng-model="ubi_ParteDerecha" ng-change="changeDesc('derecha', ubi_ParteDerecha)">
                                 <textarea class="descTxt" placeholder="Descripción Lateral Derecha" ng-model="ubi_ParteDerechaDesc" ng-disabled="ubi_ParteDerecha==false"></textarea>
                             </div>
                         </div>
                         <div class="row col-md-12 center">
                             <div class="col-md-3">
-                                <img  src="image/comprobanteRecepcion/PIPA-FRENTE.png"></img>
+                                <img  src="image/comprobanteRecepcion/AUTO-FRENTE.png"></img>
                                 <input type="checkbox" id="ubi_Delantera" value="0" name="ubi_Delantera" ng-model="ubi_Delantera" ng-change="changeDesc('delantera', ubi_Delantera)">
                                 <textarea class="descTxt" placeholder="Descripción Frontal" ng-model="ubi_DelanteraDesc" ng-disabled="ubi_Delantera==false"></textarea>
                             </div>
                             <div class="col-md-6" id="pipa-arriba">
-                                <img  src="image/comprobanteRecepcion/PIPA-ARRIBA.png"></img>
+                                <img  src="image/comprobanteRecepcion/AUTO-ARRIBA.png"></img>
                                 <input type="checkbox" id="ubi_Techo" value="0" name="ubi_Techo" ng-model="ubi_Techo" ng-change="changeDesc('techo', ubi_Techo)">
                                 <textarea class="descTxt" placeholder="Descripción de la Parte Superior" ng-model="ubi_TechoDesc" ng-disabled="ubi_Techo==false"></textarea>
                             </div>
                             <div class="col-md-3">
-                                <img  src="image/comprobanteRecepcion/PIPA-TRAS.png"></img>
+                                <img  src="image/comprobanteRecepcion/AUTO-TRAS.png"></img>
                                 <input type="checkbox" id="ubi_Trasera" value="0" name="ubi_Trasera" ng-model="ubi_Trasera" ng-change="changeDesc('trasera', ubi_Trasera)">
                                 <textarea class="descTxt" placeholder="Descripción Trasera" ng-model="ubi_TraseraDesc" ng-disabled="ubi_Trasera==false"></textarea>
                             </div>
@@ -828,7 +827,7 @@
                         <div class="row col-md-12 center">
                             <div class="col-md-3"></div>
                             <div class="col-md-6">
-                                <img src="image/comprobanteRecepcion/PIPA-IZQ.png"></img>
+                                <img src="image/comprobanteRecepcion/AUTO-IZQ.png"></img>
                                 <input type="checkbox" id="ubi_ParteIzquierda" value="0" name="ubi_ParteIzquierda" ng-model="ubi_ParteIzquierda" ng-change="changeDesc('izquierda', ubi_ParteIzquierda)">
                                 <textarea class="descTxt" placeholder="Descripción Lateral Izquierda" ng-model="ubi_ParteIzquierdaDesc" ng-disabled="ubi_ParteIzquierda==false"></textarea>
                             </div>
