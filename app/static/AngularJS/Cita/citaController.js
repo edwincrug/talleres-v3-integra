@@ -954,7 +954,7 @@
         }
 
         //validación de fechas y horarios
-        $scope.validaHoraCita = function () {
+/*        $scope.validaHoraCita = function () {
             var currentDate = new Date();
             if ($scope.datosCita.horaCita != null && $scope.datosCita.fechaCita) {
                 var horaArray = $scope.datosCita.horaCita.split(':');
@@ -966,7 +966,7 @@
                     alertFactory.info("Debe agendar la cita con un día de anticipación.")
                 }
             }
-        }
+        }*/
 
         //Recupera la preOrden de Servicio de una Cita
         $scope.getPreCotizacion = function (idCita) {
