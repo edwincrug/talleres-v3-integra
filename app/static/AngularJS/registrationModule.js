@@ -192,6 +192,10 @@ var registrationModule = angular.module("registrationModule", ["ngRoute", "Local
             controller: 'comprobanteRecepcionController'
         });
         
+        $routeProvider.when('/unidadesEvidencia', {
+            templateUrl: 'AngularJS/Templates/unidadesEvidencia.html',
+            controller: 'ReporteSustitutoController'
+        });
         
         $locationProvider.html5Mode({
             enabled: true,

@@ -1,4 +1,4 @@
-registrationModule.controller('asignacionSustitutoController', function (MarkerCreatorService, $scope, $modal, $route, $rootScope, $location, localStorageService, alertFactory, globalFactory, sustitutoRepository, uploadRepository, citaRepository, commonService, ordenAnticipoRepository, trabajoRepository ) {
+registrationModule.controller('asignacionSustitutoController', function (MarkerCreatorService, $scope, $modal, $route, $rootScope, $location, localStorageService, alertFactory, globalFactory, sustitutoRepository, uploadRepository, citaRepository, commonService, ordenAnticipoRepository, trabajoRepository, uploadRepository) {
 	
 	$scope.motivos= [];
     $scope.address = '';
@@ -11,10 +11,18 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
     $scope.show_orden=false;
     $scope.numOrden = '';
     $scope.show_sustituto=false;
+    $scope.fechaSustituto = '';
         
 
 	$scope.init_asignacion = function (){
-
+            $('#calendar .input-group.date').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: true,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true,
+                todayHighlight: true
+            });
          $scope.getMotivo();
 
          $scope.map = {
@@ -29,6 +37,8 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
                             scrollwheel: false
                         }
                     }
+        Dropzone.autoDiscover = false;
+        $scope.dzOptionsServicio = uploadRepository.getDzOptions("image/*,application/pdf,.mp4,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/docx,application/msword,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/xml,.docX,.DOCX,.ppt,.PPT",20);
 	}
 
 
@@ -190,7 +200,7 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
     }
 
     $scope.addUnidadSusituto = function () {
-
+    if( $scope.fechaSustituto != ''){
         if ($scope.selectedMotivo.idMotivo == 1) {
 
             sustitutoRepository.getValidaOrden($scope.numOrden).then(function (result) {
@@ -216,7 +226,9 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
         }else{
             $scope.unidadSustito();
         }
-        
+    }else{
+      alertFactory.info("Porfavor seleccione una fecha");  
+    }
     }
 
     $scope.unidadSustito = function (){
@@ -231,7 +243,7 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
          if ($scope.select_sustituto == '') {
             sustituto = 0;
          }
-        sustitutoRepository.addUnidadSustituto($scope.select_unidad, sustituto, $scope.selectedMotivo.idMotivo, $scope.userData.idUsuario, orden).then(function (result) {
+        sustitutoRepository.addUnidadSustituto($scope.select_unidad, sustituto, $scope.selectedMotivo.idMotivo, $scope.fechaSustituto, $scope.userData.idUsuario, orden).then(function (result) {
            if (result.data.length > 0) {
                alertFactory.info('Las unidades fueron asociadas correctamente'); 
                 $scope.dataSustituto = '';
@@ -243,11 +255,18 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
                 $scope.select_sustituto = '';  
                 $scope.select_unidad = ''; 
                 $scope.selectedMotivo = '';
+                $scope.fechaSustituto = '';
                 $('.dataTableSustituto').DataTable().destroy();
                 $('.dataTableUnidad').DataTable().destroy();
                 $scope.show_mapSustituto = false;
                 $scope.show_sustituto=false;
-        
+                $scope.sustitutoUploadFile=result.data[0].ID;
+                    if ($scope.dzMethods.getAllFiles().length == 0) {
+                                    alertFactory.info("no subio evidencia");   
+                            } else {
+                                     $scope.dzMethods.processQueue();
+                            }
+ 
                $('#btnLigar').button('reset');
             }else{
                alertFactory.error("Error al asociar las unidades"); 
@@ -258,6 +277,51 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
             $('#btnLigar').button('reset');
         });
 
+    }
+
+   $scope.adjuntarEvidencia = function () {
+        $('#cotizacionDetalle').appendTo('body').modal('show');
+    }
+
+        //call backs of drop zone
+    $scope.dzCallbacks = {
+        'addedfile': function (file) {
+            $scope.newFile = file;
+        },
+        'sending': function(file, xhr, formData){
+            formData.append('idTrabajo', $scope.sustitutoUploadFile);
+            formData.append('idCotizacion', 0);
+            formData.append('idCategoria', 4);
+            formData.append('idNombreEspecial', 0);//evidenciaTrabajo
+        },
+        'completemultiple': function (file, xhr) {
+            var checkErrorFile = file.some(checkExistsError);
+            if (!checkErrorFile) {
+                var allSuccess = file.every(checkAllSuccess);
+                if (allSuccess) {
+                    setTimeout(function () {
+                        $scope.dzMethods.removeAllFiles(true);
+                    }, 1000);
+                }
+            }
+        },
+        'error': function (file, xhr) {
+            if (!file.accepted) {
+                $scope.dzMethods.removeFile(file);
+            } else {
+                $scope.dzMethods.removeAllFiles(true);
+                alertFactory.info("No se pudieron subir los archivos");
+            }
+        },
+    };
+
+    //valida si todos son success
+    function checkAllSuccess(file, index, array) {
+        return file.status === 'success';
+    }
+    //valida si existe algún error
+    function checkExistsError(file) {
+        return file.status === 'error';
     }
 
 });

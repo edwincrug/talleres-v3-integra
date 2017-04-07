@@ -8,14 +8,34 @@
       <div class="wrapper wrapper-content center_content {{class_width}}">
       
         <div class="ibox-content"> </br>
-        <div class="row col-md-5 pull-left" >
+        <div class="row col-md-12 pull-left" >
                 <div class="form-group row">
-                <label class="col-sm-3 control-label">Motivo: </label>
-                <div class="col-sm-9">
+                <div class="col-xs-3">
+                <label class="font-noraml">Motivo: </label>
                     <select class="form-control" name="motivo" ng-model="selectedMotivo" ng-options="motivo.Descripcion for motivo in motivos" ng-change="validaMotivo(selectedMotivo)">
                         <option value=''>Selecionar  motivo</option><!--default option -->
                     </select>
                 </div>
+                <div class="col-xs-3">
+                <label class="font-noraml">Estatus: </label>
+                        <select class="form-control" name="estado" ng-model="idEstatus">
+                            <option value="">Seleccione el estatus</option>
+                            <option value="0">Vinculada</option>
+                            <option value="1">Desvinculada</option>
+                        </select>
+                </div>
+                <div class="col-xs-3">
+                <label class="font-noraml">Fecha Inicio a Fecha Fin</label>
+                  <div class="input-daterange input-group" id="datepicker">
+                      <input type="text" placeholder="Fecha Inicio" class="input-sm form-control" name="start" ng-model="fechaInicio" ng-change="fechaRango" calendar/>
+                      <span class="input-group-addon">a</span>
+                      <input type="text" placeholder="Fecha Fin" class="input-sm form-control" name="end" ng-model="fechaFin" ng-change="fechaRango()" calendar/>
+                  </div>
+                </div>
+                <div class="col-xs-1">
+                    <label class="font-noraml">Buscar</label>
+                    <button id="btnBuscar" busy="Buscando.." type="button" class="btn btn-primary" ng-click="buscaFiltros()"><span class="glyphicon glyphicon-search"></span></button>
+               </div>
             </div>
         </div>
           <div class="row">
@@ -38,7 +58,7 @@
                                                 <th>Numero de la Orden</th>
                                                 <th>Estatus Orden</th>
                                                 <th>Fecha de Registro</th>
-                                                <th>Tiempo Transcurrido</th>
+                                                <th>Fecha de Desvinculacion</th>
                                                 <th>Acción</th>
                                             </tr>
                                         </thead>
@@ -81,12 +101,18 @@
                                               <td ng-if="sustituto.numeroTrabajo != 0">{{sustituto.numeroTrabajo}}</td>
                                               <td ng-if="sustituto.numeroTrabajo == 0"></td>
                                               <td>{{sustituto.descripcionLarga}}</td>
-                                              <td>{{sustituto.fecha}}</td>
-                                              <td>{{sustituto.tiempoTranscurrido}}</td>
+                                              <td>{{sustituto.fechaVinculacion}}</td>
+                                              <td>{{sustituto.fechaDesvinculacion}}</td>
                                               <td>
-                                                        <button type="button" class="btn btn-primary" tooltip-placement="top" tooltip="Liberar" ng-click="Desvinculacion(sustituto.idUnidadSustituto)" >
+                                                        <button ng-hide="sustituto.estatus == 1" type="button" class="btn btn-primary" tooltip-placement="top" tooltip="Liberar" ng-click="Desvinculacion(sustituto.idUnidadSustituto)" >
                                                         <span class="fa fa-chain-broken"></span>
                                                         </button>
+
+                                                        <button type="button" class="dropdown-toggle alerta-form btn btn-informa" tooltip-placement="top" tooltip="Ver Evidencia"
+                                                        ng-click="verEvidencia(sustituto.idUnidadSustituto)">
+                                                        <span class="glyphicon glyphicon-folder-open"></span>
+                                                        </button> 
+
                                                         <button type="button" class="dropdown-toggle alerta-form btn btn-info" tooltip-placement="top" tooltip="Ver Orden"
                                                         ng-show = "sustituto.idMotivo== 1" ng-click="aprobarTrabajo(sustituto.idTrabajo)">
                                                         <span class="glyphicon glyphicon-sunglasses"></span>
