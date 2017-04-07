@@ -59,6 +59,8 @@ registrationModule.controller('ReporteSustitutoController', function (MarkerCrea
         $('.dataTableReporteSustituto').DataTable().destroy();
         $scope.reporteSustituto=[];
         $scope.idEstatus == "" ? $scope.idEstatus = undefined : $scope.idEstatus;
+        $scope.fechaInicio == "" ? $scope.fechaInicio = undefined : $scope.fechaInicio;
+        $scope.fechaFin == "" ? $scope.fechaFin = undefined : $scope.fechaFin;
                 sustitutoRepository.getReporte($scope.idMotivoUnidad,$scope.idEstatus,$scope.fechaInicio,$scope.fechaFin).then(function (reporte) {//va a mi repository y entra a function getReporte [.then(function (reporte)  es para que devuelva repuesta]
                     if (reporte.data.length > 0) { //valida que tenga una caden amayor de cero sino es porque no tiene registros
                         $scope.reporteSustituto = reporte.data;
