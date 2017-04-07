@@ -1,4 +1,4 @@
-<div ng-init="init()" class="animated bounceInRight">
+<div ng-init="initEvidencia()" class="animated bounceInRight">
     <div class="row headTitleTallerCita">
         <div class="col-lg-10">
             <span class="title"> Evidencias <span class="subtitle"></span></span>
@@ -38,14 +38,14 @@
                                                 <span class="corner"></span>
                                                 <div ng-if="slide.idTipoEvidencia == 1">
                                                     <div ng-if="slide.idTipoArchivo == 1" class="icon">
-                                                        <a href="{{vIpServer}}/uploads/files/{{idTrabajo}}/{{slide.carpeta}}/{{slide.nombreArchivo}}" download="{{slide.nombreArchivo}}" target="_parent"><i class="fa fa-file"></i></a>
+                                                        <a href="{{vIpServer}}/uploads/{{slide.carpeta}}/{{sustitutoUploadFile}}/{{slide.nombreArchivo}}" download="{{slide.nombreArchivo}}" target="_parent"><i class="fa fa-file"></i></a>
                                                     </div>
                                                     <div ng-if="slide.idTipoArchivo == 2" class="image">
-                                                        <a href="{{vIpServer}}/uploads/files/{{idTrabajo}}/{{slide.carpeta}}/{{slide.nombreArchivo}}" download="{{slide.nombreArchivo}}" target="_parent">
-                                                            <img src="{{vIpServer}}/uploads/files/{{idTrabajo}}/{{slide.carpeta}}/{{slide.nombreArchivo}}" alt="image" class="img-responsive"></a>
+                                                        <a href="{{vIpServer}}/uploads/{{slide.carpeta}}/{{sustitutoUploadFile}}/{{slide.nombreArchivo}}" download="{{slide.nombreArchivo}}" target="_parent">
+                                                            <img src="{{vIpServer}}/uploads/{{slide.carpeta}}/{{sustitutoUploadFile}}/{{slide.nombreArchivo}}" alt="image" class="img-responsive"></a>
                                                     </div>
                                                     <div ng-if="slide.idTipoArchivo == 3" class="icon">
-                                                        <a href="{{vIpServer}}/uploads/files/{{idTrabajo}}/{{slide.carpeta}}/{{slide.nombreArchivo}}" download="{{slide.nombreArchivo}}" target="_parent">
+                                                        <a href="{{vIpServer}}/uploads/{{slide.carpeta}}/{{sustitutoUploadFile}}/{{slide.nombreArchivo}}" download="{{slide.nombreArchivo}}" target="_parent">
                                                             <i class="img-responsive fa fa-film"></i>
                                                         </a>
                                                     </div>

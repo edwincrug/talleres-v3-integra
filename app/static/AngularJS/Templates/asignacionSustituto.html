@@ -157,17 +157,19 @@
                         <div class="form-group">
                             <!-- <label class="font-noraml">Motivo: </label> -->
                             <div class="col-sm-4">
+                            <label class="font-noraml">Motivo: </label>
                                 <select class="form-control" name="motivo" ng-model="selectedMotivo" ng-options="motivo.Descripcion for motivo in motivos" ng-change="validaMotivo(selectedMotivo)">
                                     <option value=''>Selecionar  motivo</option><!--default option -->
                                 </select>
                             </div>
                             <div  ng-show="show_orden==true">
-                                <!-- <label class="font-noraml">Número de la Orden: </label> -->
                                 <div class="col-sm-4">
+                                <label class="font-noraml">Número de la Orden: </label>
                                     <input type="text" class="form-control" value="" ng-model="numOrden" ng-change="validaOrden()">
                                 </div>
                             </div>
                             <div class="col-sm-4">  
+                            <label class="font-noraml">Fecha: </label>
                                     <div class="form-group" id="calendar">
                                         <div class="input-group date">
                                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
@@ -175,12 +177,27 @@
                                         </div>
                                     </div>
                             </div>
+                            <div class="col-sm-4">  
+                            <label class="font-noraml">Hora: </label>
+                                <div class="input-group clockpicker" data-autoclose="true">
+                                    <input type="text" class="form-control" value="" ng-model="horaSustituto" ng-change="validaHoraCita()">
+                                    <span class="input-group-addon">
+                                                <span class="fa fa-clock-o"></span>
+                                    </span>
+                                </div>
+                            </div>
                             </div>
                             <div class="col-sm-2">
-                                 <button type="button" class="btn btn-success" id="btnLigar" ng-click="addUnidadSusituto()" ng-disabled="validateSustituto()==false"><strong> Guardar</strong>
+                                 
                             </div>
 
                     </div>
+                    <br>
+                        <div class="col-lg-12">
+                            <div class="row">
+                                    <button type="button" class="btn btn-success" id="btnLigar" ng-click="addUnidadSusituto()" ng-disabled="validateSustituto()==false"><strong> Guardar</strong>
+                            </div>
+                        </div>
                     <br><br>
                         <div class="col-lg-12">
                             <div class="row">

@@ -12,9 +12,11 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
     $scope.numOrden = '';
     $scope.show_sustituto=false;
     $scope.fechaSustituto = '';
+    $scope.horaSustituto = '';
         
 
 	$scope.init_asignacion = function (){
+        $('.clockpicker').clockpicker();
             $('#calendar .input-group.date').datepicker({
                 todayBtn: "linked",
                 keyboardNavigation: true,
@@ -200,7 +202,7 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
     }
 
     $scope.addUnidadSusituto = function () {
-    if( $scope.fechaSustituto != ''){
+    if( $scope.fechaSustituto != '' && $scope.horaSustituto != ''){
         if ($scope.selectedMotivo.idMotivo == 1) {
 
             sustitutoRepository.getValidaOrden($scope.numOrden).then(function (result) {
@@ -227,7 +229,7 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
             $scope.unidadSustito();
         }
     }else{
-      alertFactory.info("Porfavor seleccione una fecha");  
+      alertFactory.info("Porfavor seleccione una fecha y/o hora");  
     }
     }
 
@@ -239,11 +241,12 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
          if ($scope.selectedMotivo.idMotivo == 1) {
             orden = $scope.numOrden;
          }
-
+         
          if ($scope.select_sustituto == '') {
             sustituto = 0;
          }
-        sustitutoRepository.addUnidadSustituto($scope.select_unidad, sustituto, $scope.selectedMotivo.idMotivo, $scope.fechaSustituto, $scope.userData.idUsuario, orden).then(function (result) {
+        $scope.fechahora = $scope.fechaSustituto + ' ' + $scope.horaSustituto;
+        sustitutoRepository.addUnidadSustituto($scope.select_unidad, sustituto, $scope.selectedMotivo.idMotivo, $scope.fechahora, $scope.userData.idUsuario, orden).then(function (result) {
            if (result.data.length > 0) {
                alertFactory.info('Las unidades fueron asociadas correctamente'); 
                 $scope.dataSustituto = '';
@@ -256,13 +259,14 @@ registrationModule.controller('asignacionSustitutoController', function (MarkerC
                 $scope.select_unidad = ''; 
                 $scope.selectedMotivo = '';
                 $scope.fechaSustituto = '';
+                $scope.horaSustituto = '';
                 $('.dataTableSustituto').DataTable().destroy();
                 $('.dataTableUnidad').DataTable().destroy();
                 $scope.show_mapSustituto = false;
                 $scope.show_sustituto=false;
                 $scope.sustitutoUploadFile=result.data[0].ID;
                     if ($scope.dzMethods.getAllFiles().length == 0) {
-                                    alertFactory.info("no subio evidencia");   
+                                    alertFactory.info("No se subio evidencia");   
                             } else {
                                      $scope.dzMethods.processQueue();
                             }

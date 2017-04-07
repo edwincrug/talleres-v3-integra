@@ -8,6 +8,13 @@ registrationModule.controller('ReporteSustitutoController', function (MarkerCrea
         $scope.getReporteSustituto();
         $scope.getMotivo();
     }
+
+
+    $scope.initEvidencia = function (){
+        Dropzone.autoDiscover = false;
+        $scope.cargaEvidencias();
+        $scope.dzOptionsServicio = uploadRepository.getDzOptions("image/*,application/pdf,.mp4,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/docx,application/msword,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/xml,.docX,.DOCX,.ppt,.PPT",20);
+    }
        
     $scope.posicionUnidad = function (idUnidad){
         modal_detalle_ubicacion($scope, $modal, idUnidad, '', '');
@@ -174,7 +181,7 @@ registrationModule.controller('ReporteSustitutoController', function (MarkerCrea
             if(!checkErrorFile){
                 var allSuccess = file.every(checkAllSuccess);
                 if(allSuccess){
-                    //$scope.cargaEvidencias();
+                    $scope.cargaEvidencias();
                     setTimeout(function(){
                         $scope.dzMethods.removeAllFiles(true);
                         $('#cotizacionDetalle').appendTo('body').modal('hide');
