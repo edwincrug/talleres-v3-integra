@@ -791,6 +791,11 @@
                 type: self.model.types.INT
             },
             {
+                name: 'fechaVinculacion',
+                value: req.body.fechaVinculacion,
+                type: self.model.types.STRING
+            },
+            {
                 name: 'idUsuario',
                 value: req.body.idUsuario,
                 type: self.model.types.INT 
@@ -822,6 +827,24 @@
             {
                 name: 'idMotivo',
                 value: req.query.idMotivo,
+                type: self.model.types.STRING
+                            
+            },
+                       {
+                name: 'idEstatus',
+                value: req.query.idEstatus,
+                type: self.model.types.STRING
+                            
+            },
+                       {
+                name: 'fechaInicio',
+                value: req.query.fechaInicio,
+                type: self.model.types.STRING
+                            
+            },
+                       {
+                name: 'fechaFin',
+                value: req.query.fechaFin,
                 type: self.model.types.STRING
                             
             }];

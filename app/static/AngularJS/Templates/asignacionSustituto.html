@@ -154,35 +154,59 @@
                     </form>
 
                     <div class="row" style="margin-top: 500px !important;" >
-
                         <div class="form-group">
-                            <label class="col-sm-1 control-label">Motivo: </label>
+                            <!-- <label class="font-noraml">Motivo: </label> -->
                             <div class="col-sm-4">
+                            <label class="font-noraml">Motivo: </label>
                                 <select class="form-control" name="motivo" ng-model="selectedMotivo" ng-options="motivo.Descripcion for motivo in motivos" ng-change="validaMotivo(selectedMotivo)">
                                     <option value=''>Selecionar  motivo</option><!--default option -->
                                 </select>
                             </div>
-                        
                             <div  ng-show="show_orden==true">
-                                <label class="col-sm-2 control-label">Número de la Orden: </label>
-                                <div class="col-sm-3">
+                                <div class="col-sm-4">
+                                <label class="font-noraml">Número de la Orden: </label>
                                     <input type="text" class="form-control" value="" ng-model="numOrden" ng-change="validaOrden()">
                                 </div>
                             </div>
-                            <div class="pull-right">
-                               <button type="button" class="btn btn-success" id="btnLigar" ng-click="addUnidadSusituto()" ng-disabled="validateSustituto()==false"><strong> Guardar</strong></button> 
+                            <div class="col-sm-4">  
+                            <label class="font-noraml">Fecha: </label>
+                                    <div class="form-group" id="calendar">
+                                        <div class="input-group date">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                            <input type="text" class="form-control" ng-model="fechaSustituto" ng-change="busquedaCita(fecha)">
+                                        </div>
+                                    </div>
                             </div>
-                            
-                       
-                          
+                            <div class="col-sm-4">  
+                            <label class="font-noraml">Hora: </label>
+                                <div class="input-group clockpicker" data-autoclose="true">
+                                    <input type="text" class="form-control" value="" ng-model="horaSustituto" ng-change="validaHoraCita()">
+                                    <span class="input-group-addon">
+                                                <span class="fa fa-clock-o"></span>
+                                    </span>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="col-sm-2">
+                                 
+                            </div>
+
                     </div>
-
-                    
-                    
-                    
-                </div>
-
-                
+                    <br>
+                        <div class="col-lg-12">
+                            <div class="row">
+                                    <button type="button" class="btn btn-success" id="btnLigar" ng-click="addUnidadSusituto()" ng-disabled="validateSustituto()==false"><strong> Guardar</strong>
+                            </div>
+                        </div>
+                    <br><br>
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="table-responsive m-t">
+                                    <div class="dropzone" options="dzOptionsServicio" callbacks="dzCallbacks" methods="dzMethods" ng-dropzone></div>
+                                </div>
+                            </div>
+                        </div>
+                </div>  
                 
         </div>
                         
@@ -208,6 +232,26 @@
                 <button type="button" class="btn btn-informa btnAprobarOrden" ng-click="show_sustituto=true"  data-dismiss="modal">Si</button>
             </div>
 
+        </div>
+    </div>
+</div>
+<div id="cotizacionDetalle" class="modal inmodal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content animated flipInY">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Carga de Evidencias</h4>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive m-t">
+                    <div class="dropzone" options="dzOptionsServicio" callbacks="dzCallbacks" methods="dzMethods" ng-dropzone></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="dzMethods.processQueue();">Adjuntar Evidencia</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
