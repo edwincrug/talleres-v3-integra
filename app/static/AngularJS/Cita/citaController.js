@@ -547,8 +547,8 @@
             forceParse: false,
             calendarWeeks: true,
             autoclose: true,
-            todayHighlight: true,
-            startDate: new Date()
+            todayHighlight: true//,
+            //startDate: new Date()
         });
 
 

@@ -16,13 +16,13 @@
             $rootScope.userData = localStorageService.get('userData');
 
         //Valida que el socket este encendido 
-        setInterval(function() {
+/*        setInterval(function() {
                if (!$scope.connected) {
                    console.log('Intentando reconexión...');
                    SocketConnect();
                }
         }, 17000);
-
+*/
         }
 
         $scope.cargaChatTaller = function () {
@@ -74,7 +74,7 @@
         var SocketConnect = function() {
             var url=global_settings.urlCORS;
             //Inicio sesión en el socket para recibir actualizaciones
-            $scope.socket = io.connect(url+'/');
+            $scope.socket = io.connect('http://189.204.141.193:4200'+'/');
                 if ($scope.socket != null) {
                     SocketJoin();
                 }
